@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 /* Container Components*/
-import { App, Home, Login, Register, DrawChart } from 'containers';
+import { App, Home, Login, Register, DrawChart, DashBoard } from 'containers';
 
 /* Redux */
 import { Provider } from 'react-redux';
@@ -23,6 +23,7 @@ ReactDOM.render(
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home}/>
                 <Route path="drawChart" component={DrawChart}/>
+                <Route path="dashBoard" component={DashBoard}/>
                 </Route>
             </Router>
         </Provider>, rootElement

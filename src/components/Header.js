@@ -11,6 +11,7 @@ class Header extends React.Component {
 
                     <ul>
                         <li><Link to="/drawChart"><i className="material-icons">chart</i></Link></li>
+                        <li><Link to="/dashBoard"><i className="material-icons">chart</i></Link></li>
                     </ul>
 
                 </div>
