@@ -1,6 +1,6 @@
 import {
-    GET_DATA
-    GET_DATA_SUCCESS
+    GET_DATA,
+    GET_DATA_SUCCESS,
     GET_DATA_FAILURE
 } from './ActionTypes';
 import axios from 'axios';
@@ -11,7 +11,7 @@ export function dataRequest() {
         dispatch(request());
 
         // API REQUEST
-        return axios.post('/api/fsignin')
+        return axios.post('/api/chart/getData')
             .then((response) => {
                 // SUCCEED
                 dispatch(requestSuccess(response));

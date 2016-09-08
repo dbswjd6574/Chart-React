@@ -1,11 +1,27 @@
 import React from 'react';
 import { XAxisPanel, YAxisPanel } from 'components';
 import {Grid, Row, Col, Well, Button} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { dataRequest } from 'actions/authentication';
 
 class DrawChart extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleLogin() {
+        return this.props.dataRequest().then(
+            () => {
+                if(this.props.status === "SUCCESS") {
+                    browserHistory.push('/');
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        );
     }
 
     render() {
@@ -18,7 +34,7 @@ class DrawChart extends React.Component {
                             <Well bsSize="sm">
                                 <YAxisPanel mode={false}/>
                                 <XAxisPanel mode={false}/>
-                                <Button bsStyle="primary">Draw</Button>
+                                <Button bsStyle="primary" onClick={this.handleLogin}>Draw</Button>
                             </Well>
                         </Col>
                         <Col sm={12} md={8}>
@@ -31,4 +47,19 @@ class DrawChart extends React.Component {
     }
 }
 
-export default DrawChart;
+
+const mapStateToProps = (state) => {
+    return {
+        status: state.authentication.login.status
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dataRequest: () => {
+            return dispatch(dataRequest());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawChart);

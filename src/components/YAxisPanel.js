@@ -8,8 +8,6 @@ class YAxisPanel extends React.Component {
         super(props);
     }
 
-
-
     render() {
         const title = (
             <h3>Y A-xis</h3>
