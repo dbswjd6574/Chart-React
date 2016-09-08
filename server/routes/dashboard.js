@@ -1,6 +1,3 @@
-/**
- * Created by ±è´ëÇö on 2016-09-08.
- */
 import express from 'express';
 import axios from 'axios';
 import request from 'request';
@@ -21,3 +18,4 @@ router.get('/dashBoard', (req, res) => {
         res.json(books);
     });
 });
+export default router;

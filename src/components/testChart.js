@@ -1,6 +1,3 @@
-/**
- * Created by ±è´ëÇö on 2016-09-08.
- */
 import React from 'react';
 
 const columns = [
@@ -47,5 +44,6 @@ class TestChart extends Component{
         return <div id="chart">hi</div>;
     }
 }
+
 
 export default TestChart;
