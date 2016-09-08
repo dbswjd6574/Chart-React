@@ -1,5 +1,5 @@
 import React from 'react';
-import { XAxisPanel, YAxisPanel } from 'components';
+import { XAxisPanel, YAxisPanel, Chart } from 'components';
 import {Grid, Row, Col, Well, Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { dataRequest } from 'actions/authentication';
@@ -38,7 +38,9 @@ class DrawChart extends React.Component {
                             </Well>
                         </Col>
                         <Col sm={12} md={8}>
-                            <Well bsSize="large">Chart</Well>
+                            <Well bsSize="large">
+                                <Chart />
+                            </Well>
                         </Col>
                     </Row>
                 </Grid>
