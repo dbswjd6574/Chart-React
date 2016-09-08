@@ -10,8 +10,8 @@ class Header extends React.Component {
                     <Link to="/" className="brand-logo center">MAIN</Link>
 
                     <ul>
-                        <li><Link to="/drawChart"><i className="material-icons">chart</i></Link></li>
-                        <li><Link to="/dashBoard"><i className="material-icons">chart</i></Link></li>
+                        <li><Link to="/drawChart"><i className="material-icons">insert_chart</i></Link></li>
+                        <li><Link to="/dashBoard"><i className="material-icons">dashboard</i></Link></li>
                     </ul>
 
                 </div>

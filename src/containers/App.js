@@ -3,11 +3,9 @@ import { Header } from 'components';
 
 class App extends React.Component {
     render() {
-        let re = /(drawChart)/;
-        let isAuth = re.test(this.props.location.pathname);
         return (
             <div>
-                {isAuth ? undefined : <Header />}
+                <Header />
                 { this.props.children }
             </div>
         );

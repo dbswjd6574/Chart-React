@@ -12,20 +12,18 @@ export default function authentication(state, action) {
         state = initialState;
 
     switch(action.type) {
-        /*case types.GET_DATA:
+        case types.GET_DATA:
             return update(state, {
                 login: {
                     status: { $set: 'WAITING' }
                 }
             });
         case types.GET_DATA_SUCCESS:
+            console.info('Data is delivered!', action);
+            console.info('Data is delivered!', state);
             return update(state, {
-                login: {
-                    status: { $set: 'SUCCESS' }
-                },
-                status: {
-                    isLoggedIn: { $set: true },
-                    currentUser: { $set: action.username }
+                chartData: {
+                    $set: action
                 }
             });
         case types.GET_DATA_FAILURE:
@@ -33,7 +31,7 @@ export default function authentication(state, action) {
                 login: {
                     status: { $set: 'FAILURE' }
                 }
-            });*/
+            });
         default:
             return state;
     }

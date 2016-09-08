@@ -39,16 +39,16 @@ router.post('/getData', (req, res) => {
         },
         "size": 0,
         "aggs": {
-            "2": {
+            "arrays": {
                 "terms": {
                     "field": "channel_number",
                     "size": 50,
                     "order": {
-                        "1": "desc"
+                        "using_value": "desc"
                     }
                 },
                 "aggs": {
-                    "1": {
+                    "using_value": {
                         "sum": {
                             "field": "watch_min.0"
                         }

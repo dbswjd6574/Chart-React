@@ -8,13 +8,16 @@ class DrawChart extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {ChartData:""};
         this.handleLogin = this.handleLogin.bind(this);
     }
 
     handleLogin() {
         return this.props.dataRequest().then(
-            () => {
-                if(this.props.status === "SUCCESS") {
+            (success) => {
+                console.info('handleLogin', success);
+                //this.setState(state)
+                if(success) {
                     browserHistory.push('/');
                     return true;
                 } else {
@@ -51,8 +54,9 @@ class DrawChart extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    console.info('mapStateToProps');
     return {
-        status: state.authentication.login.status
+        chartData: state.chartData
     };
 };
 

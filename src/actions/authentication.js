@@ -14,7 +14,9 @@ export function dataRequest() {
         return axios.post('/api/chart/getData')
             .then((response) => {
                 // SUCCEED
-                dispatch(requestSuccess(response));
+                console.info('SUCCESS!');
+                const data = response.data.aggregations.arrays.buckets;
+                dispatch(requestSuccess(data));
             }).catch((error) => {
                 // FAILED
                 dispatch(requestFailure());
