@@ -33,7 +33,7 @@ export function request() {
 export function requestSuccess(response) {
     return {
         type: GET_DATA_SUCCESS,
-        response
+        data: response
     };
 }
 

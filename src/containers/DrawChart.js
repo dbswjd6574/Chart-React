@@ -8,24 +8,8 @@ class DrawChart extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {ChartData:""};
-        this.handleLogin = this.handleLogin.bind(this);
     }
 
-    handleLogin() {
-        return this.props.dataRequest().then(
-            (success) => {
-                console.info('handleLogin', success);
-                //this.setState(state)
-                if(success) {
-                    browserHistory.push('/');
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        );
-    }
 
     render() {
 
@@ -35,9 +19,8 @@ class DrawChart extends React.Component {
                     <Row className="show-grid">
                         <Col sm={6} md={4}>
                             <Well bsSize="sm">
-                                <YAxisPanel mode={false}/>
-                                <XAxisPanel mode={false}/>
-                                <Button bsStyle="primary" onClick={this.handleLogin}>Draw</Button>
+                                <YAxisPanel />
+                                <XAxisPanel />
                             </Well>
                         </Col>
                         <Col sm={12} md={8}>
@@ -53,11 +36,12 @@ class DrawChart extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-    console.info('mapStateToProps');
-    return {
-        chartData: state.chartData
-    };
+/*const mapStateToProps = (state) => {
+    console.info('mapStateToProps', state.authentication);
+        return {
+            chartData: state.authentication
+        };
+
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -66,6 +50,6 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch(dataRequest());
         }
     };
-};
+};*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrawChart);
+export default DrawChart;

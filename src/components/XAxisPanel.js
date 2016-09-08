@@ -8,8 +8,6 @@ class XAxisPanel extends React.Component {
         super(props);
     }
 
-
-
     render() {
         const title = (
             <h3>X A-xis</h3>
@@ -18,10 +16,8 @@ class XAxisPanel extends React.Component {
         const aggregations = (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel><h6>Aggregation</h6></ControlLabel>
-                <FormControl componentClass="select" placeholder="111">
-                    <option value="111">111</option>
-                    <option value="222">222</option>
-                    <option value="333">333</option>
+                <FormControl componentClass="select" placeholder="Terms">
+                    <option value="Terms">Terms</option>
                 </FormControl>
             </FormGroup>
         );
@@ -29,10 +25,8 @@ class XAxisPanel extends React.Component {
         const field = (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel><h6>Field</h6></ControlLabel>
-                <FormControl componentClass="select" placeholder="111">
-                    <option value="111">111</option>
-                    <option value="222">222</option>
-                    <option value="333">333</option>
+                <FormControl componentClass="select" placeholder="channel_number">
+                    <option value="channel_number">channel_number</option>
                 </FormControl>
             </FormGroup>
         );
@@ -51,8 +45,7 @@ class XAxisPanel extends React.Component {
         const order = (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel><h6>Order</h6></ControlLabel>
-                <FormControl componentClass="select" placeholder="Ascending">
-                    <option value="Ascending">Ascending</option>
+                <FormControl componentClass="select" placeholder="Descending">
                     <option value="Descending">Descending</option>
                 </FormControl>
             </FormGroup>
@@ -62,7 +55,6 @@ class XAxisPanel extends React.Component {
             <ListGroup componentClass="ul">
                 <li className="list-group-item">{aggregations}</li>
                 <li className="list-group-item">{field}</li>
-                <li className="list-group-item">{size}</li>
                 <li className="list-group-item">{order}</li>
             </ListGroup>
         );
@@ -80,13 +72,5 @@ class XAxisPanel extends React.Component {
         );
     }
 }
-
-XAxisPanel.propTypes = {
-    mode: React.PropTypes.bool
-};
-
-XAxisPanel.defaultProps = {
-    mode: true
-};
 
 export default XAxisPanel;

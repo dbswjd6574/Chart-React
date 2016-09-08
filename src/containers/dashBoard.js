@@ -36,7 +36,7 @@ class DashBoard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        status: state.authentication.login.status
+        //status: state.authentication.login.status
     };
 };
 

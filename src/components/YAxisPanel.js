@@ -16,10 +16,8 @@ class YAxisPanel extends React.Component {
         const aggregations = (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel><h6>Aggregation</h6></ControlLabel>
-                <FormControl componentClass="select" placeholder="111">
-                    <option value="111">111</option>
-                    <option value="222">222</option>
-                    <option value="333">333</option>
+                <FormControl componentClass="select" placeholder="Sum">
+                    <option value="Sum">Sum</option>
                 </FormControl>
             </FormGroup>
         );
@@ -27,10 +25,8 @@ class YAxisPanel extends React.Component {
         const field = (
             <FormGroup controlId="formControlsSelect">
                 <ControlLabel><h6>Field</h6></ControlLabel>
-                <FormControl componentClass="select" placeholder="111">
-                    <option value="111">111</option>
-                    <option value="222">222</option>
-                    <option value="333">333</option>
+                <FormControl componentClass="select" placeholder="watch_min">
+                    <option value="watch_min">watch_min</option>
                 </FormControl>
             </FormGroup>
         );
@@ -55,13 +51,5 @@ class YAxisPanel extends React.Component {
         );
     }
 }
-
-YAxisPanel.propTypes = {
-    mode: React.PropTypes.bool
-};
-
-YAxisPanel.defaultProps = {
-    mode: true
-};
 
 export default YAxisPanel;
