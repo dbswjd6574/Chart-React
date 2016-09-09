@@ -1,9 +1,11 @@
 import React from 'react';
 
 const columns = [
-    ['MyNumbers', 30, 200, 100, 400, 150, 250],
-    ['YourNumbers', 50, 20, 10, 40, 15, 25]
+    ['data1', 1, 2, 3, 4,5,6],
+    ['data2', 1, 2, 3, 4,5,6]
 ];
+
+
 
 const { Component } = React;
 
@@ -13,21 +15,11 @@ class TestChart extends Component{
     }
 
     componentDidMount() {
-        this._updateChart();
-    }
-    componentDidUpdate() {
-        this._updateChart();
-    }
-
-    _updateChart() {
-        const chart = c3.generate({
+        this.chart = c3.generate({
             bindto: '#chart',
             data: {
-                columns:  [
-                    ['MyNumbers', 30, 200, 100, 400, 150, 250],
-                    ['YourNumbers', 50, 20, 10, 40, 15, 25]
-                ],
-                type: 'bar'
+                columns : columns,
+                type:"line"
             },
             axis: {
                 x: {
@@ -39,9 +31,32 @@ class TestChart extends Component{
             }
         });
     }
+    componentDidUpdate() {
+
+        //this._updateChart();
+    }
+
+    componentWillReceiveProps(){
+        console.log("componentWillReceiveProps", this.props.loadedData);
+        let parentData = this.props.loadedData;
+        console.log("componentWillReceiveProps_dd",parentData.data);
+        let temp = [];
+        if(parentData.data){
+            temp.push(parentData.data);
+            let columns = temp;
+            console.log("columns", columns);
+            this.chart.load({
+                columns:columns,
+                type: 'bar',
+                unload: ['data1', 'data2'],
+            });
+        }
+
+    }
+
 
     render(){
-        return <div id="chart">hi</div>;
+        return <div id="chart"></div>;
     }
 }
 

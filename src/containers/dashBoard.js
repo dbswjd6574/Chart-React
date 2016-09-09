@@ -1,6 +1,6 @@
 import React from 'react';
 import { TestChart } from 'components';
-import { dataRequest } from 'actions/authentication';
+import { dataRequest } from 'actions/getMongo';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 
@@ -15,18 +15,14 @@ class DashBoard extends React.Component {
         console.log("test");
         return this.props.dataRequest().then(
             () => {
-                if(this.props.status === "SUCCESS") {
-                    return true;
-                } else {
-                    return false;
-                }
+                console.log(this.props.mongoData.mongoData[0].data);
             }
         );
     }
     render() {
         return (
             <div>
-                <TestChart />
+                <TestChart loadedData={this.props.mongoData.mongoData[0]} />
                 <Button bsStyle="primary" onClick={this.getMongo}>Load</Button>
             </div>
         );
@@ -34,9 +30,9 @@ class DashBoard extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (props) => {
     return {
-        //status: state.authentication.login.status
+        mongoData: props.mongo
     };
 };
 
