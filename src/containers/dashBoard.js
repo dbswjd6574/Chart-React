@@ -12,7 +12,7 @@ class DashBoard extends React.Component {
     }
 
     getMongo(){
-        console.log("test");
+        //console.log("test");
         return this.props.dataRequest().then(
             () => {
                 console.log(this.props.mongoData.mongoData[0].data);
