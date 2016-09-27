@@ -25,6 +25,7 @@ class Chart extends React.Component {
     render() {
         return (
             <div>
+                {this.props.test}
                 <DonutChart data={this.state.chartData}/>
                 <br/>
                 <Button bsStyle="primary" onClick={this.handleLogin}>Draw</Button>
@@ -32,6 +33,10 @@ class Chart extends React.Component {
         )
 
     }
+
+    propTypes: {
+        test: React.PropTypes.number
+        }
 }
 
 function convertJSON(jsonArray) {
@@ -173,7 +178,7 @@ class DonutChart extends React.Component {
             }],
             plotOptions: {
                 series: {
-                    borderWidth: 0,
+                    borderWidth: 0
                 }
             },
             tooltip: {

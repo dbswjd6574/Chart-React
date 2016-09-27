@@ -1,39 +1,26 @@
 body {
-    background-color: #ECEFF1;
-}
-/* Authentication */
-.auth {
-    margin-top: 50px;
-    text-align: center;
+    width: 1920px;
+    height: 1280px;
+    background-color: rgba(0,0,0,0.3);
+    vertical-align:middle;
 }
 
-.logo {
-    text-align: center;
-    font-weight: 100;
-    font-size: 80px;
-    -webkit-user-select: none;
-    /* Chrome all / Safari all */
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
-    /* Likely future */
+.main_menu {
+    height: 50px;
+    font-size: 12px;
 }
 
-a.logo {
-    color: #5B5B5B;
+.nav-wrapper {
+    height: 50px;
+    font-size: 12px;
 }
 
+nav ul {
+    height:100%;
+}
 a {
     cursor: pointer;
 }
-
-.auth .card {
-    width: 400px;
-    margin: 0 auto;
-}
-
 
 @media screen and (max-width: 480px) {
     .auth .card {
@@ -45,25 +32,13 @@ a {
     }
 }
 
-
-
-.auth .header {
-    font-size: 18px;
+.typeList {
+    background-color: rgba(13,13,13,0.7);
+    float: inherit;
+    width: 95%;
+    vertical-align:middle;
 }
 
-.auth .row {
-    margin-bottom: 0px;
-}
+.condition {
 
-.auth .username {
-    margin-top: 0px;
-}
-
-.auth .btn {
-    width: 90%;
-}
-
-.auth .footer {
-    border-top: 1px solid #E9E9E9;
-    padding-bottom: 21px;
 }

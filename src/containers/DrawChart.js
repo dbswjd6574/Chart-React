@@ -1,15 +1,10 @@
 import React from 'react';
-import { XAxisPanel, YAxisPanel, Chart } from 'components';
+import { XAxisPanel, YAxisPanel, Chart, ZingChartExample } from 'components';
 import {Grid, Row, Col, Well, Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { dataRequest } from 'actions/authentication';
 
 class DrawChart extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
 
@@ -25,7 +20,7 @@ class DrawChart extends React.Component {
                         </Col>
                         <Col sm={12} md={8}>
                             <Well bsSize="large">
-                                <Chart />
+                                <Chart data={11}/>
                             </Well>
                         </Col>
                     </Row>
@@ -34,22 +29,5 @@ class DrawChart extends React.Component {
         );
     }
 }
-
-
-/*const mapStateToProps = (state) => {
-    console.info('mapStateToProps', state.authentication);
-        return {
-            chartData: state.authentication
-        };
-
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dataRequest: () => {
-            return dispatch(dataRequest());
-        }
-    };
-};*/
 
 export default DrawChart;

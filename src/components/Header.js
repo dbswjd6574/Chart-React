@@ -5,13 +5,13 @@ class Header extends React.Component {
     render() {
 
         return(
-            <nav>
-                <div className="nav-wrapper blue darken-1">
-                    <Link to="/" className="brand-logo center">MAIN</Link>
-
-                    <ul>
-                        <li><Link to="/drawChart"><i className="material-icons">insert_chart</i></Link></li>
-                        <li><Link to="/dashBoard"><i className="material-icons">dashboard</i></Link></li>
+            <nav className="main_menu">
+                <div className="nav-wrapper indigo darken-3">
+                    <ul className="center">
+                        <li><Link to="/drawChart">TESTCHART</Link></li>
+                        <li><Link to="/dashBoard">DASHBOART</Link></li>
+                        <li><Link to="/testComponent">TESTCOMPONENTS</Link></li>
+                        <li><Link to="/condition">CONDITION</Link></li>
                     </ul>
 
                 </div>
