@@ -12,6 +12,8 @@ class Header extends React.Component {
                         <li><Link to="/dashBoard">DASHBOART</Link></li>
                         <li><Link to="/testComponent">TESTCOMPONENTS</Link></li>
                         <li><Link to="/condition">CONDITION</Link></li>
+                        <li><Link to="/data"><i className="material-icons">data</i></Link></li>
+                        <li><Link to="/analysis"><i className="material-icons">analysis</i></Link></li>
                     </ul>
 
                 </div>

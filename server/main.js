@@ -24,7 +24,7 @@ const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', () => { console.log('Connected to mongodb server'); });
 // mongoose.connect('mongodb://username:password@host:port/database=');
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://salme4:castis365@ds041566.mlab.com:41566/chartreact');
 
 app.use('/', express.static(path.join(__dirname, './../public')));
 

@@ -1,14 +1,16 @@
 import React from 'react';
-import { TestChart } from 'components';
+import { TestChart, FileHandler, DataGrid, DatePicker, Select } from 'components';
 import { dataRequest } from 'actions/getMongo';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import Dialog from 'react-bootstrap-dialog';
 
 
 class DashBoard extends React.Component {
     constructor(props) {
         super(props);
         this.getMongo = this.getMongo.bind(this);
+        this.showAlert=this.showAlert.bind(this);
     }
 
     getMongo(){
@@ -19,11 +21,29 @@ class DashBoard extends React.Component {
             }
         );
     }
+    showAlert(){
+        this.refs.dialog.show({
+            title:"title",
+            body : "Content",
+            bsSize:"medium",
+            actions:[
+                Dialog.CancelAction(),
+                Dialog.OKAction()
+            ]
+        });
+    }
+
     render() {
         return (
             <div>
                 <TestChart loadedData={this.props.mongoData.mongoData[0]} />
                 <Button bsStyle="primary" onClick={this.getMongo}>Load</Button>
+                <Button bsStyle="warning" onClick={this.showAlert}>showAlert</Button>
+                <FileHandler/>
+                <DataGrid/>
+                <DatePicker/>
+                <Select/>
+                <Dialog ref='dialog'/>
             </div>
         );
     }
@@ -43,4 +63,10 @@ const mapDispatchToProps = (dispatch) => {
         }
     };
 };
+
+
+DashBoard.defaultProps={
+    isDragging:true,
+    connectDragSource:()=>{}
+}
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

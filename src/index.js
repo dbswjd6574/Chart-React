@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 /* Container Components*/
-import { App, Home, Login, Register, DrawChart, DashBoard, TestComponent, Conditions } from 'containers';
+import { App, Home, Login, Register, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis } from 'containers';
 
 /* Redux */
 import { Provider } from 'react-redux';
@@ -26,6 +26,8 @@ ReactDOM.render(
                 <Route path="dashBoard" component={DashBoard}/>
                 <Route path="testComponent" component={TestComponent}/>
                 <Route path="condition" component={Conditions}/>
+                <Route path="data" component={Data}/>
+                <Route path="analysis" component={Analysis}/>
                 </Route>
             </Router>
         </Provider>, rootElement
