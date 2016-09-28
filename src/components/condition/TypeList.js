@@ -4,19 +4,17 @@ import Chip from 'material-ui/Chip';
 
 class TypeList extends React.Component {
 
-    constructor() {
-        super();
-    }
 
-    handleTouchTap() {
-
+    handleClick(e) {
+        console.log('event', e);
     }
 
     render() {
         const chipStyles = {
             chip: {
                 width: 100,
-                margin: 4
+                margin: 4,
+                cursor: 'pointer'
             },
             wrapper: {
                 display: 'flex',
@@ -34,13 +32,14 @@ class TypeList extends React.Component {
             padding: 20,
             display: 'inline-block',
             verticalAlign: 'middle'
+
         };
 
         let container =[];
         let array = this.props.arr; //can be anything array, object
 
         array.forEach((val,index)=>{
-            container.push(<Chip style={chipStyles.chip} labelStyle={chipStyles.label} key={index}>{val.name}</Chip>)
+            container.push(<Chip style={chipStyles.chip} labelStyle={chipStyles.label} onClick={this.handleClick.bind(this)} key={index}>{val.name}</Chip>)
         });
 
         return(
@@ -51,7 +50,6 @@ class TypeList extends React.Component {
                     </div>
                 </Paper>
         );
-
 
     }
 }
