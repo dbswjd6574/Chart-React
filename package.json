@@ -30,7 +30,15 @@
     "redux-thunk": "^2.1.0",
     "serve-favicon": "~2.3.0",
     "request": "*",
-    "material-ui": "*"
+    "react-bootstrap-table": "~2.4.4",
+    "react-datepicker":"~0.29.0",
+    "react-select": "~0.9.1",
+    "react-bootstrap-dialog":"~0.9.0",
+    "moment":"~2.15.1",
+    "material-ui":"~0.15.4",
+    "zingchart-react":"~1.0.2",
+    "react-rt-chart":"~1.1.4",
+    "react-grid-layout":"~0.13.6"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
