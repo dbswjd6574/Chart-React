@@ -20,9 +20,7 @@ class DataGrid extends React.Component{
 
     handleDeleteClick(event){
         console.log('Delete!!!');
-        //TODO popup Modal
 
-        //TODO Delete Row
         if(this.state.seletedRow){
             let row = this.state.seletedRow;
             console.log("rowis :: ", row);
@@ -56,25 +54,25 @@ class DataGrid extends React.Component{
             date: "2016-10-02 22:00",
             hostName: "VOD_Service_Log1",
             IpPort : "127.0.0.1:8080",
-            description : "VOD ¼­ºñ½º ½ÃÃ» ·Î±×1"
+            description : "VOD ì‹œì²­ ë¡œê·¸1"
         },{
             id: 2,
             date: "2016-10-02 12:00",
             hostName: "VOD_Service_Log2",
             IpPort : "127.0.0.1:8080",
-            description : "VOD ¼­ºñ½º ½ÃÃ» ·Î±×2"
+            description : "VOD  ì‹œì²­ ë¡œê·¸2"
         },{
             id: 3,
             date: "2016-10-02 12:00",
             hostName: "VOD_Service_Log3",
             IpPort : "127.0.0.1:8080",
-            description : "VOD ¼­ºñ½º ½ÃÃ» ·Î±×3"
+            description : "VOD  ì‹œì²­ ë¡œê·¸3"
         },{
             id: 4,
             date: "2016-10-02 12:00",
             hostName: "VOD_Service_Log4",
             IpPort : "127.0.0.1:8080",
-            description : "VOD ¼­ºñ½º ½ÃÃ» ·Î±×4"
+            description : "VOD  ì‹œì²­ ë¡œê·¸4"
         }
         ];
 
