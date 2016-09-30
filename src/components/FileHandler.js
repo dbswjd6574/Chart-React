@@ -59,6 +59,20 @@ class Condition extends React.Component{
                     }
                 })(f).bind(this);
                 reader.readAsText(f);
+            } else if(extension === "json"){
+                console.log("jsonParsing start!!");
+                reader.onload =(()=>{
+                    return function(e){
+                        let jsonObj = JSON.parse(e.target.result).DATA;
+                        console.log(jsonObj);
+                        let jsonKeys = [];
+                        $.each(jsonObj, (key, value)=>{
+                            jsonKeys.push(key);
+                        });
+                        console.log("jsonResult ::", jsonKeys);
+                    }
+                })(f).bind(this);
+                reader.readAsText(f);
             } else if(extension === "txt"){
                 console.log("not yet supported txt extension");
             } else if(extension === "xlsx"){

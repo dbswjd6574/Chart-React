@@ -12,7 +12,12 @@ import DataGrid from './DataGrid' ;
 import DatePicker from './DatePicker';
 import Select from './Select';
 import DropZone from './DropZone';
-import LineChart from './LineChart';
-import ScatterChart from './ScatterChart';
+import LineChart from './analysis/LineChart';
+import ScatterChart from './analysis/ScatterChart';
+import PieChart from './analysis/PieChart';
+import BarChart from './analysis/BarChart';
+import InfoBox from './analysis/InfoBox'
 
-export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart};
+export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart,
+         InfoBox, PieChart, BarChart
+        };
