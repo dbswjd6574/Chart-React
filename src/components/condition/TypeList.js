@@ -26,10 +26,7 @@ class TypeList extends React.Component {
         };
 
         const style = {
-            width: '90%',
-            height: '100%',
             margin: 20,
-            padding: 20,
             display: 'inline-block',
             verticalAlign: 'middle'
 

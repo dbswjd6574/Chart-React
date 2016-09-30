@@ -38,7 +38,8 @@
     "material-ui":"~0.15.4",
     "zingchart-react":"~1.0.2",
     "react-rt-chart":"~1.1.4",
-    "react-grid-layout":"~0.13.6"
+    "react-grid-layout":"~0.13.6",
+    "react-google-charts":"~1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

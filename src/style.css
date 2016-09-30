@@ -2,7 +2,7 @@ body {
     width: 1920px;
     height: 1280px;
     background-color: rgba(0,0,0,0.3);
-    vertical-align:middle;
+    font-family: 'Roboto, sans-serif';
 }
 
 .main_menu {
@@ -35,10 +35,46 @@ a {
 .typeList {
     background-color: rgba(13,13,13,0.7);
     float: inherit;
-    width: 95%;
     vertical-align:middle;
+    margin: 5px;
+    width: 30%;
 }
 
 .condition {
 
+}
+
+.textField {
+    background-color: rgba(13,13,13,0.7);
+    width: 30%;
+    height: 70%;
+    border: 1px solid #ffffff;
+    margin: 5px;
+    float: inherit;
+}
+
+#chartList {
+    width: auto;
+}
+
+#chartArea {
+    border: 1px solid #fff;
+}
+
+.header-background {
+    background: #000;
+    color: #ffffff;
+}
+
+.table-background {
+    background: rgba(0, 0, 0, 0.62);
+    color: #ffffff;
+}
+
+.white-border {
+    border: 1px solid #ffffff;
+}
+
+.orange-background {
+    background: #007069;
 }
