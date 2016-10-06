@@ -1,5 +1,5 @@
 import React from 'react';
-import { TestChart, FileHandler, DataGrid, DatePicker, Select } from 'components';
+import { TestChart, FileHandler, DatePicker, Select } from 'components';
 import { dataRequest } from 'actions/getMongo';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -40,8 +40,6 @@ class DashBoard extends React.Component {
                 <Button bsStyle="primary" onClick={this.getMongo}>Load</Button>
                 <Button bsStyle="warning" onClick={this.showAlert}>showAlert</Button>
                 <FileHandler/>
-                <DataGrid/>
-                <DatePicker/>
                 <Select/>
                 <Dialog ref='dialog'/>
             </div>

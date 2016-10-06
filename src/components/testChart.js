@@ -2,11 +2,11 @@ import React from 'react';
 
 const columns = [
     ['data1', 1, 2, 3, 4,5,6],
-    ['data2', 1, 2, 3, 4,5,6]
+    ['data2', 6, 5, 4, 3,2,1]
 ];
 
 
-
+var chart;
 const { Component } = React;
 
 class TestChart extends Component{
@@ -15,7 +15,7 @@ class TestChart extends Component{
     }
 
     componentDidMount() {
-        this.chart = c3.generate({
+        chart = c3.generate({
             bindto: '#chart',
             data: {
                 columns : columns,
@@ -45,10 +45,10 @@ class TestChart extends Component{
             temp.push(parentData.data);
             let columns = temp;
             console.log("columns", columns);
-            this.chart.load({
-                columns:columns,
-                type: 'bar',
-                unload: ['data1', 'data2'],
+            chart.load({
+                columns:temp,
+                type: 'line',
+                unload: ['data1', 'data2']
             });
         }
 
