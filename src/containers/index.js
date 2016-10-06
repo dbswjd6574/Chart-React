@@ -7,5 +7,7 @@ import Conditions from './Conditions';
 import Data from './Data';
 import Analysis from './Analysis';
 import ChartGallery from './ChartGallery';
+import TrialVersion from './TrialVersion';
 
-export { App, Home, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery };
+
+export { App, Home, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion };
