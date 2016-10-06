@@ -1,6 +1,3 @@
-/**
- * Created by ±è´ëÇö on 2016-09-08.
- */
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 

@@ -17,8 +17,9 @@ import ScatterChart from './analysis/ScatterChart';
 import PieChart from './analysis/PieChart';
 import BarChart from './analysis/BarChart';
 import InfoBox from './analysis/InfoBox';
+import DashBoardDataGrid from './DashBoardDataGrid';
 import ChartTables from './ChartTables';
 
 export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart,
-         InfoBox, PieChart, BarChart, ChartTables
+         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables
         };

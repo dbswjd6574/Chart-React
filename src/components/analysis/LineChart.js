@@ -5,7 +5,6 @@ class LineChart extends React.Component{
     constructor(props){
         super(props);
     }
-
     render(){
         let chartStyle={
             float:"left",
