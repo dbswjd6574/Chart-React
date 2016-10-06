@@ -10,7 +10,7 @@ class GoogleBarChart extends React.Component{
 
     render() {
         return (
-            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BarChart" width={"600px"} height={"400px"} legend_toggle={true} />
+            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BarChart" legend_toggle={true} />
         );
     }
 }

@@ -9,7 +9,7 @@ class GoogleTableChart extends React.Component {
 
     render() {
         return(
-            <Chart chartType={this.props.chartType} rows={this.props.rows} options={this.props.options} graph_id="TableChart" width={"100%"} height={"100%"} columns={this.props.columns} chartPackage={this.props.chartPackages} legend_toggle={true} />
+            <Chart chartType={this.props.chartType} rows={this.props.rows} options={this.props.options} graph_id="TableChart" columns={this.props.columns} chartPackage={this.props.chartPackages} legend_toggle={true} />
         );
     }
 }

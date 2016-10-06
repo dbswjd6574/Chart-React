@@ -14,6 +14,7 @@ class Header extends React.Component {
                         <li><Link to="/condition">CONDITION</Link></li>
                         <li><Link to="/data">DATA</Link></li>
                         <li><Link to="/analysis">ANALYSIS</Link></li>
+                        <li><Link to="/chartGallery">CHART_GALLERY</Link></li>
                     </ul>
 
                 </div>

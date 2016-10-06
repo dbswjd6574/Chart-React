@@ -8,7 +8,7 @@ class GoogleLineChart extends React.Component {
 
     render() {
         return (
-            <Chart chartType={this.props.chartType} rows={this.props.rows} columns={this.props.columns} options={this.props.options} graph_id="LineChart" width={"600px"} height={"400px"} legend_toggle={true} />
+            <Chart chartType={this.props.chartType} rows={this.props.rows} columns={this.props.columns} options={this.props.options} graph_id="LineChart" legend_toggle={true} />
         );
     }
 }

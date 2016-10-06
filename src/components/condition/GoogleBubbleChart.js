@@ -9,7 +9,7 @@ class GoogleBubbleChart extends React.Component {
     render() {
 
         return (
-            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BubbleChart" width={"600px"} height={"400px"} legend_toggle={true} />
+            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BubbleChart" legend_toggle={true} />
         );
     }
 }
