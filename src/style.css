@@ -54,11 +54,15 @@ a {
 }
 
 #chartList {
-    width: auto;
 }
 
 #chartArea {
-    border: 1px solid #fff;
+    cursor: pointer;
+    margin: 1px;
+}
+
+.chartSelectButton {
+    float: left;
 }
 
 .header-background {
