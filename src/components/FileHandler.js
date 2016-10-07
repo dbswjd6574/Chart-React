@@ -147,29 +147,27 @@ class HeaderInfo extends React.Component{
             let style;
             if(!isSelect){
                 style = {
-                    backgroundColor: "#d9534f",
-                    display: "inline",
-                    padding: ".2em .6em .3em",
-                    fontSize: "75%",
-                    color: "#fff",
-                    textAlign: "center",
-                    whiteSpace: "nowrap",
-                    verticalAlign: "baseline",
-                    borderRadius: ".25em",
-                    float:"left",
-                    margin : "10px"
+                    backgroundColor: "rgb(72, 72, 72)",
+                    color: "rgba(255, 255, 255, 0.870588)",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "32px",
+                paddingLeft: "12px",
+                paddingRight: "12px",
+                whiteSpace: "nowrap",
+                float:"left",
+                margin : "10px"
                 };
             } else {
                 style = {
-                    backgroundColor: "aqua",
-                    display: "inline",
-                    padding: ".2em .6em .3em",
-                    fontSize: "75%",
-                    color: "#fff",
-                    textAlign: "center",
+                    backgroundColor: "rgb(72, 72, 72)",
+                    color: "rgba(122, 255, 255, 0.870588)",
+                    fontSize: "14px",
+                    fontWeight: "400",
+                    lineHeight: "32px",
+                    paddingLeft: "12px",
+                    paddingRight: "12px",
                     whiteSpace: "nowrap",
-                    verticalAlign: "baseline",
-                    borderRadius: ".25em",
                     float:"left",
                     margin : "10px"
                 };

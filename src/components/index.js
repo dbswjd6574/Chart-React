@@ -20,7 +20,10 @@ import InfoBox from './analysis/InfoBox';
 import DashBoardDataGrid from './DashBoardDataGrid';
 import ChartTables from './ChartTables';
 import ChartArea from './ChartArea';
+import LeftDiv from './LeftDiv';
+import LeftArea from './LeftArea';
+import CenterArea from './CenterArea';
 
 export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart,
-         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea
+         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea, LeftDiv, LeftArea, CenterArea
         };
