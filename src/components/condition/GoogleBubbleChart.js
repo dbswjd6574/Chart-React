@@ -8,8 +8,21 @@ class GoogleBubbleChart extends React.Component {
 
     render() {
 
+        let options = {
+            titleTextStyle: {color: '#FFFFFF', bold: false},
+            hAxis: {"titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
+            vAxis: {"titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
+            bubble:{"textStyle":{"fontSize":11, "color":"#ffffff", "auraColor": 'none'}},
+            legend:{"textStyle":{color: '#FFFFFF', fontSize: 10}},
+            backgroundColor: '#000000',
+            tooltip: {
+                textStyle: {fontSize: 10},
+                showColorCode: true
+            }
+        };
+
         return (
-            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BubbleChart" legend_toggle={true} />
+            <Chart chartType='BubbleChart' data={this.props.data} options={options} graph_id="BubbleChart" legend_toggle={true} />
         );
     }
 }

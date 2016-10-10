@@ -82,3 +82,8 @@ a {
 .orange-background {
     background: #007069;
 }
+
+.chartSelectButton {
+    float: right;
+    margin: 20px;
+}

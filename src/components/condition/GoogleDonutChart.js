@@ -7,8 +7,23 @@ class GoogleDonutChart extends React.Component {
         super(props);
     }
     render() {
+
+        let options = {
+                titleTextStyle: {color: '#FFFFFF', bold: false},
+                pieHole: 0.4,
+                is3D: true,
+                legend: 'none',
+                backgroundColor: '#000000',
+                hAxis: {"textStyle": {color:"#6C6C6C"}},
+                vAxis: {"textStyle": {color:"#6C6C6C"}},
+                tooltip: {
+                    textStyle: {fontSize: 10},
+                    showColorCode: true
+                }
+            };
+
         return (
-            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="DonutChart" legend_toggle={true} />
+            <Chart chartType='PieChart' data={this.props.data} options={options} graph_id="DonutChart" legend_toggle={true} />
         );
     }
 

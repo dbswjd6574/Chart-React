@@ -22,7 +22,7 @@ class ChartArea extends React.Component{
     }
 
     handleClickChart(chartName) {
-        console.log(chartName);
+        this.props.selectChart(chartName);
     }
 
     render() {
@@ -38,24 +38,24 @@ class ChartArea extends React.Component{
                         <RaisedButton className="chartButton" label='X' onClick={this.handleToggle.bind(this)}/>
                         <table id="chartList">
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googleBarChart")} src="./image/googleBarChartImage.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googleLineChart")} src="./image/googleLineChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleBarChart")} src="./image/googleBarChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleLineChart")} src="./image/googleLineChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googleBubbleChart")} src="./image/googleBubbleChartImage.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googlePieChart")} src="./image/googlePieChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleBubbleChart")} src="./image/googleBubbleChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GooglePieChart")} src="./image/googlePieChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googleScatterChart")} src="./image/googleScatterChartImage.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "googleTableChart")} src="./image/googleTableChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleScatterChart")} src="./image/googleScatterChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleTableChart")} src="./image/googleTableChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "zingBarChart")} src="./image/zingBarChart.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "zingLineChart")} src="./image/zingLineChart.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "BarChart")} src="./image/zingBarChart.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "LineChart")} src="./image/zingLineChart.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "zingPieChart")} src="./image/zingPieChart.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "zingScatterChart")} src="./image/zingScatterChart.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "PieChart")} src="./image/zingPieChart.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "ScatterChart")} src="./image/zingScatterChart.png" width="150px" height="150px"/></div></td>
                             </tr>
                         </table>
                     </Drawer>

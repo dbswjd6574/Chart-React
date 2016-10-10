@@ -39,12 +39,17 @@ class TrialVersion extends React.Component{
         super(props);
         this.changeState=this.changeState.bind(this);
         this.state = {
-            keys : []
+            keys : [],
+            chartType: ''
         }
     }
     changeState(state){
         this.setState({keys:state});
         console.log("this is TrialVersion :: ", this.state.keys);
+    }
+    changeChartType(chartName) {
+        console.log("selected Chart Name: ", chartName);
+        this.setState({chartType: chartName});
     }
     render(){
         let jsonKeys = [];
@@ -56,9 +61,9 @@ class TrialVersion extends React.Component{
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                   <LeftArea menuItem={jsonKeys} changeState={this.changeState}/>
                 </MuiThemeProvider>
-                <CenterArea keys={this.state.keys} data={jsonObject.DATA}/>
-                <div>TrialVersion Page!!!</div>
-                <div className="chartSelectButton"><ChartArea /></div>
+                <div className="chartSelectButton"><ChartArea selectChart={this.changeChartType.bind(this)}/></div>
+                <CenterArea keys={this.state.keys} chartType={this.state.chartType} data={jsonObject.DATA}/>
+
             </div>
         );
     }

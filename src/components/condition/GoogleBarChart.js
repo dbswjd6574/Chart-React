@@ -9,8 +9,22 @@ class GoogleBarChart extends React.Component{
     }
 
     render() {
+        let options = {
+            titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', bold: false},
+            legend: {"position":"none","textStyle": {color:"#FFFFFF", fontName: 'Roboto', bold:false}},
+            bar:{"groupWidth":"75%"},
+            backgroundColor: '#000000',
+            hAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
+            vAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
+            is3D:true,
+            tooltip: {
+                textStyle: {fontSize: 10},
+                showColorCode: true
+            }
+        };
+
         return (
-            <Chart chartType={this.props.chartType} data={this.props.data} options={this.props.options} graph_id="BarChart" legend_toggle={true} />
+            <Chart chartType='BarChart' data={this.props.data} options={options} graph_id="BarChart" legend_toggle={true} />
         );
     }
 }
