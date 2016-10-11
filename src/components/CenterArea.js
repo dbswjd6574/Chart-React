@@ -109,7 +109,22 @@ class CenterArea extends React.Component{
     constructor(props){
         super(props);
     }
-    componentDidMount(){
+
+    componentWillUpdate(nextProps){
+        console.log("centerArea nextProps :: ", nextProps);
+        let header;
+        let seriesData = [];
+        for (let j = 0; j <= nextProps.keys.length; j++) {
+            header = nextProps.keys[j + 1];
+            let testData = [];
+            for (let i = 0; i < nextProps.data.length; i++) {
+                testData.push(nextProps.data[i][header]);
+            }
+            seriesData.push({"text": header, "values": testData});
+        }
+
+        console.log("testData ::", seriesData);
+        series = seriesData;
     }
     render(){
         let style ={
@@ -155,6 +170,13 @@ class CenterArea extends React.Component{
             chart = <BarChart id="chart1" width="700" height="400" value={scatterSeries}/>;
         }
 
+
+
+        let tableStyle = {
+            float : "left",
+            marginLeft :"280px",
+            width : "1000"
+        };
         return(
             <div>
                 <div style={style}>
@@ -164,7 +186,7 @@ class CenterArea extends React.Component{
                 <div style={style}>
                     {chart}
                 </div>
-                <div style={style}>
+                <div style={tableStyle}>
                     <DataTable keys={this.props.keys} data={this.props.data}/>
                 </div>
             </div>
@@ -222,13 +244,8 @@ class DataTable extends React.Component{
         } else {
             table = "";
         }
-        let style ={
-            float : "left",
-            width : "1000",
-            marginLeft :"280px"
-        };
         return(
-            <div style={style}>
+            <div>
                 {table}
             </div>
         );
