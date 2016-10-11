@@ -9,12 +9,14 @@ class GoogleBubbleChart extends React.Component {
     render() {
 
         let options = {
+            width: 700,
+            height: 400,
             titleTextStyle: {color: '#FFFFFF', bold: false},
             hAxis: {"titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
             vAxis: {"titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
             bubble:{"textStyle":{"fontSize":11, "color":"#ffffff", "auraColor": 'none'}},
             legend:{"textStyle":{color: '#FFFFFF', fontSize: 10}},
-            backgroundColor: '#000000',
+            backgroundColor: '#0D0D0D',
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true

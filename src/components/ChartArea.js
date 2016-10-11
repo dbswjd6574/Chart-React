@@ -43,7 +43,7 @@ class ChartArea extends React.Component{
                             </tr>
                             <tr>
                                 <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleBubbleChart")} src="./image/googleBubbleChartImage.png" width="150px" height="150px"/></div></td>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GooglePieChart")} src="./image/googlePieChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleDonutChart")} src="./image/googlePieChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
                                 <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleScatterChart")} src="./image/googleScatterChartImage.png" width="150px" height="150px"/></div></td>

@@ -19,9 +19,11 @@ class GoogleTableChart extends React.Component {
             'rowNumberCell': ''
         };
         let options = {
+            width: 700,
+            height: 400,
             allowHtml: true,
-                cssClassNames: cssClassName,
-                backgroundColor: '#000000'
+            cssClassNames: cssClassName,
+            backgroundColor: '#0D0D0D'
         };
         let chartPackages = ["table"];
         return(

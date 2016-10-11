@@ -8,6 +8,8 @@ class GoogleLineChart extends React.Component {
 
     render() {
         let options = {
+            width: 700,
+            height: 400,
             colors: ['#FFFFFF'],
             legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
             titleTextStyle: {color: '#FFFFFF', bold: false},
@@ -24,7 +26,7 @@ class GoogleLineChart extends React.Component {
                 },
                 "textStyle": {color:"#6C6C6C"}
             },
-            backgroundColor: '#000000',
+            backgroundColor: '#0D0D0D',
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true

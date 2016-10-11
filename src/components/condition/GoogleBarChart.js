@@ -10,10 +10,12 @@ class GoogleBarChart extends React.Component{
 
     render() {
         let options = {
+            width: 700,
+            height: 400,
             titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', bold: false},
             legend: {"position":"none","textStyle": {color:"#FFFFFF", fontName: 'Roboto', bold:false}},
             bar:{"groupWidth":"75%"},
-            backgroundColor: '#000000',
+            backgroundColor: '#0D0D0D',
             hAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
             vAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
             is3D:true,
