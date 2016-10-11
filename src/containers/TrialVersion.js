@@ -3,6 +3,7 @@ import { LeftArea, CenterArea, ChartArea } from 'components';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import update from 'react-addons-update';
 
 var menuItem=[{name:"Test1", hasChild:true, child:[{name:"child1"}]}, {name:"Test2", hasChild:false, child:[]},
               {name:"Test3", hasChild:true, child:[{name:"child3"}]}, {name:"Test4", hasChild:false, child:[]}
@@ -45,7 +46,6 @@ class TrialVersion extends React.Component{
     }
     changeState(state){
         this.setState({keys:state});
-        console.log("this is TrialVersion :: ", this.state.keys);
     }
     changeChartType(chartName) {
         console.log("selected Chart Name: ", chartName);
