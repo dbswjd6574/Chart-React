@@ -20,28 +20,28 @@ class LeftArea extends React.Component{
         console.log(this.props.menuItem);
     }
     _onSelect(key) {
+        console.log("key ::  ", key);
         let index = $.inArray(key, this.state.selectedKey);
         if (index === -1) {
-            this.setState({
-                selectedKey: update(
-                    this.state.selectedKey,
-                    {
-                        $push: [key]
-                    }
-                )
-            });
+            let newArray =  update(this.state.selectedKey,{$push: [key]});
+            this.setState({selectedKey : newArray});
         } else {
-            this.setState({
-                selectedKey: update(
-                    this.state.selectedKey,
-                    {
-                        $splice: [[index, 1]]
-                    }
-                )
-            });
+            let newArray = update(this.state.selectedKey,{$splice: [[index, 1]]});
+            this.setState({selectedKey:newArray});
         }
-        this.props.changeState(this.state.selectedKey);
     }
+
+    shouldComponentUpdate(nextProps, nextState){
+        let result = !(nextState.selectedKey === this.state.selectedKey);
+        if(result){
+            console.log("this.state.selectedKey :: ", nextState.selectedKey);
+            this.props.changeState(nextState.selectedKey);
+            return result;
+        } else {
+            return !result;
+        }
+    }
+
 
     _isSelected(key){
         let index = $.inArray(key, this.state.selectedKey);

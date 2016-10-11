@@ -11,7 +11,6 @@ class CenterArea extends React.Component{
         super(props);
     }
     componentDidMount(){
-        console.log("this is CenterArea :: ", this.props.keys);
     }
     render(){
         let style ={
@@ -48,7 +47,6 @@ class DataTable extends React.Component{
         $.each(this.props.keys, (key, value)=>{
             cols.push({dataField:value});
         });
-        console.log(cols);
     }
     shouldComponentUpdate(nextProps, nextState){
         return !(nextProps.keys === this.props.keys);
@@ -58,7 +56,7 @@ class DataTable extends React.Component{
         $.each(nextProps.keys, (key, value)=>{
             cols.push({dataField:value});
         });
-        console.log("col", cols);
+        console.log("centerArea componentWillUpdate :: ", cols);
     }
 
     onRowSelect(row, isSelected){
@@ -74,7 +72,7 @@ class DataTable extends React.Component{
         };
 
         let table = "";
-        if(cols.length > 2){
+        if(cols.length > 1){
             table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} >
                 {cols.map((col, i) => {
                     if(i == 0) {
@@ -87,8 +85,13 @@ class DataTable extends React.Component{
         } else {
             table = "";
         }
+        let style ={
+            float : "left",
+            width : "1000",
+            marginLeft :"280px"
+        };
         return(
-            <div>
+            <div style={style}>
                 {table}
             </div>
         );
