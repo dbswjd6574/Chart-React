@@ -25,6 +25,30 @@ class GoogleBarChart extends React.Component{
             }
         };
 
+        let chartData = this.props.value;
+
+        let rows = [];
+        let columns = [];
+        let header;
+
+        Object.keys(chartData).forEach(function(key, keyIndex){
+            if (keyIndex == 0) {
+                header = key;
+                columns.push({"label": key, "type": "string"});
+            } else {
+                columns.push({"label": key, "type": "number"});
+            }
+        });
+
+
+        for (let i = 0; i < chartData[header].length; i++) {
+            let tempRow = [];
+            Object.keys(chartData).forEach(function(key, keyIndex) {
+                tempRow.push(chartData[key][i]);
+            });
+            rows.push(tempRow);
+        }
+
         return (
             <Chart chartType='BarChart' data={this.props.data} options={options} graph_id="BarChart" legend_toggle={true} />
         );

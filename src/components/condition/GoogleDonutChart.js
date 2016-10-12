@@ -24,6 +24,28 @@ class GoogleDonutChart extends React.Component {
             }
         };
 
+        let chartData = this.props.value;
+
+        let data = [];
+        let header;
+
+        let headerInfo = [];
+        Object.keys(chartData).forEach(function(key, keyIndex){
+            headerInfo.push(key);
+            if (keyIndex == 0) {
+                header = key;
+            }
+        });
+        data.push(headerInfo);
+
+        for (let i = 0; i < chartData[header].length; i++) {
+            let tempRow = [];
+            Object.keys(chartData).forEach(function(key, keyIndex) {
+                tempRow.push(chartData[key][i]);
+            });
+            data.push(tempRow);
+        }
+
         return (
             <Chart chartType='PieChart' data={this.props.data} options={options} graph_id="DonutChart" legend_toggle={true} />
         );

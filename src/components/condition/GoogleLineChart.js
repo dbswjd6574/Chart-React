@@ -7,6 +7,11 @@ class GoogleLineChart extends React.Component {
     }
 
     render() {
+        let chartStyle={
+            float:"left",
+            padding:"10px"
+        };
+
         let options = {
             width: 700,
             height: 400,
@@ -14,7 +19,6 @@ class GoogleLineChart extends React.Component {
             legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
             titleTextStyle: {color: '#FFFFFF', bold: false},
             hAxis: {
-                "title": 'time',
                 "titleTextStyle": {
                     color: '#6C6C6C'
                 },
@@ -33,8 +37,34 @@ class GoogleLineChart extends React.Component {
             }
         };
 
+        let chartData = this.props.value;
+
+        let rows = [];
+        let columns = [];
+        let header;
+
+        Object.keys(chartData).forEach(function(key, keyIndex){
+            if (keyIndex == 0) {
+                header = key;
+                columns.push({"label": key, "type": "string"});
+            } else {
+                columns.push({"label": key, "type": "number"});
+            }
+        });
+
+
+        for (let i = 0; i < chartData[header].length; i++) {
+            let tempRow = [];
+            Object.keys(chartData).forEach(function(key, keyIndex) {
+                tempRow.push(chartData[key][i]);
+            });
+            rows.push(tempRow);
+        }
+
         return (
-            <Chart chartType='LineChart' rows={this.props.rows} columns={this.props.columns} options={options} graph_id="LineChart" legend_toggle={true} />
+            <div style={chartStyle}>
+                <Chart chartType='LineChart' rows={rows} columns={columns} options={options} graph_id="LineChart" legend_toggle={true} />
+            </div>
         );
     }
 }

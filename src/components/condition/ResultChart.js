@@ -22,8 +22,32 @@ class ResultChart extends React.Component {
                 showColorCode: true
             }
         };
+
+        let chartData = this.props.value;
+
+        let rows = [];
+        let columns = [];
+        let header;
+
+        Object.keys(chartData).forEach(function(key, keyIndex){
+            if (keyIndex == 0) {
+                header = key;
+                columns.push({"label": key, "type": "string"});
+            } else {
+                columns.push({"label": key, "type": "number"});
+            }
+        });
+
+        for (let i = 0; i < chartData[header].length; i++) {
+            let tempRow = [];
+            Object.keys(chartData).forEach(function(key, keyIndex) {
+                tempRow.push(chartData[key][i]);
+            });
+            rows.push(tempRow);
+        }
+
         return (
-            <Chart chartType='ScatterChart' rows={this.props.rows} columns={this.props.columns} options={options} graph_id="ScatterChart" legend_toggle={true} />
+            <Chart chartType='ScatterChart' rows={rows} columns={columns} options={options} graph_id="ScatterChart" legend_toggle={true} />
         );
     }
 }
