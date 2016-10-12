@@ -23,7 +23,8 @@ import ChartArea from './ChartArea';
 import LeftDiv from './LeftDiv';
 import LeftArea from './LeftArea';
 import CenterArea from './CenterArea';
+import SunburstChart from './SunburstChart';
 
 export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart,
-         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea, LeftDiv, LeftArea, CenterArea
+         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea, LeftDiv, LeftArea, CenterArea, SunburstChart
         };
