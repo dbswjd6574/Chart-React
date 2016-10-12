@@ -112,15 +112,15 @@ class CenterArea extends React.Component{
 
     componentWillUpdate(nextProps){
         console.log("centerArea nextProps :: ", nextProps);
-        let header;
+        let category;
         let seriesData = [];
         for (let j = 0; j <= nextProps.keys.length; j++) {
-            header = nextProps.keys[j + 1];
+            category = nextProps.keys[j + 1];
             let testData = [];
             for (let i = 0; i < nextProps.data.length; i++) {
-                testData.push(nextProps.data[i][header]);
+                testData.push(nextProps.data[i][category]);
             }
-            seriesData.push({"text": header, "values": testData});
+            seriesData.push({"text": category, "values": testData});
         }
 
         console.log("testData ::", seriesData);
@@ -167,7 +167,7 @@ class CenterArea extends React.Component{
         } else if (this.props.chartType == 'GoogleTableChart') {
             chart = <GoogleTableChart {...tableChartDatas}/>;
         } else if (this.props.chartType == 'BarChart') {
-            chart = <BarChart id="chart1" width="700" height="400" value={scatterSeries}/>;
+            chart = <BarChart id="chart1" width="700" height="400" value={series}/>;
         }
 
 
@@ -175,11 +175,16 @@ class CenterArea extends React.Component{
         let tableStyle = {
             float : "left",
             marginLeft :"280px",
-            width : "1000"
+            width : "723"
+        };
+        let selectStyle ={
+            float : "left",
+            width : "800",
+            marginLeft :"280px"
         };
         return(
             <div>
-                <div style={style}>
+                <div style={selectStyle}>
                     <Select />
                     <Select />
                 </div>
@@ -232,7 +237,7 @@ class DataTable extends React.Component{
 
         let table = "";
         if(cols.length > 1){
-            table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} >
+            table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} height="330">
                 {cols.map((col, i) => {
                     if(i == 0) {
                         return (<TableHeaderColumn isKey={true} dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
