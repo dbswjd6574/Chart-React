@@ -13,11 +13,10 @@ class GoogleLineChart extends React.Component {
         };
 
         let options = {
-            width: 700,
-            height: 400,
+            title: "LineChart",
             colors: ['#FFFFFF'],
             legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
-            titleTextStyle: {color: '#FFFFFF', bold: false},
+            titleTextStyle: {color: '#FFFFFF', fontSize: 20, bold: false},
             hAxis: {
                 "titleTextStyle": {
                     color: '#6C6C6C'
@@ -30,7 +29,7 @@ class GoogleLineChart extends React.Component {
                 },
                 "textStyle": {color:"#6C6C6C"}
             },
-            backgroundColor: '#0D0D0D',
+            backgroundColor: '#303030',
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true
@@ -63,7 +62,7 @@ class GoogleLineChart extends React.Component {
 
         return (
             <div style={chartStyle}>
-                <Chart chartType='LineChart' rows={rows} columns={columns} options={options} graph_id="LineChart" legend_toggle={true} />
+                <Chart chartType='LineChart' rows={rows} columns={columns} options={options} width={this.props.width} height={this.props.height} graph_id="LineChart" legend_toggle={true} />
             </div>
         );
     }

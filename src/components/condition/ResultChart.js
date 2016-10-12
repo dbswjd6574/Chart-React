@@ -8,15 +8,20 @@ class ResultChart extends React.Component {
     }
 
     render() {
+
+        let chartStyle={
+            float:"left",
+            padding:"10px"
+        };
+
         let options = {
-            width: 700,
-            height: 400,
+            title: "ScatterChart",
             colors: ['#FFFFFF'],
-            titleTextStyle: {color: '#FFFFFF', bold: false},
+            legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
+            titleTextStyle: {color: '#FFFFFF', fontSize: 20, bold: false},
             hAxis: { minValue: 0, maxValue: 15, "titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
             vAxis: { minValue: 0, maxValue: 15, "titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
-            legend: 'none',
-            backgroundColor: '#0D0D0D',
+            backgroundColor: '#303030',
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true
@@ -47,7 +52,9 @@ class ResultChart extends React.Component {
         }
 
         return (
-            <Chart chartType='ScatterChart' rows={rows} columns={columns} options={options} graph_id="ScatterChart" legend_toggle={true} />
+            <div style={chartStyle}>
+                <Chart chartType='ScatterChart' rows={rows} columns={columns} options={options} width={this.props.width} height={this.props.height} graph_id="ScatterChart" legend_toggle={true} />
+            </div>
         );
     }
 }

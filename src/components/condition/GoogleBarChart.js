@@ -9,13 +9,18 @@ class GoogleBarChart extends React.Component{
     }
 
     render() {
+
+        let chartStyle={
+            float:"left",
+            padding:"10px"
+        };
+
         let options = {
-            width: 700,
-            height: 400,
-            titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', bold: false},
+            title: "BarChart",
+            titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 20, bold: false},
             legend: {"position":"none","textStyle": {color:"#FFFFFF", fontName: 'Roboto', bold:false}},
             bar:{"groupWidth":"75%"},
-            backgroundColor: '#0D0D0D',
+            backgroundColor: '#303030',
             hAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
             vAxis:{"textStyle": {color:"#6C6C6C", fontName: 'Roboto', bold: false}},
             is3D:true,
@@ -27,30 +32,30 @@ class GoogleBarChart extends React.Component{
 
         let chartData = this.props.value;
 
-        let rows = [];
-        let columns = [];
+        let data = [];
         let header;
 
+        let headerInfo = [];
         Object.keys(chartData).forEach(function(key, keyIndex){
+            headerInfo.push(key);
             if (keyIndex == 0) {
                 header = key;
-                columns.push({"label": key, "type": "string"});
-            } else {
-                columns.push({"label": key, "type": "number"});
             }
         });
-
+        data.push(headerInfo);
 
         for (let i = 0; i < chartData[header].length; i++) {
             let tempRow = [];
             Object.keys(chartData).forEach(function(key, keyIndex) {
                 tempRow.push(chartData[key][i]);
             });
-            rows.push(tempRow);
+            data.push(tempRow);
         }
 
         return (
-            <Chart chartType='BarChart' data={this.props.data} options={options} graph_id="BarChart" legend_toggle={true} />
+            <div style={chartStyle}>
+                <Chart chartType='BarChart' data={data} options={options} width={this.props.width} height={this.props.height} graph_id="BarChart" legend_toggle={true} />
+            </div>
         );
     }
 }

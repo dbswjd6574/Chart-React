@@ -8,14 +8,18 @@ class GoogleDonutChart extends React.Component {
     }
     render() {
 
+        let chartStyle={
+            float:"left",
+            padding:"10px"
+        };
+
         let options = {
-            width: 700,
-            height: 400,
-            titleTextStyle: {color: '#FFFFFF', bold: false},
+            title: "DonutChart",
+            titleTextStyle: {color: '#FFFFFF', fontSize: 20, bold: false},
             pieHole: 0.4,
             is3D: true,
-            legend: 'none',
-            backgroundColor: '#0D0D0D',
+            legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
+            backgroundColor: '#303030',
             hAxis: {"textStyle": {color:"#6C6C6C"}},
             vAxis: {"textStyle": {color:"#6C6C6C"}},
             tooltip: {
@@ -47,7 +51,9 @@ class GoogleDonutChart extends React.Component {
         }
 
         return (
-            <Chart chartType='PieChart' data={this.props.data} options={options} graph_id="DonutChart" legend_toggle={true} />
+            <div style={chartStyle}>
+                <Chart chartType='PieChart' data={data} options={options} width={this.props.width} height={this.props.height} graph_id="DonutChart" legend_toggle={true} />
+            </div>
         );
     }
 

@@ -81,17 +81,17 @@ class CenterArea extends React.Component{
 
         let chart;
         if (this.props.chartType == 'GoogleBarChart') {
-            chart = <GoogleBarChart value={chartDatas}/>;
+            chart = <GoogleBarChart width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleLineChart') {
-            chart = <GoogleLineChart value={chartDatas}/>;
+            chart = <GoogleLineChart width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'LineChart') {
             chart = <LineChart id="chart1" width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleDonutChart') {
-            chart = <GoogleDonutChart value={chartDatas}/>;
+            chart = <GoogleDonutChart width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ResultChart') {
-            chart = <ResultChart value={chartDatas}/>;
+            chart = <ResultChart width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
-                chart = <PieChart id="chart1" width="700" height="400" value={pieChartData}/>;
+                chart = <PieChart id="chart1" width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ScatterChart') {
             chart = <ScatterChart id="chart1" width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'BarChart') {
