@@ -20,6 +20,37 @@ var series = [{"text" : "Text","values" : [10]},
 
 let chartDatas;
 
+let pieChartData = [
+    {
+        "values" : [119968796],
+        "text":"Operating System",
+        "backgroundColor": "#4527A0",
+        "legendItem":{
+            "backgroundColor": "#4527A0"
+        },
+    },
+    {
+        "values" : [97503958],
+        "text":"Network and Tools",
+        "backgroundColor": "#1565C0",
+    },
+    {
+        "values" : [85948575],
+        "text":"Business Division",
+        "backgroundColor": "#AD1457",
+    },
+    {
+        "values" : [62096876],
+        "text":"Online Services",
+        "backgroundColor": "#00695C",
+    },
+    {
+        "values" : [40467564],
+        "text":"Entertainment",
+        "backgroundColor": "#EF6C00",
+    }
+];
+
 class CenterArea extends React.Component{
     constructor(props){
         super(props);
@@ -60,7 +91,7 @@ class CenterArea extends React.Component{
         } else if (this.props.chartType == 'ResultChart') {
             chart = <ResultChart value={chartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
-            chart = <PieChart id="chart1" width="700" height="400" value={series}/>;
+                chart = <PieChart id="chart1" width="700" height="400" value={pieChartData}/>;
         } else if (this.props.chartType == 'ScatterChart') {
             chart = <ScatterChart id="chart1" width="700" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'BarChart') {
@@ -70,11 +101,16 @@ class CenterArea extends React.Component{
         let tableStyle = {
             float : "left",
             marginLeft :"280px",
-            width : "1000"
+            width : "723"
+        };
+        let selectStyle ={
+            float : "left",
+            width : "800",
+            marginLeft :"280px"
         };
         return(
             <div>
-                <div style={style}>
+                <div style={selectStyle}>
                     <Select />
                     <Select />
                 </div>
@@ -127,7 +163,7 @@ class DataTable extends React.Component{
 
         let table = "";
         if(cols.length > 1){
-            table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} >
+            table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} height="330">
                 {cols.map((col, i) => {
                     if(i == 0) {
                         return (<TableHeaderColumn isKey={true} dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
