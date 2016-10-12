@@ -105,6 +105,37 @@ let tableChartDatas = {
     ]
 };
 
+let pieChartData = [
+    {
+        "values" : [119968796],
+        "text":"Operating System",
+        "backgroundColor": "#4527A0",
+        "legendItem":{
+            "backgroundColor": "#4527A0"
+        },
+    },
+    {
+        "values" : [97503958],
+        "text":"Network and Tools",
+        "backgroundColor": "#1565C0",
+    },
+    {
+        "values" : [85948575],
+        "text":"Business Division",
+        "backgroundColor": "#AD1457",
+    },
+    {
+        "values" : [62096876],
+        "text":"Online Services",
+        "backgroundColor": "#00695C",
+    },
+    {
+        "values" : [40467564],
+        "text":"Entertainment",
+        "backgroundColor": "#EF6C00",
+    }
+];
+
 class CenterArea extends React.Component{
     constructor(props){
         super(props);
@@ -125,6 +156,7 @@ class CenterArea extends React.Component{
 
         console.log("testData ::", seriesData);
         series = seriesData;
+
     }
     render(){
         let style ={
@@ -161,7 +193,7 @@ class CenterArea extends React.Component{
         } else if (this.props.chartType == 'ResultChart') {
             chart = <ResultChart {...scatterChartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
-            chart = <PieChart id="chart1" width="700" height="400" value={series}/>;
+                chart = <PieChart id="chart1" width="700" height="400" value={pieChartData}/>;
         } else if (this.props.chartType == 'ScatterChart') {
             chart = <ScatterChart id="chart1" width="700" height="400" value={scatterSeries}/>;
         } else if (this.props.chartType == 'GoogleTableChart') {
