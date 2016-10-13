@@ -5,8 +5,13 @@ class Sunburst extends React.Component{
     render(){
         return(
             <div>
-                sunburst
-                <SunburstChart/>
+                <div>
+                    <br/>
+                    <SunburstChart/>
+                </div>
+                <div>
+                    TODO Right
+                </div>
             </div>
         );
     }
