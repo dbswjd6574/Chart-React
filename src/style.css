@@ -2,7 +2,6 @@ body {
     width: 1920px;
     height: 1280px;
     background-color: rgba(0,0,0,0.3);
-    font-family: 'Roboto, sans-serif';
 }
 
 .main_menu {
@@ -13,16 +12,21 @@ body {
 .nav-wrapper {
     height: 50px;
     font-size: 12px;
+    z-index: 1500;
 }
 
-nav ul {
-    height:100%;
+nav ul a{
+    height: 50px;
 }
 a {
     cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {
+    nav ul a{
+        height: 50px;
+        color: white;
+    }
     .auth .card {
         width: 100%;
     }
@@ -54,6 +58,7 @@ a {
 }
 
 #chartList {
+    float: left;
 }
 
 #chartArea {
@@ -82,4 +87,8 @@ a {
 .chartSelectButton {
     float: right;
     margin: 20px;
+}
+
+.chartButton {
+    padding-top: 50px;
 }

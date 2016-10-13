@@ -6,7 +6,7 @@ class Header extends React.Component {
 
         return(
             <nav className="main_menu">
-                <div className="nav-wrapper indigo darken-3">
+                <div className="nav-wrapper grey darken-3">
                     <ul className="center">
                         <li><Link to="/drawChart">TESTCHART</Link></li>
                         <li><Link to="/dashBoard">DASHBOART</Link></li>

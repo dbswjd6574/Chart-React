@@ -31,7 +31,7 @@ class ChartArea extends React.Component{
             <div>
 
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <RaisedButton className="chartButton" label='SELECT CHART' onClick={this.handleToggle.bind(this)}/>
+                    <div className="chartOpen"><RaisedButton label='SELECT CHART' onClick={this.handleToggle.bind(this)}/></div>
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <Drawer width={310} openSecondary={true} disableSwipeToOpen={true} open={this.state.open} >
