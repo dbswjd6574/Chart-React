@@ -97,9 +97,14 @@ class SunburstChart extends React.Component{
 
 
     render(){
+        let style ={
+            float : "left",
+            width : "500px",
+        };
         return(
+
             <div>
-                <div id="chart"></div>
+                <div id="chart" style={style}></div>
             </div>
         );
     }

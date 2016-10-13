@@ -1,17 +1,13 @@
 import React from 'react';
-import { SunburstChart } from 'components';
+import { SunburstChart, SunburstRight } from 'components';
 
 class Sunburst extends React.Component{
     render(){
         return(
             <div>
-                <div>
-                    <br/>
-                    <SunburstChart/>
-                </div>
-                <div>
-                    TODO Right
-                </div>
+                <br/>
+                <SunburstChart/>
+                <SunburstRight/>
             </div>
         );
     }
