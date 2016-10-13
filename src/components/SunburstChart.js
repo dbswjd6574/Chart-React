@@ -44,8 +44,8 @@ class SunburstChart extends React.Component{
             .style("position", "absolute")
             .style("z-index", "1")
             .style("opacity", 0);
-        console.log("componentDidMount");
-        d3.json("https://api.myjson.com/bins/3wczd", function(error, root) {
+
+        d3.json("./sunburstData.json", function(error, root) {
             var path = svg.selectAll("path")
                 .data(partition.nodes(root))
                 .enter().append("path")

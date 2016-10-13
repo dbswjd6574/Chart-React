@@ -83,3 +83,14 @@ a {
     float: right;
     margin: 20px;
 }
+#chart {
+    text-align: left;
+}
+path {
+    stroke: #fff;
+}
+
+.tooltip {
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}

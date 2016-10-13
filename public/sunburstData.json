@@ -1,0 +1,246 @@
+{
+	"name":"구매로그",
+	"children":[
+		{
+			"name" : "양천",
+			"children" : [
+				{
+					"name" : "RVOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 300
+						},
+						{
+							"name" : "현금",
+							"value" : 200
+						},
+						{
+							"name" : "모바일",
+							"value" : 200
+						},
+						{
+							"name" : "상품권",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 80
+						}
+					]
+				},
+				{
+					"name" : "FOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 200
+						},
+						{
+							"name" : "현금",
+							"value" : 100
+						},
+						{
+							"name" : "모바일",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 40
+						}
+					]
+				},
+				{
+					"name" : "others",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 300
+						},
+						{
+							"name" : "현금",
+							"value" : 200
+						},
+						{
+							"name" : "모바일",
+							"value" : 200
+						},
+						{
+							"name" : "상품권",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 80
+						}
+					]
+				}
+			]
+		},
+		{
+			"name" : "경남",
+			"children" : [
+				{
+					"name" : "RVOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 300
+						},
+						{
+							"name" : "현금",
+							"value" : 200
+						},
+						{
+							"name" : "모바일",
+							"value" : 200
+						},
+						{
+							"name" : "상품권",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 80
+						}
+					]
+				},
+				{
+					"name" : "FOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 200
+						},
+						{
+							"name" : "현금",
+							"value" : 100
+						},
+						{
+							"name" : "모바일",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 40
+						}
+					]
+				},
+				{
+					"name" : "others",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 200
+						},
+						{
+							"name" : "현금",
+							"value" : 100
+						},
+						{
+							"name" : "모바일",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 40
+						}
+					]
+				}
+			]
+		},
+		{
+			"name" : "해운대",
+			"children" : [
+				{
+					"name" : "RVOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 300
+						},
+						{
+							"name" : "현금",
+							"value" : 200
+						},
+						{
+							"name" : "모바일",
+							"value" : 200
+						},
+						{
+							"name" : "상품권",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 80
+						}
+					]
+				},
+				{
+					"name" : "FOD",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 200
+						},
+						{
+							"name" : "현금",
+							"value" : 100
+						},
+						{
+							"name" : "모바일",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 40
+						}
+					]
+				},
+				{
+					"name" : "others",
+					"children" : [
+						{
+							"name" : "포인트",
+							"value" : 200
+						},
+						{
+							"name" : "현금",
+							"value" : 100
+						},
+						{
+							"name" : "모바일",
+							"value" : 100
+						},
+						{
+							"name" : "카드",
+							"value" : 40
+						}
+					]
+				}
+			]
+		},
+		{
+			"name" : "others",
+			"children" : [
+					{
+						"name" : "포인트",
+						"value" : 200
+					},
+					{
+						"name" : "현금",
+						"value" : 100
+					},
+					{
+						"name" : "모바일",
+						"value" : 100
+					},
+					{
+						"name" : "카드",
+						"value" : 40
+					}
+			]
+		}
+	]
+}
