@@ -1,5 +1,6 @@
 import React from 'react';
-import { SunburstChart } from 'components';
+import { SunburstChart, SunburstRight, DataNavigation } from 'components';
+import {  } from 'components';
 
 class Sunburst extends React.Component{
     render(){
@@ -7,10 +8,10 @@ class Sunburst extends React.Component{
             <div>
                 <div>
                     <br/>
-                    <SunburstChart/>
+                    <DataNavigation/>
                 </div>
                 <div>
-                    TODO Right
+                    <SunburstRight/>
                 </div>
             </div>
         );
