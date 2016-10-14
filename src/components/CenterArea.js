@@ -14,42 +14,7 @@ import GoogleDonutChart from './condition/GoogleDonutChart.js';
 import GoogleBarChart from './condition/GoogleBarChart.js';
 import GoogleTableChart from './condition/GoogleTableChart.js';
 
-var series = [{"text" : "Text","values" : [10]},
-    {"text" : "Text2","values" : [50]},
-    {"text" : "Text3","values" : [5]}];
-
 let chartDatas;
-
-let pieChartData = [
-    {
-        "values" : [119968796],
-        "text":"Operating System",
-        "backgroundColor": "#4527A0",
-        "legendItem":{
-            "backgroundColor": "#4527A0"
-        },
-    },
-    {
-        "values" : [97503958],
-        "text":"Network and Tools",
-        "backgroundColor": "#1565C0",
-    },
-    {
-        "values" : [85948575],
-        "text":"Business Division",
-        "backgroundColor": "#AD1457",
-    },
-    {
-        "values" : [62096876],
-        "text":"Online Services",
-        "backgroundColor": "#00695C",
-    },
-    {
-        "values" : [40467564],
-        "text":"Entertainment",
-        "backgroundColor": "#EF6C00",
-    }
-];
 
 class CenterArea extends React.Component{
     constructor(props){
@@ -57,7 +22,6 @@ class CenterArea extends React.Component{
     }
 
     componentWillUpdate(nextProps){
-        console.log("centerArea nextProps :: ", nextProps);
         let header;
         let tempChartData = {};
         for (let i = 0; i < nextProps.keys.length; i++) {
@@ -69,7 +33,6 @@ class CenterArea extends React.Component{
             tempChartData[header] = tempArray;
         }
         chartDatas = tempChartData;
-        console.log('chartDatas: ', chartDatas);
     }
 
     render(){
@@ -115,7 +78,7 @@ class CenterArea extends React.Component{
                     <Select />
                 </div>
                 <div style={style}>
-                    {chart}
+                    {this.props.keys.length > 1 ? chart : ' '}
                 </div>
                 <div style={tableStyle}>
                     <DataTable keys={this.props.keys} data={this.props.data}/>

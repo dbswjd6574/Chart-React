@@ -1,5 +1,5 @@
 import React from 'react';
-import { XAxisPanel, YAxisPanel, Chart, ZingChartExample } from 'components';
+import { XAxisPanel, YAxisPanel, Chart } from 'components';
 import {Grid, Row, Col, Well, Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { dataRequest } from 'actions/authentication';

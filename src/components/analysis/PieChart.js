@@ -30,7 +30,7 @@ class PieChart extends React.Component{
                 if (keyIndex == 0) {
                     tempRow["text"] = chartData[key][i];
                 } else {
-                    tempRow["value"] = [chartData[key][i]];
+                    tempRow["values"] = [chartData[key][i]];
                 }
             });
             series.push(tempRow);
