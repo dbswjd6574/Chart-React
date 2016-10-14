@@ -1,13 +1,18 @@
 import React from 'react';
-import { SunburstChart, SunburstRight } from 'components';
+import { SunburstChart, SunburstRight, DataNavigation } from 'components';
+import {  } from 'components';
 
 class Sunburst extends React.Component{
     render(){
         return(
             <div>
-                <br/>
-                <SunburstChart/>
-                <SunburstRight/>
+                <div>
+                    <br/>
+                    <DataNavigation/>
+                </div>
+                <div>
+                    <SunburstRight/>
+                </div>
             </div>
         );
     }
