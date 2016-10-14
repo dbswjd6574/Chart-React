@@ -29,10 +29,12 @@ class SunburstCondition extends React.Component{
             padding : "20px"
         };
         let divStyle = {
-            width : "100%",
+            width : "800px",
             backgroundColor : "#2E2E2E",
             height : "150px",
-            marginTop :"30px"
+            marginTop :"30px",
+            position : "absolute",
+            top : "700px"
         };
         let selectOption = [{value:"양천", label:"양천"},{value:"경남", label:"경남"},{value:"해운대", label:"해운대"}];
         return(
