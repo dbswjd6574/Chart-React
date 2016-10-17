@@ -56,7 +56,7 @@ class SunburstRight extends React.Component {
                 <div style={style}>
 
                     <div style={style2}>
-                        <p style={style3}>Data Analysys</p>
+                        <p style={style3}>Data Analysis</p>
                     </div>
                     /*{table}*/
                     {chart}

@@ -5,6 +5,9 @@ var jsonObject;
 class SunburstChart extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            path : null
+        }
     }
     componentDidMount(){
         d3.json('./sunburstData.json', function(error, root) {
@@ -35,7 +38,6 @@ class SunburstChart extends React.Component{
                 });
 
             function zoom(d) {
-                console.log("d is :: ", d);
                 path.transition()
                     .duration(750)
                     .attrTween("d", arcTween(d));
@@ -93,9 +95,12 @@ class SunburstChart extends React.Component{
         }
     }
     shouldComponentUpdate(nextProps, nextState){
+        console.log("state :: ", this.state.path);
         return !(JSON.stringify(nextProps.selectedValue) === JSON.stringify(this.props.selectedValue));
     }
     componentWillUpdate(nextProps, nextState){
+        console.log("TEst", d3.select('svg'));
+        console.log("TEst", d3.selectAll('path'));
         //console.log("nextProps", nextProps.selectedValue);
         //$.getJSON('./sunburstData.json', (root)=>{
         //    console.log("root", root);
