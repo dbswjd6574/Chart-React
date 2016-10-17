@@ -26,7 +26,8 @@ import CenterArea from './CenterArea';
 import SunburstChart from './SunburstChart';
 import SunburstRight from './SunburstRight';
 import DataNavigation from './DataNavigation';
+import ResultCenterArea from './ResultCenterArea';
 
 export { Header, XAxisPanel, YAxisPanel, TestChart, Chart, FormInput, TestButtons, RtChart, Condition, FileHandler, DataGrid,DatePicker, Select, DropZone, LineChart, ScatterChart,
-         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea, LeftDiv, LeftArea, CenterArea, SunburstChart, SunburstRight, DataNavigation
+         InfoBox, PieChart, BarChart, DashBoardDataGrid, ChartTables, ChartArea, LeftDiv, LeftArea, CenterArea, SunburstChart, SunburstRight, DataNavigation, ResultCenterArea
         };

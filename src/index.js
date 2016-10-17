@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 /* Container Components*/
-import { App, Home, Login, Register, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst } from 'containers';
+import { App, Home, Login, Register, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst, ResultChartView } from 'containers';
 
 /* Redux */
 import { Provider } from 'react-redux';
@@ -31,6 +31,7 @@ ReactDOM.render(
                 <Route path="chartGallery" component={ChartGallery}/>
                 <Route path="trialVersion" component={TrialVersion}/>
                 <Route path="sunburst" component={Sunburst}/>
+                <Route path="resultChartView" component={ResultChartView}/>
                 </Route>
             </Router>
         </Provider>, rootElement

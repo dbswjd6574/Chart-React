@@ -9,6 +9,7 @@ import Analysis from './Analysis';
 import ChartGallery from './ChartGallery';
 import TrialVersion from './TrialVersion';
 import Sunburst from './Sunburst';
+import ResultChartView from './ResultChartView';
 
 
-export { App, Home, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst };
+export { App, Home, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst, ResultChartView };

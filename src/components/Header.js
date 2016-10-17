@@ -17,6 +17,7 @@ class Header extends React.Component {
                         <li><Link to="/chartGallery">CHART_GALLERY</Link></li>
                         <li><Link to="/trialVersion">TrialVersion</Link></li>
                         <li><Link to="/sunburst">Sunburst</Link></li>
+                        <li><Link to="/resultChartView">RESULTCHART</Link></li>
                     </ul>
                 </div>
             </nav>
