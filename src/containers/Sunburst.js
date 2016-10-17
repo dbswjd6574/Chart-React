@@ -1,6 +1,7 @@
 import React from 'react';
 import { SunburstChart, SunburstRight, DataNavigation } from 'components';
 import {  } from 'components';
+import ResultChartView from './ResultChartView';
 
 class Sunburst extends React.Component{
     render(){
@@ -11,7 +12,7 @@ class Sunburst extends React.Component{
                     <DataNavigation/>
                 </div>
                 <div>
-                    <SunburstRight/>
+                    <ResultChartView/>
                 </div>
             </div>
         );
