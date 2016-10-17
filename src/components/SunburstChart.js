@@ -18,7 +18,7 @@ class SunburstChart extends React.Component{
                 .style("fill", function(d) {
                     return color((d.children ? d : d.parent).name);
                 })
-                .on("click", zoom)
+                .on("click", clickChart)
                 .on("mouseover", function(d) {
                     tooltip.html(function() {
                         var text = '<b>' + d.name + '</b><br> (' + d.value + ')';
@@ -42,6 +42,86 @@ class SunburstChart extends React.Component{
                     .duration(750)
                     .attrTween("d", arcTween(d));
             }
+
+            var checkedNode = [];
+
+            function clickChart(d){
+                if(checkedNode && checkedNode.indexOf(d) >= 0){
+                    console.log("removeCheckedChild : " + d.name + ", checkedNode size :" + checkedNode.length);
+                    checkedNode = removeCheckedChild(checkedNode , d);
+
+                }else{
+                    console.log("checkedNode : " + d.name);
+                    checkedNode = getAncestors(checkedNode , d);
+                }
+
+                d3.selectAll("path").style("opacity" , 0.2);
+                d3.selectAll("path").filter(function(node) {
+                        return (checkedNode.indexOf(node) >= 0);
+                }).style("opacity", 1);
+            }
+
+            function uncheckChild(path , current){
+                if(current && current.children) {
+                    let children = current.children;
+                    for (let i = 0; i < children.length; i++) {
+                        let index = path.indexOf(children[i]);
+                        if(index != -1)
+                            path.splice(index, 1);
+                        uncheckChild(path , children[i]);
+                    }
+                }else{
+
+                }
+            }
+
+            function getAncestors(checkedNode , currentNode){
+                while (currentNode.parent) {
+                    console.log("currentNode : " + currentNode.name);
+
+                    let index = checkedNode.indexOf(currentNode);
+                    if(index == -1) {
+                        checkedNode.unshift(currentNode);
+                    }
+
+                    currentNode = currentNode.parent;
+                }
+                return checkedNode;
+            }
+
+            function removeCheckedChild(checkedNode , currentNode){
+                console.log("exist current node : " + currentNode.name);
+                checkedNode.splice(checkedNode.indexOf(currentNode), 1);
+                uncheckChild(checkedNode , currentNode);
+
+                return checkedNode;
+
+            }
+/*
+
+            function getAncestors(checkedNode , node) {
+                var current = node;
+                if(checkedNode.indexOf(current) >= 0){
+
+                    console.log("exist current node : " + current.name);
+                    path.splice(checkedNode.indexOf(current), 1);
+                    uncheckChild(checkedNode , current);
+
+                }else {
+                    while (current.parent) {
+                        let index = checkedNode.indexOf(current);
+                        if(index == -1) {
+                            checkedNode.unshift(current);
+                        }
+                      current = current.parent;
+                    }
+                }
+                return checkedNode;
+            }
+*/
+
+
+
         });
         var width = 700, height = 600, radius = Math.min(width, height) / 2;
 
