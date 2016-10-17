@@ -81,12 +81,8 @@ class ResultChartView extends React.Component{
         });
         return(
             <div>
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <div className="chartOpen"><RaisedButton label='GET DATA' onClick={this.handleLogin.bind(this)}/></div>
-                </MuiThemeProvider>
                 <div className="chartSelectButton"><ChartArea selectChart={this.changeChartType.bind(this)}/></div>
                 <ResultCenterArea keys={this.state.keys} xKey={this.state.xAxisKey} menuItem={jsonKeys} selectXKey={this.changeXAxisKey.bind(this)} selectYKey={this.changeKeys.bind(this)}chartType={this.state.chartType} data={jsonObject.DATA}/>
-
             </div>
         );
     }

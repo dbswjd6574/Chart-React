@@ -8,7 +8,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ChartTables from './ChartTables';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ChartIcon from 'material-ui/svg-icons/editor/insert-chart';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
 class ChartArea extends React.Component{
 
     constructor(props) {
@@ -31,7 +34,7 @@ class ChartArea extends React.Component{
             <div>
 
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <div className="chartOpen"><RaisedButton label='SELECT CHART' onClick={this.handleToggle.bind(this)}/></div>
+                    <div className="chartOpen"><IconButton onClick={this.handleToggle.bind(this)}><ChartIcon /></IconButton></div>
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <Drawer width={310} openSecondary={true} disableSwipeToOpen={true} open={this.state.open} >
