@@ -112,3 +112,15 @@ path {
     width: 800px;
     height: 100%
 }
+
+.logListSelector {
+    width: 140px;
+    margin-left: 10px;
+}
+
+.fieldList {
+    margin-bottom: 10px;
+}
+
+.leftArea {
+}

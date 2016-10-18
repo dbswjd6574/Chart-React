@@ -58,7 +58,7 @@ class ResultCenterArea extends React.Component{
     render(){
         let style ={
             float : "left",
-            width : "1400",
+            width : "1400px",
             marginLeft :"280px"
         };
 

@@ -1,0 +1,82 @@
+{
+  "datasetList": [
+    {
+      "_id": "580472442d01f286af9877c3",
+      "title": "구매로그",
+      "type_id": "5804abe92d01f286af9877c6",
+      "fields": [
+        {
+          "id": "paymenttype",
+          "name": "구매 타입"
+        },
+        {
+          "id": "time",
+          "name": "시간"
+        },
+        {
+          "id": "bill",
+          "name": "가격"
+        },
+        {
+          "id": "product_type",
+          "name": "상품 타입"
+        },
+        {
+          "id": "state",
+          "name": "구매 상태"
+        },
+        {
+          "id": "settop_id",
+          "name": "사용자"
+        },
+        {
+          "id": "menu_id",
+          "name": "상품 카테고리"
+        }
+      ],
+      "tables": [
+        "c7purchaselog",
+        "c3purchasedlog"
+      ]
+    },
+    {
+      "_id": "58048c4a2d01f286af9877c",
+      "title": "시청로그",
+      "type_id": "5804abe92d01f286af9877c6",
+      "fields": [
+        {
+          "id": "paymenttype",
+          "name": "구매 타입"
+        },
+        {
+          "id": "time",
+          "name": "시간"
+        },
+        {
+          "id": "bill",
+          "name": "가격"
+        },
+        {
+          "id": "product_type",
+          "name": "상품 타입"
+        },
+        {
+          "id": "state",
+          "name": "구매 상태"
+        },
+        {
+          "id": "settop_id",
+          "name": "사용자"
+        },
+        {
+          "id": "menu_id",
+          "name": "상품 카테고리"
+        }
+      ],
+      "tables": [
+        "c7purchaselog",
+        "c3purchasedlog"
+      ]
+    }
+  ]
+}

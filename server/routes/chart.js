@@ -114,4 +114,19 @@ router.post('/getData', (req, res) => {
     });*/
 });
 
+router.post('/dataset', (req, res) => {
+
+
+    request.get({url: 'http://localhost:3001/dataList.json'
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
 export default router;

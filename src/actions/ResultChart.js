@@ -10,11 +10,11 @@ export function dataRequest() {
         dispatch(request());
 
         // API REQUEST
-        return axios.post('/api/chart/getData')
+        return axios.post('/api/chart/dataset')
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS!');
-                const data = response.data.aggregations.arrays.buckets;
+                console.info('SUCCESS!', response);
+                const data = response.data;
                 dispatch(requestSuccess(data));
             }).catch((error) => {
                 // FAILED
@@ -32,7 +32,7 @@ export function request() {
 export function requestSuccess(response) {
     return {
         type: GET_DATA_SUCCESS,
-        data: response
+        data: response.datasetList
     };
 }
 

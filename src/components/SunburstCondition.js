@@ -4,6 +4,17 @@ import Select from 'react-select';
 import update from 'react-addons-update';
 import 'react-select/dist/react-select.css';
 
+import SelectCondition from './ResultChart/SelectCondition';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
@@ -11,7 +22,8 @@ class SunburstCondition extends React.Component{
         this.switchToMulti=this.switchToMulti.bind(this);
         this.state = {
             selectedValues : "",
-            check : false
+            check : false,
+            selectedField: []
         }
     }
     switchToMulti(event){
@@ -23,35 +35,59 @@ class SunburstCondition extends React.Component{
         //this.setState({selectedValues : newArray});
         this.setState({selectedValues : value});
     }
+    selectField(value){
+        console.log("selectedField: " + value);
+        console.log(this.state.selectedField);
+        let fieldList = this.state.selectedField;
+        fieldList.push(value);
+
+        //TODO request data for selectedField
+
+        this.setState({selectedField: fieldList});
+    }
     render(){
         let selectStyle = {
             width : "200px",
-            padding : "20px"
+            padding : "20px",
+            float: "left"
         };
         let divStyle = {
-            width : "800px",
+            width : "45%",
             backgroundColor : "#2E2E2E",
             height : "150px",
             marginTop :"30px",
+            marginLeft: "10px",
             position : "absolute",
-            top : "700px"
+            top : "750px"
         };
-        let selectOption = [{value:"양천", label:"양천"},{value:"경남", label:"경남"},{value:"해운대", label:"해운대"}];
+
+        let menuItems = [];
+        if (this.props.selectedData && this.props.selectedData != '') {
+            this.props.selectedData.fields.map((value, i)=>{
+                menuItems.push(<MenuItem key={i} primaryText={value.name} onClick={this.selectField.bind(this, value.name)}/>);
+            })
+        }
+
+        let selectOption = ["강남", "경동", "경남"];
         return(
-            <div>
+            <div className="leftArea">
                 <SunburstChart selectedValue={this.state.selectedValues}/>
+
                 <div style={divStyle}>
-                    <div style={selectStyle}>
-                        <Select multi name="지역"
-                                options={selectOption}
-                                onChange={this.selectChange}
-                                value={this.state.selectedValues}/>
+                    <div className="fieldList">
+                        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                            <IconMenu
+                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                >
+                                {menuItems}
+                            </IconMenu>
+                        </MuiThemeProvider>
                     </div>
-                    <div>
-                        {this.state.selectedValues.split(',').map((value)=>{
-                            return (<div><label><input type='radio' checked={this.state.multi} onChange={this.switchToMulti}/><span>{value}</span></label></div>);
-                        })}
-                    </div>
+                    {this.state.selectedField.map((value, i)=>{
+                        return (<SelectCondition key={i} option={selectOption}/>);
+                    })}
                 </div>
             </div>
         );
