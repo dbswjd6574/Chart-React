@@ -74,24 +74,51 @@ class SunburstChart extends React.Component{
                     return tooltip.style("opacity", 0);
                 });
             var g = svg.selectAll("g").data(partition.nodes(root)).enter().append("g");
+            //var rect = g.append("rect")
+            //    .style("fill", "#0000ff")
+            //    .style('fill-opacity', "0.3")
             var text = g.append("text")
-                .attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+                .attr("transform", function(d) {
+                    var multiline, angle, rotate, rotated;
+                    multiline = (d.name || '').split('  ').length > 1;
+                    angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90;
+                    rotate = angle + (multiline ? - 0.5 : 0);
+                    rotated = (angle > 90 ? - 180 : 0);
+                    //
+                    return ['rotate(', rotate, ')', //
+                        'translate(', y(d.y) + 10, ')', //
+                        'rotate(', rotated, ')'].join('');
+                })
+                .attr('text-anchor', function (d) {
+                    return x(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
+                })
                 .attr("x", function(d) { return y(d.y); })
-                .attr("dx", "6") // margin
                 .attr("dy", ".35em") // vertical-align
-                .attr("font-size", "11")
-                .text(function(d) { return d.name; });
+                .attr("font-size", "13");
 
+            text.append('tspan') //
+                .attr('x', 0) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[0] : '');
+                }) //
+                .append('tspan') //
+                .attr({
+                    'x': 0,
+                    'dy': '1em',
+                }) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[1] || '' : '');
+                });
 
-            function zoom(d) {
-                path.transition()
-                    .duration(750)
-                    .attrTween("d", arcTween(d));
-            }
-
-            function computeTextRotation(d) {
-                return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
-            }
+            //function zoom(d) {
+            //    path.transition()
+            //        .duration(750)
+            //        .attrTween("d", arcTween(d));
+            //}
+            //
+            //function computeTextRotation(d) {
+            //    return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+            //}
             var checkedNode = [];
 
             function clickChart(d){
@@ -147,20 +174,20 @@ class SunburstChart extends React.Component{
 
             }
         });
-        function arcTween(d) {
-            var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
-                yd = d3.interpolate(y.domain(), [d.y, 1]),
-                yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
-            return function(d, i) {
-                return i ? function(t) {
-                    return arc(d);
-                } : function(t) {
-                    x.domain(xd(t));
-                    y.domain(yd(t)).range(yr(t));
-                    return arc(d);
-                };
-            };
-        }
+        //function arcTween(d) {
+        //    var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+        //        yd = d3.interpolate(y.domain(), [d.y, 1]),
+        //        yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+        //    return function(d, i) {
+        //        return i ? function(t) {
+        //            return arc(d);
+        //        } : function(t) {
+        //            x.domain(xd(t));
+        //            y.domain(yd(t)).range(yr(t));
+        //            return arc(d);
+        //        };
+        //    };
+        //}
     }
     shouldComponentUpdate(nextProps, nextState){
         console.log("state :: ", this.state.path);
