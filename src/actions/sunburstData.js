@@ -6,7 +6,6 @@ export function requestSunburstData(){
         return axios.get('./sunburstData.json')
             .then((response) => {
                 // SUCCEED
-                console.info('getSunburstData Success!!', response);
                 let data = response;
                 dispatch(requestSuccess(data));
             }).catch((error) => {

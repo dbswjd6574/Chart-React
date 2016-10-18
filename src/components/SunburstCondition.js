@@ -26,7 +26,7 @@ class SunburstCondition extends React.Component{
             selectedValues : "",
             check : false,
             selectedField: [],
-            sunburstChartData : []
+            sunburstChartData : null
 
         }
     }
@@ -82,10 +82,15 @@ class SunburstCondition extends React.Component{
         }
 
         let selectOption = ["강남", "경동", "경남"];
+        let sunburstChart;
+        if(this.state.sunburstChartData){
+            sunburstChart = <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
+        } else {
+            sunburstChart = ""
+        }
         return(
             <div className="leftArea">
-                <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
-
+                {sunburstChart}
                 <div style={divStyle}>
                     <div className="fieldList">
                         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>

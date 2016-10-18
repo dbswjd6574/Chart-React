@@ -11,7 +11,6 @@ export default function sunburstData(state, action){
     if(typeof state === "undefined"){
         state = initialState;
     }
-    console.log("actionsType", action.type);
     switch (action.type){
         case types.GET_DATA_SUCCESS:
             console.log("acton.data :: ",action.data.data);
