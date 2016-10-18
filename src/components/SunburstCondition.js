@@ -14,6 +14,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { connect } from 'react-redux';
+import { requestSunburstData } from 'actions/sunburstData';
 
 class SunburstCondition extends React.Component{
     constructor(props){
@@ -23,8 +25,19 @@ class SunburstCondition extends React.Component{
         this.state = {
             selectedValues : "",
             check : false,
-            selectedField: []
+            selectedField: [],
+            sunburstChartData : []
+
         }
+    }
+    componentDidMount(){
+        this.props.requestSunburstData().then(
+            ()=>{
+                //console.log("requestData ", this.props.sunburstData.data);
+                let data = this.props.sunburstData.data;
+                this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : data})});
+            }
+        );
     }
     switchToMulti(event){
 
@@ -71,7 +84,7 @@ class SunburstCondition extends React.Component{
         let selectOption = ["강남", "경동", "경남"];
         return(
             <div className="leftArea">
-                <SunburstChart selectedValue={this.state.selectedValues}/>
+                <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
 
                 <div style={divStyle}>
                     <div className="fieldList">
@@ -94,4 +107,19 @@ class SunburstCondition extends React.Component{
     }
 }
 
-export default SunburstCondition;
+const mapStateToProps = (props) => {
+    //console.log("mapStateToProps", props);
+    return {
+        sunburstData: props.sunburstData.sunburstData
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        requestSunburstData: () => {
+            return dispatch(requestSunburstData());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SunburstCondition);
