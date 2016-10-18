@@ -2,6 +2,11 @@ import React from 'react';
 
 
 var jsonObject;
+var x0;
+var dx0;
+var arc;
+var partition;
+var text;
 
 class SunburstChart extends React.Component{
     constructor(props){
@@ -10,6 +15,7 @@ class SunburstChart extends React.Component{
             path : null
         }
     }
+
     componentDidMount(){
         console.log("sunburstChartData", this.props.sunburstChartData);
         var width = 700, height = 600, radius = Math.min(width, height) / 2;
@@ -25,9 +31,9 @@ class SunburstChart extends React.Component{
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
-        var partition = d3.layout.partition();
+        partition = d3.layout.partition();
 
-        var arc = d3.svg.arc()
+        arc = d3.svg.arc()
             .startAngle(function(d) {
                 return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
             })
@@ -67,7 +73,7 @@ class SunburstChart extends React.Component{
             d3.select(this).classed("dragging", false);
         }
 
-        var path = svg.selectAll("path")
+        this.path = svg.selectAll("path")
             .data(partition.nodes(this.props.sunburstChartData))
             .enter().append("path")
             .attr("d", arc)
@@ -76,6 +82,10 @@ class SunburstChart extends React.Component{
             })
             .style("cursor", "move")
             .on("click", clickChart)
+            .each(function(d) {
+                x0 = d.x;
+                dx0 = d.dx;
+            })
             .call(drag);
         var g = svg.selectAll("g").data(partition.nodes(this.props.sunburstChartData)).enter().append("g");
         //.on("mouseover", function(d) {
@@ -106,7 +116,7 @@ class SunburstChart extends React.Component{
         //var rect = g.append("rect")
         //    .style("fill", "#0000ff")
         //    .style('fill-opacity', "0.3")
-        var text = g.append("text")
+        text = g.append("text")
             .attr("transform", function(d) {
                 var multiline, angle, rotate, rotated;
                 multiline = (d.name || '').split('  ').length > 1;
@@ -218,9 +228,24 @@ class SunburstChart extends React.Component{
         //}
     }
     shouldComponentUpdate(nextProps, nextState){
-        return !(JSON.stringify(nextProps.sunburstChartData) === JSON.stringify(this.props.sunburstChartData));
+        return !(nextProps.sunburstChartData === this.props.sunburstChartData);
     }
     componentWillUpdate(nextProps, nextState){
+        this.path.data(partition.nodes(nextProps.sunburstChartData))
+            .transition()
+            .duration(750)
+            .attrTween("d", arcTweenUpdate)
+            ;
+
+        function arcTweenUpdate(a) {
+            var i = d3.interpolate({x: x0, dx: dx0}, a);
+            return function(t) {
+                var b = i(t);
+                x0 = b.x;
+                dx0 = b.dx;
+                return arc(b);
+            };
+        }
         console.log("nextProps :: ", nextProps.sunburstChartData);
     }
 

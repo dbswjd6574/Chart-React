@@ -17,23 +17,31 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { connect } from 'react-redux';
 import { requestSunburstData } from 'actions/sunburstData';
 
+var transformed_json = {
+    name: "DMC",
+    children: [{ name: "test1", value: 100}, { name : "test2", value: 900} ]
+};
+
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
         this.selectChange=this.selectChange.bind(this);
         this.switchToMulti=this.switchToMulti.bind(this);
+        this.buttonClick=this.buttonClick.bind(this);
         this.state = {
             selectedValues : "",
             check : false,
             selectedField: [],
             sunburstChartData : null
-
         }
+    }
+    buttonClick(){
+        console.log("buttonClick");
+        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : transformed_json})});
     }
     componentDidMount(){
         this.props.requestSunburstData().then(
             ()=>{
-                //console.log("requestData ", this.props.sunburstData.data);
                 let data = this.props.sunburstData.data;
                 this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : data})});
             }
@@ -55,7 +63,6 @@ class SunburstCondition extends React.Component{
         fieldList.push(value);
 
         //TODO request data for selectedField
-
         this.setState({selectedField: fieldList});
     }
     render(){
@@ -90,6 +97,7 @@ class SunburstCondition extends React.Component{
         }
         return(
             <div className="leftArea">
+                <button onClick={this.buttonClick}>TEst</button>
                 {sunburstChart}
                 <div style={divStyle}>
                     <div className="fieldList">
@@ -113,7 +121,6 @@ class SunburstCondition extends React.Component{
 }
 
 const mapStateToProps = (props) => {
-    //console.log("mapStateToProps", props);
     return {
         sunburstData: props.sunburstData.sunburstData
     };
