@@ -114,6 +114,7 @@ path {
 .logListSelector {
     width: 140px;
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .fieldList {
@@ -149,7 +150,7 @@ path {
     min-width: 300px;
     height: auto;
     min-height: 1000px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.2);
     position: absolute;
     top: 50px;
     left: 10px;
@@ -163,7 +164,7 @@ path {
     min-width: 300px;
     height: auto;
     min-height: 1000px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.2);
     position: absolute;
     top: 50px;
     right: 10px;
@@ -171,9 +172,15 @@ path {
 }
 
 .filterArea {
-    width : 95%;
-    height : 150px;
+    width : 99%;
+    height : auto;
     margin: 5px 1px 5px 15px;
+    background-color: rgba(0,0,0,0.3);
+    min-height: 200px;
+    min-width: 300px;
+    position: relative;
+    top: 10px;
+    left:0px;
 }
 
 .sunburstChart {
@@ -185,7 +192,7 @@ path {
 .fieldArea {
     position: absolute;
     top: 750px;
-    width: 50%;
+    width: 93%;
     height: 200px;
 }
 

@@ -14,18 +14,14 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import ModeComment from 'material-ui/svg-icons/editor/mode-comment';
 import { connect } from 'react-redux';
 import { requestSunburstData } from 'actions/sunburstData';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CircularProgress from 'material-ui/CircularProgress';
-
-var transformed_json = {
-    name: "DMC",
-    children: [{ name: "test1", children: [{name:"textChildren1", value : 30}, {name:"textChildren2", value : 10}]}, { name : "test2", value: 900} ]
-};
-
+import Subheader from 'material-ui/Subheader';
 let fieldListInfo = {
     "so_id": [
         {"key": "52", title: "양천"},
@@ -65,20 +61,11 @@ let fieldListInfo = {
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
-        this.buttonClick=this.buttonClick.bind(this);
         this.state = {
-            selectedValues : "",
-            check : false,
             selectedFieldData: [],
             query: [],
-            selectedFieldQuery:[],
-            sunburstChartData : transformed_json
+            selectedFieldQuery:[]
         }
-    }
-    buttonClick(){
-        //TODO DELETE
-        console.log("buttonClick");
-        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
     }
 
     componentDidMount(){
@@ -92,6 +79,16 @@ class SunburstCondition extends React.Component{
         let query = this.state.query;
         let selectedFieldData = this.state.selectedFieldData;
         let selectedFieldQuery = this.state.selectedFieldQuery;
+
+        if (selectedFieldQuery && selectedFieldQuery.length > 0) {
+            for (let i = 0; i < selectedFieldQuery.length; i++) {
+                if (selectedFieldQuery[i].key == value.id) {
+                    console.log('do not click twice');
+                    return;
+                }
+            }
+        }
+
         selectedFieldQuery.push({"key": value.id, "value": null});
 
         let fieldInfo = fieldListInfo[value.id];
@@ -104,8 +101,9 @@ class SunburstCondition extends React.Component{
         query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
         selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
         console.log('query:' , query);
-        this.setState({"query": query, "selectedFieldData": selectedFieldData});
+        this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
 
+        console.log('selectFields selectedFieldQuery', selectedFieldQuery);
         this.props.requestQueryData(query);
     }
 
@@ -122,32 +120,70 @@ class SunburstCondition extends React.Component{
                 break;
             }
         }
+        console.log('selectOptions selectedFieldQuery', selectedField);
         this.setState({"selectedFieldQuery": selectedField});
+    }
+
+    deleteCondition(fieldId) {
+        //TODO CONDITIN DELETE; state 재정의 후 queryRequest 호출하여 데이터 받아온다.
+        let query = this.state.query;
+        let selectedFieldData = this.state.selectedFieldData;
+        let selectedFieldQuery = this.state.selectedFieldQuery;
+
+
+        const fieldQueryToDelete = selectedFieldQuery.map((fieldQuery) => fieldQuery.key).indexOf(fieldId);
+        selectedFieldQuery.splice(fieldQueryToDelete, 1);
+
+        const fieldToDelete = selectedFieldData.map((field) => field.key).indexOf(fieldId);
+        selectedFieldData.splice(fieldToDelete, 1);
+
+        const queryToDelete = query.map((query) => query.key).indexOf(fieldId);
+        query.splice(queryToDelete, 1);
+
+        this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
+
+        console.log('deleteCondition selectedFieldQuery', selectedFieldQuery);
+        console.log('deleteCondition query', query);
+        console.log('deleteCondition selectedFieldData', selectedFieldData);
+        if (query && query.length > 0) {
+            this.props.requestQueryData(query);
+        }
+
     }
 
     render(){
 
         let fieldList = [];
         if (this.props.conditionList && this.props.conditionList != '') {
+
+
             fieldList = this.props.conditionList.fields;
         }
 
         let sunburstChart;
-        if(this.state.sunburstChartData){
-            sunburstChart = <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
+        if(this.props.sunburstChartData){
+            sunburstChart = <SunburstChart totalCount={this.props.totalCount} selectedValue={this.state.selectedFieldQuery} sunburstChartData={this.props.sunburstChartData}/>
         } else {
             sunburstChart = ""
         }
 
+        let loadingBar;
+        if (this.props.isRequesting){
+            loadingBar = <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}><CircularProgress /></MuiThemeProvider>;
+        } else {
+            loadingBar="";
+        }
+
+
         return(
             <div>
-                <button onClick={this.buttonClick}>TEst</button>
                 {sunburstChart}
+                {loadingBar}
                 <div className="fieldArea">
                     <div className="fieldList">
                         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                             <IconMenu
-                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                                iconButtonElement={<IconButton><ModeComment /></IconButton>}
                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 >
@@ -159,7 +195,7 @@ class SunburstCondition extends React.Component{
                     </div>
                     <div className="filterArea">
                         {this.state.selectedFieldData.map((value, i)=>{
-                            return (<SelectCondition key={i} title={value.title} fieldId={value.key} option={value.fieldList} selectOption={this.selectOption.bind(this)} />);
+                            return (<SelectCondition key={i} title={value.title} fieldId={value.key} option={value.fieldList} selectOption={this.selectOption.bind(this)} deleteCondition={this.deleteCondition.bind(this)} />);
                         })}
                     </div>
                 </div>
@@ -168,18 +204,4 @@ class SunburstCondition extends React.Component{
     }
 }
 
-const mapStateToProps = (props) => {
-    return {
-        sunburstData: props.sunburstData.sunburstData
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        requestSunburstData: () => {
-            return dispatch(requestSunburstData());
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SunburstCondition);
+export default SunburstCondition;

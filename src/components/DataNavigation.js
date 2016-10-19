@@ -5,7 +5,7 @@ import update from 'react-addons-update';
 import 'react-select/dist/react-select.css';
 
 import { connect } from 'react-redux';
-import { datasetListRequest, logDataRequest, fieldListRequest, statusRequest, queryRequest } from 'actions/ResultChart';
+import { datasetListRequest, fieldListRequest, statusRequest, queryRequest, totalCountRequest } from 'actions/ResultChart';
 
 class DataNavigation extends React.Component{
 
@@ -14,13 +14,15 @@ class DataNavigation extends React.Component{
         this.selectChange=this.selectChange.bind(this);
         this.requestStatus = this.requestStatus.bind(this);
         this.setQueryData = this.setQueryData.bind(this);
+        this.requestTotalCount = this.requestTotalCount.bind(this);
         this.state = {
             datasetList: [],
             logList: [],
             selectedValues : "",
             conditions: null,
-            logData: null,
-            sunburstData: {}
+            sunburstData: {},
+            totalCount: "",
+            isRequesting: false
         }
     }
 
@@ -53,7 +55,33 @@ class DataNavigation extends React.Component{
 
             this.setState({selectedValues : value, conditions: conditionList});
 
+            this.query = {
+                "key": conditionList.key,
+                "tables": conditionList.tables,
+                "sessionid": (new Date).getTime(),
+                "query":[]
+            };
+            this.props.queryRequest(this.query).then(
+                () => {
+                    this.setState({"isRequesting": true});
+                    this.timer = setInterval(this.requestTotalCount, 500);
+                }
+            );
         }
+    }
+
+    requestTotalCount() {
+        this.props.totalCountRequest(this.query).then(
+            () => {
+                let data = this.props.totalCount;
+                if (data && data.jobstate) {
+                    console.info('...polling..');
+                } else {
+                    clearInterval(this.timer);
+                    this.setState({"isRequesting": false, "totalCount": data.value});
+                }
+            }
+        );
     }
 
     requestData(query) {
@@ -66,7 +94,8 @@ class DataNavigation extends React.Component{
 
         this.props.queryRequest(this.query).then(
             () => {
-                this.timer = setInterval(this.requestStatus, 2000);
+                this.setState({"isRequesting": true});
+                this.timer = setInterval(this.requestStatus, 500);
             }
         );
     }
@@ -81,11 +110,11 @@ class DataNavigation extends React.Component{
 
     setQueryData(data) {
         if (data && data.jobstate) {
-            console.log('jobstate');
+            console.info('...polling..');
         } else {
             console.log('data success???', data);
             clearInterval(this.timer);
-            this.setState({"sunburstData": data});
+            this.setState({"isRequesting": false, "sunburstData": data});
             //TODO queryRequest의 response data 파싱
         }
     }
@@ -100,32 +129,30 @@ class DataNavigation extends React.Component{
                             onChange={this.selectChange}
                             value={this.state.selectedValues}/>
                 </div>
-                <SunburstCondition sunburstChartData={this.state.sunburstData} conditionList={this.state.conditions} requestQueryData={this.requestData.bind(this)}/>
+                <SunburstCondition isRequesting={this.state.isRequesting}
+                                   totalCount={this.state.totalCount}
+                                   sunburstChartData={this.state.sunburstData}
+                                   conditionList={this.state.conditions}
+                                   requestQueryData={this.requestData.bind(this)} />
             </div>
         );
     }
 }
 
-
 const mapStateToProps = (props) => {
-    console.log('mapStateToProps', props);
     return {
         datasetList: props.dataset.datasetList,
-        logData: props.dataset.logData,
         fieldList: props.dataset.fieldList,
         sessionid: props.dataset.sessionid,
-        queryData: props.dataset.queryData
+        queryData: props.dataset.queryData,
+        totalCount: props.dataset.totalCount
     };
-
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         datasetListRequest: () => {
             return dispatch(datasetListRequest());
-        },
-        logDataRequest: (id, table) => {
-            return dispatch(logDataRequest(id, table));
         },
         fieldListRequest: (query) => {
             return dispatch(fieldListRequest(query));
@@ -135,6 +162,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         queryRequest: (query) => {
             return dispatch(queryRequest(query));
+        },
+        totalCountRequest: (query) => {
+            return dispatch(totalCountRequest(query));
         }
 
     };

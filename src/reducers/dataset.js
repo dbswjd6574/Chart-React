@@ -6,10 +6,10 @@ import update from 'react-addons-update';
 
 const initialState = {
     datasetList: "",
-    logData: "",
     fieldList: "",
     sessionid: "",
-    queryData: ""
+    queryData: "",
+    totalCount: ""
 };
 
 export default function dataset(state, action) {
@@ -17,9 +17,6 @@ export default function dataset(state, action) {
         state = initialState;
 
     switch(action.type) {
-        case types.GET_DATA_SET_LIST:
-            return update(state, {
-            });
         case types.GET_DATA_SET_LIST_SUCCESS:
             return update(state, {
                 datasetList: {
@@ -31,26 +28,6 @@ export default function dataset(state, action) {
                 datasetList: {
                     $set: {}
                 }
-            });
-
-        case types.GET_LOG_DATA:
-            return update(state, {
-            });
-        case types.GET_LOG_DATA_SUCCESS:
-            return update(state, {
-                logData: {
-                    $set: action.data
-                }
-            });
-        case types.GET_LOG_DATA_FAILURE:
-            return update(state, {
-                logData: {
-                    $set: {}
-                }
-            });
-
-        case types.GET_FIELD_LIST:
-            return update(state, {
             });
         case types.GET_FIELD_LIST_SUCCESS:
             return update(state, {
@@ -64,11 +41,7 @@ export default function dataset(state, action) {
                     $set: {}
                 }
             });
-        case types.GET_STATUS:
-            return update(state, {
-            });
         case types.GET_SESSION_ID_SUCCESS:
-            console.log('reducer', action.data);
             return update(state, {
                 sessionid: {
                     $set: action.data
@@ -81,7 +54,6 @@ export default function dataset(state, action) {
                 }
             });
         case types.QUERY_SUCCESS:
-            console.log("query success :: ",action.data);
             return update(state, {
                 queryData: {
                     $set: action.data
@@ -90,6 +62,18 @@ export default function dataset(state, action) {
         case types.QUERY_FAILURE:
             return update(state, {
                 queryData: {
+                    $set: {}
+                }
+            });
+        case types.GET_TOTAL_COUNT_SUCCESS:
+            return update(state, {
+                totalCount: {
+                    $set: action.data
+                }
+            });
+        case types.GET_TOTAL_COUNT_FAILURE:
+            return update(state, {
+                totalCount: {
                     $set: {}
                 }
             });
