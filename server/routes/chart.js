@@ -75,7 +75,7 @@ router.post('/getData', (req, res) => {
 });
 
 router.post('/datasetList', (req, res) => {
-    request.post({url: 'http://172.16.33.156:8080/sea/datasetList'
+    request.post({url: 'http://172.16.33.216:3001/datasetList'
         }, function(error, response, body) {
             if (error) {
                 console.error('error: ', error);
