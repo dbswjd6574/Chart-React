@@ -81,13 +81,13 @@ class ResultCenterArea extends React.Component{
 
         let tableStyle = {
             width : "98%",
-            'margin-left' : "10px",
+            'marginLeft' : "10px",
             position:"absolute",
             top:"620px"
         };
         let selectStyle ={
             width : "90%",
-            'margin-left' : "30px",
+            'marginLeft' : "30px",
             display : "inline-block",
             color : "white"
         };

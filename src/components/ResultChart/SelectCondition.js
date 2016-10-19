@@ -90,12 +90,12 @@ class SelectCondition extends React.Component{
 
         return(
             <div style={selectStyle}>
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <MuiThemeProvider key={this.props.fieldId} muiTheme={getMuiTheme(darkBaseTheme)}>
                     <IconButton onClick={this.removeCondition.bind(this, this.props.fieldId)} iconStyle={styles.smallIcon}
                                 style={styles.small}><Clear /></IconButton>
                 </MuiThemeProvider>
                 {this.props.title}
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <MuiThemeProvider key={this.props.title} muiTheme={getMuiTheme(darkBaseTheme)}>
                     <DropDownMenu value="" onChange={this.handleChange}>
                         {fieldList.map((value, i)=>{
                             return (<MenuItem key={value.title} primaryText={value.title} onClick={this.selectField.bind(this, value)}/>);
