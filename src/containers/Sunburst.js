@@ -7,11 +7,10 @@ class Sunburst extends React.Component{
     render(){
         return(
             <div>
-                <div>
-                    <br/>
+                <div className="leftZone">
                     <DataNavigation/>
                 </div>
-                <div>
+                <div className="rightZone">
                     <ResultChartView/>
                 </div>
             </div>
