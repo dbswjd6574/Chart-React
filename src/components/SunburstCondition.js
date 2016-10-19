@@ -15,6 +15,10 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+import RaisedButton from 'material-ui/RaisedButton';
+
+import CircularProgress from 'material-ui/CircularProgress';
+
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
@@ -36,14 +40,10 @@ class SunburstCondition extends React.Component{
         this.setState({selectedValues : value});
     }
     selectField(value){
-        console.log("selectedField: " + value);
-        console.log(this.state.selectedField);
-        let fieldList = this.state.selectedField;
-        fieldList.push(value);
-
         //TODO request data for selectedField
-
-        this.setState({selectedField: fieldList});
+        let selectedField = this.state.selectedField;
+        selectedField.push({"name": value.name});
+        this.setState({"selectedField": selectedField});
     }
     render(){
         let selectStyle = {
@@ -61,34 +61,47 @@ class SunburstCondition extends React.Component{
             top : "750px"
         };
 
-        let menuItems = [];
+        let fieldList = [];
         if (this.props.selectedData && this.props.selectedData != '') {
-            this.props.selectedData.fields.map((value, i)=>{
-                menuItems.push(<MenuItem key={i} primaryText={value.name} onClick={this.selectField.bind(this, value.name)}/>);
-            })
+            fieldList = this.props.selectedData.fields;
+        }
+
+        let selectedFieldList = [];
+        if (this.props.selectedFieldList && this.props.selectedFieldList != '') {
+            selectedFieldList = this.props.selectedFieldList;
         }
 
         let selectOption = ["강남", "경동", "경남"];
         return(
-            <div className="leftArea">
+            <div>
                 <SunburstChart selectedValue={this.state.selectedValues}/>
-
-                <div style={divStyle}>
-                    <div className="fieldList">
-                        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                            <IconMenu
-                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                >
-                                {menuItems}
-                            </IconMenu>
-                        </MuiThemeProvider>
-                    </div>
+                <div className="fieldArea">
+                <div className="fieldList">
+                    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                        <IconMenu
+                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                            >
+                            {fieldList.map((value, i)=>{
+                                return(<MenuItem key={i} primaryText={value.name} value={value.id} onClick={this.selectField.bind(this, value)}/>);
+                            })}
+                        </IconMenu>
+                    </MuiThemeProvider>
+                </div>
+                <div className="filterArea">
                     {this.state.selectedField.map((value, i)=>{
-                        return (<SelectCondition key={i} option={selectOption}/>);
+                        return (<SelectCondition key={i} title={value.name} option={selectOption}/>);
                     })}
                 </div>
+            </div>
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                    <RaisedButton label='RUN!'/>
+                </MuiThemeProvider>
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                    <CircularProgress size={1} thickness={7} />
+                </MuiThemeProvider>
+
             </div>
         );
     }

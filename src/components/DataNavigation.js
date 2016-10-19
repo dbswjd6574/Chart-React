@@ -5,7 +5,7 @@ import update from 'react-addons-update';
 import 'react-select/dist/react-select.css';
 
 import { connect } from 'react-redux';
-import { dataRequest } from 'actions/ResultChart';
+import { datasetListRequest, logDataRequest, fieldListRequest } from 'actions/ResultChart';
 
 class DataNavigation extends React.Component{
 
@@ -14,23 +14,23 @@ class DataNavigation extends React.Component{
         this.selectChange=this.selectChange.bind(this);
         this.state = {
             datasetList: [],
-            chartOptions: [],
+            logList: [],
             selectedValues : "",
-            selectedData: null
+            conditions: null,
+            logData: null,
+            selectedFieldList: null
         }
     }
 
     componentDidMount() {
         //TODO /DataSet
-        return this.props.dataRequest().then(
+        this.props.datasetListRequest().then(
             () => {
-                console.info('handleLogin', this.props.datasetList);
-                let chartOption = [];
+                let logList = [];
                 $.each(this.props.datasetList, (key, value)=>{
-                    chartOption.push({value:value._id, label: value.title});
+                    logList.push({value:value._id, label: value.title});
                 });
-                console.log(chartOption);
-                this.setState({datasetList: this.props.datasetList, chartOptions: chartOption});
+                this.setState({datasetList: this.props.datasetList, logList: logList});
             }
         );
     }
@@ -47,24 +47,46 @@ class DataNavigation extends React.Component{
             }
 
             //TODO /DataSet/id:GET
+            this.props.logDataRequest(value, selectedFieldList.tables).then(
+                () => {
+                    console.log('dataResult', this.props.logData);
+                }
+            );
 
-            this.setState({selectedValues : value, selectedData: selectedFieldList});
+            this.setState({selectedValues : value, conditions: selectedFieldList});
 
 
         }
     }
 
+    requestFieldList(field) {
+        return this.props.fieldListRequest(this.state.conditions._id, this.state.conditions.tables, field.id).then(
+            () => {
+                console.log('dataResult', this.props.fieldList);
+                console.log("selectedField: " + value);
+                console.log(this.state.selectedField);
+                let selectedFieldList = this.state.selectedFieldList;
+                if (selectedFieldList == null) {
+                    selectedFieldList = {id: field.id, name: field.name, fields: this.props.fieldList}
+                } else {
+                    selectedFieldList.push({id: field.id, name: field.name, fields: this.props.fieldList});
+                }
+                this.setState({selectedFieldList: selectedFieldList})
+            }
+        );
+    }
+
     render(){
 
         return(
-            <div>
+            <div className="leftArea">
                 <div className="logListSelector">
                     <Select name="LogList"
-                            options={this.state.chartOptions}
+                            options={this.state.logList}
                             onChange={this.selectChange}
                             value={this.state.selectedValues}/>
                 </div>
-                <SunburstCondition selectedData={this.state.selectedData}/>
+                <SunburstCondition selectedData={this.state.conditions} getFieldList={this.requestFieldList.bind(this)}/>
             </div>
         );
     }
@@ -74,15 +96,23 @@ class DataNavigation extends React.Component{
 const mapStateToProps = (props) => {
     console.log('mapStateToProps', props);
     return {
-        datasetList: props.dataset.datasetList
+        datasetList: props.dataset.datasetList,
+        logData: props.dataset.logData,
+        fieldList: props.dataset.fieldList
     };
 
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        dataRequest: () => {
-            return dispatch(dataRequest());
+        datasetListRequest: () => {
+            return dispatch(datasetListRequest());
+        },
+        logDataRequest: (id, table) => {
+            return dispatch(logDataRequest(id, table));
+        },
+        fieldListRequest: (id, table, fieldId) => {
+            return dispatch(fieldListRequest(id, table, fieldId));
         }
     };
 };

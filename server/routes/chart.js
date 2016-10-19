@@ -115,7 +115,9 @@ router.post('/getData', (req, res) => {
 });
 
 router.post('/dataset', (req, res) => {
+    let requestBody = req.body;
 
+    console.log('requestBody', requestBody);
 
     request.get({url: 'http://localhost:3001/dataList.json'
         }, function(error, response, body) {
@@ -127,6 +129,66 @@ router.post('/dataset', (req, res) => {
             return res.send(JSON.parse(body));
         }
     );
+});
+
+router.post('/logData', (req, res) => {
+
+
+    request.get({url: 'http://localhost:3001/countLogData.json'
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
 
 });
+
+router.post('/fieldList', (req, res) => {
+
+    let requestBody = req.body;
+
+    console.log('requestBody', requestBody);
+    request.post({url: 'http://localhost:3001/fieldList',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body:JSON.stringify(requestBody)
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
+
+router.post('/status', (req, res) => {
+
+    let requestBody = req.body;
+
+    console.log('requestBody', requestBody);
+    request.post({url: 'http://localhost:3001/fieldList',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body:JSON.stringify(requestBody)
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
+
 export default router;
