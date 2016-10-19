@@ -1,6 +1,7 @@
 import React from 'react';
 
-
+var x0;
+var dx0;
 class SunburstChart extends React.Component{
     constructor(props){
         super(props);
@@ -15,8 +16,15 @@ class SunburstChart extends React.Component{
         let x = d3.scale.linear().range([0, 2 * Math.PI]);
         let y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
 
-        let color = d3.scale.category20();
-
+        let colorArray = ["#cf7974",
+            "#f98772",
+            "#c5ecd7",
+            "#ceff6d",
+            "#fefc6e",
+            "#fbd875",
+            "#66ff66",
+            "#91ff71"];
+        let color = d3.scale.ordinal().range(colorArray);
         let svg = d3.select("#chart").append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -65,23 +73,25 @@ class SunburstChart extends React.Component{
             .style("fill", function(d) {
                 return color((d.children ? d : d.parent).name);
             })
+            .style("stroke", "black")
+            .style("stroke-width", 2)
             .each(stash)
             .style("cursor", "move")
             .on("click", clickChart)
             .call(drag);
 
         path.transition()
-            .duration(750)
+            .duration(300)
             .attrTween("d", arcTween);
 
 
         function stash(d) {
-            d.x0 = d.x;
-            d.dx0 = d.dx;
+            x0 = d.x;
+            dx0 = d.dx;
         }
 
         function arcTween(a) {
-            var i = d3.interpolate({x: a.x0, dx: a.dx0}, a);
+            var i = d3.interpolate({x: x0, dx: dx0}, a);
             return function(t) {
                 var b = i(t);
                 a.x0 = b.x;
@@ -90,40 +100,42 @@ class SunburstChart extends React.Component{
             };
         }
 
-        let g = svg.selectAll("g").data(partition.nodes(data)).enter().append("g");
+        setTimeout(function(){
+            let g = svg.selectAll("g").data(partition.nodes(data)).enter().append("g");
 
-        g.append("text")
-            .attr("transform", function(d) {
-                var multiline, angle, rotate, rotated;
-                multiline = (d.name || '').split('  ').length > 1;
-                angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90;
-                rotate = angle + (multiline ? - 0.5 : 0);
-                rotated = (angle > 90 ? - 180 : 0);
-                //
-                return ['rotate(', rotate, ')', //
-                    'translate(', y(d.y) + 10, ')', //
-                    'rotate(', rotated, ')'].join('');
-            })
-            .attr('text-anchor', function (d) {
-                return x(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
-            })
-            .attr("x", function(d) { return y(d.y); })
-            .attr("dy", ".35em") // vertical-align
-            .attr("font-size", "17")
-            .style("fill", "white")
-            .append('tspan') //
-            .attr('x', 0) //
-            .text(function (d) {
-                return (d.depth ? d.name.split('  ')[0] : '');
-            }) //
-            .append('tspan') //
-            .attr({
-                'x': 0,
-                'dy': '1em'
-            }) //
-            .text(function (d) {
-                return (d.depth ? d.name.split('  ')[1] || '' : '');
-            });
+            g.append("text")
+                .attr("transform", function(d) {
+                    var multiline, angle, rotate, rotated;
+                    multiline = (d.name || '').split('  ').length > 1;
+                    angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90;
+                    rotate = angle + (multiline ? - 0.5 : 0);
+                    rotated = (angle > 90 ? - 180 : 0);
+                    //
+                    return ['rotate(', rotate, ')', //
+                        'translate(', y(d.y) + 10, ')', //
+                        'rotate(', rotated, ')'].join('');
+                })
+                .attr('text-anchor', function (d) {
+                    return x(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
+                })
+                .attr("x", function(d) { return y(d.y); })
+                .attr("dy", ".35em") // vertical-align
+                .attr("font-size", "13")
+                .style("fill", "black")
+                .append('tspan') //
+                .attr('x', 0) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[0] : '');
+                }) //
+                .append('tspan') //
+                .attr({
+                    'x': 0,
+                    'dy': '1em'
+                }) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[1] || '' : '');
+                });
+        }, 350);
 
         let checkedNode = [];
 
@@ -139,6 +151,10 @@ class SunburstChart extends React.Component{
 
             d3.selectAll("path").style("opacity" , 0.2);
             d3.selectAll("path").filter(function(node) {
+                return (checkedNode.indexOf(node) >= 0);
+            }).style("opacity", 1);
+            d3.selectAll("text").style("opacity" , 0.2);
+            d3.selectAll("text").filter(function(node) {
                 return (checkedNode.indexOf(node) >= 0);
             }).style("opacity", 1);
         }
