@@ -19,7 +19,7 @@ import { requestSunburstData } from 'actions/sunburstData';
 
 var transformed_json = {
     name: "DMC",
-    children: [{ name: "test1", value: 100}, { name : "test2", value: 900} ]
+    children: [{ name: "test1", children: [{name:"textChildren1", value : 30}, {name:"textChildren2", value : 10}]}, { name : "test2", value: 900} ]
 };
 
 class SunburstCondition extends React.Component{
@@ -37,13 +37,13 @@ class SunburstCondition extends React.Component{
     }
     buttonClick(){
         console.log("buttonClick");
-        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : transformed_json})});
+        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
     }
     componentDidMount(){
         this.props.requestSunburstData().then(
             ()=>{
-                let data = this.props.sunburstData.data;
-                this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : data})});
+                this.data = this.props.sunburstData.data;
+                this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : transformed_json})});
             }
         );
     }
