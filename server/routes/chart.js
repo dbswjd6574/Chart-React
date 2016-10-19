@@ -78,36 +78,30 @@ router.post('/datasetList', (req, res) => {
     request.post({url: 'http://172.16.33.216:3001/datasetList'
         }, function(error, response, body) {
             if (error) {
-                console.error('error: ', error);
+                return res.send(JSON.parse(error));
             } else {
-                console.info('success', body);
+                return res.send(JSON.parse(body));
             }
-            return res.send(JSON.parse(body));
         }
     );
 });
 
 router.post('/logData', (req, res) => {
-
-
     request.post({url: 'http://localhost:3001/countLogData.json'
         }, function(error, response, body) {
             if (error) {
-                console.error('error: ', error);
+                return res.send(JSON.parse(error));
             } else {
-                console.info('success', body);
+                return res.send(JSON.parse(body));
             }
-            return res.send(JSON.parse(body));
+
         }
     );
-
 });
 
 router.post('/fieldList', (req, res) => {
 
     let requestBody = req.body;
-
-    console.log('requestBody', requestBody);
     request.post({url: 'http://172.16.33.216:3001/fieldList',
             headers: {
                 'content-type': 'application/json; charset=UTF-8'
@@ -115,21 +109,18 @@ router.post('/fieldList', (req, res) => {
             body:JSON.stringify(requestBody)
         }, function(error, response, body) {
             if (error) {
-                console.error('error: ', error);
+                return res.send(JSON.parse(error));
             } else {
-                console.info('success', body);
+                return res.send(JSON.parse(body));
             }
-            return res.send(JSON.parse(body));
+
         }
     );
 
 });
 
 router.post('/status', (req, res) => {
-
     let requestBody = req.body;
-
-    console.log('requestBody', requestBody);
     request.post({url: 'http://172.16.33.216:3001/status',
             headers: {
                 'content-type': 'application/json; charset=UTF-8'
@@ -137,21 +128,17 @@ router.post('/status', (req, res) => {
             body:JSON.stringify(requestBody)
         }, function(error, response, body) {
             if (error) {
-                console.error('error: ', error);
+                return res.send(error);
             } else {
-                console.info('success', body);
+                return res.send(JSON.parse(body));
             }
-            return res.send(JSON.parse(body));
         }
     );
 
 });
 
 router.post('/query', (req, res) => {
-
     let requestBody = req.body;
-
-    console.log('requestBody', requestBody);
     request.post({url: 'http://172.16.33.216:3001/query',
             headers: {
                 'content-type': 'application/json; charset=UTF-8'
@@ -159,14 +146,12 @@ router.post('/query', (req, res) => {
             body:JSON.stringify(requestBody)
         }, function(error, response, body) {
             if (error) {
-                console.error('error: ', error);
+                return res.send(error);
             } else {
-                console.info('success', body);
+                return res.send(JSON.parse(body));
             }
-            return res.send(JSON.parse(body));
         }
     );
-
 });
 
 export default router;

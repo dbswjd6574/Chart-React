@@ -4,20 +4,25 @@ import { Link } from 'react-router';
 class Header extends React.Component {
     render() {
 
+        let logo = {
+            width:"77px",
+            height:"27px",
+            float:"left",
+            background:"url('../image/logo.png') left top no-repeat",
+            display:"inline-block",
+            margin: "11px 0 0 50px"
+        }
+
         return(
             <nav className="main_menu">
                 <div className="nav-wrapper grey darken-3">
+                    <div className="logo" style={logo}>
+                    </div>
                     <ul className="center">
-                        <li><Link to="/drawChart">TESTCHART</Link></li>
-                        <li><Link to="/dashBoard">DASHBOART</Link></li>
-                        <li><Link to="/testComponent">TESTCOMPONENTS</Link></li>
-                        <li><Link to="/condition">CONDITION</Link></li>
-                        <li><Link to="/data">DATA</Link></li>
-                        <li><Link to="/analysis">ANALYSIS</Link></li>
-                        <li><Link to="/chartGallery">CHART_GALLERY</Link></li>
-                        <li><Link to="/trialVersion">TrialVersion</Link></li>
-                        <li><Link to="/sunburst">Sunburst</Link></li>
-                        <li><Link to="/resultChartView">RESULTCHART</Link></li>
+                        <li><Link to="/">DATA</Link></li>
+                        <li><Link to="/">TYPE</Link></li>
+                        <li><Link to="/sunburst">ANALYSIS</Link></li>
+                        <li><Link to="/">REPORT</Link></li>
                     </ul>
                 </div>
             </nav>

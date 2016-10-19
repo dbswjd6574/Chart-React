@@ -1,14 +1,10 @@
 import {
-    GET_DATA_SET_LIST,
     GET_DATA_SET_LIST_SUCCESS,
     GET_DATA_SET_LIST_FAILURE,
-    GET_LOG_DATA,
-    GET_LOG_DATA_SUCCESS,
-    GET_LOG_DATA_FAILURE,
-    GET_FIELD_LIST,
+    GET_TOTAL_COUNT_SUCCESS,
+    GET_TOTAL_COUNT_FAILURE,
     GET_FIELD_LIST_SUCCESS,
     GET_FIELD_LIST_FAILURE,
-    GET_STATUS,
     GET_SESSION_ID_SUCCESS,
     GET_SESSION_ID_FAILURE,
     QUERY_FAILURE,
@@ -18,25 +14,16 @@ import axios from 'axios';
 
 export function datasetListRequest() {
     return (dispatch) => {
-        dispatch(datasetList());
-
         // API REQUEST
         return axios.post('/api/chart/datasetList')
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS dataset!', response);
                 const data = response.data;
                 dispatch(datasetListSuccess(data));
             }).catch((error) => {
                 // FAILED
                 dispatch(datasetListFailure());
             });
-    };
-}
-
-export function datasetList() {
-    return {
-        type: GET_DATA_SET_LIST
     };
 }
 
@@ -55,13 +42,10 @@ export function datasetListFailure() {
 
 export function fieldListRequest(query) {
     return (dispatch) => {
-        dispatch(fieldList());
-
         // API REQUEST
         return axios.post('/api/chart/fieldList',query)
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS fieldList!', response);
                 dispatch(sessionIdSuccess(response.data.sessionid));
             }).catch((error) => {
                 // FAILED
@@ -71,26 +55,16 @@ export function fieldListRequest(query) {
 }
 
 export function statusRequest(query) {
-    console.log('ResultChart.statusRequest');
     return (dispatch) => {
-        dispatch(status());
-
         // API REQUEST
         return axios.post('/api/chart/status',query)
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS status!', response);
                 dispatch(querySuccess(response.data));
             }).catch((error) => {
                 // FAILED
                 dispatch(queryFailure());
             });
-    };
-}
-
-export function fieldList() {
-    return {
-        type: GET_FIELD_LIST
     };
 }
 
@@ -104,12 +78,6 @@ export function fieldListSuccess(response) {
 export function fieldListFailure() {
     return {
         type: GET_FIELD_LIST_FAILURE
-    };
-}
-
-export function status() {
-    return {
-        type: GET_STATUS
     };
 }
 
@@ -127,44 +95,32 @@ export function sessionIdFailure() {
 }
 
 
-export function logDataRequest(id, table) {
+export function totalCountRequest(query) {
     return (dispatch) => {
-        dispatch(logData());
-
         // API REQUEST
-        return axios.post('/api/chart/logData',{
-            "id": id,
-            "tables": table,
-            "sessionId": (new Date).getTime()
-        })
+        return axios.post('/api/chart/status',query)
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS!', response);
                 const data = response.data;
-                dispatch(logDataSuccess(data));
+                dispatch(totalCountSuccess(data));
             }).catch((error) => {
                 // FAILED
-                dispatch(logDataFailure());
+                dispatch(totalCountFailure());
             });
     };
 }
 
-export function logData() {
-    return {
-        type: GET_LOG_DATA
-    };
-}
 
-export function logDataSuccess(response) {
+export function totalCountSuccess(response) {
     return {
-        type: GET_LOG_DATA_SUCCESS,
+        type: GET_TOTAL_COUNT_SUCCESS,
         data: response
     };
 }
 
-export function logDataFailure() {
+export function totalCountFailure() {
     return {
-        type: GET_LOG_DATA_FAILURE
+        type: GET_TOTAL_COUNT_FAILURE
     };
 }
 
@@ -174,7 +130,6 @@ export function queryRequest(query) {
         return axios.post('/api/chart/query',query)
             .then((response) => {
                 // SUCCEED
-                console.info('SUCCESS query!', response);
                 dispatch(sessionIdSuccess(response.data.sessionid));
             }).catch((error) => {
                 // FAILED
