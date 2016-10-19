@@ -11,6 +11,7 @@ class SunburstChart extends React.Component{
     }
     makeSunburstChart(data){
         //console.log("sunburstChartData", this.props.sunburstChartData);
+        console.log("data : " + data.name + "value : " + data.value);
         let width = 700, height = 600, radius = Math.min(width, height) / 2;
         let x = d3.scale.linear().range([0, 2 * Math.PI]);
         let y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -76,7 +77,8 @@ class SunburstChart extends React.Component{
             .attr("d", arc)
             .attr("stroke", "#fff")
             .attr("fill-rule", "evenodd")
-            .attr("fill", function (d) { return d._color = getColor(d), d._color })
+            //.attr("fill", function (d) { return d._color = getColor(d), d._color })
+            .attr("fill", function(d){return color(d.name)})
             .each(stash)
             .on("dblclick", zoom)
             .on("click", clickChart);
@@ -263,6 +265,7 @@ class SunburstChart extends React.Component{
     }
     componentDidMount(){
         this.makeSunburstChart(this.props.sunburstChartData);
+
     }
     shouldComponentUpdate(nextProps, nextState){
         return !(nextProps.sunburstChartData === this.props.sunburstChartData);
