@@ -62,30 +62,34 @@ class ResultCenterArea extends React.Component{
 
         let chart;
         if (this.props.chartType == 'GoogleBarChart') {
-            chart = <GoogleBarChart width="700" height="400" value={chartDatas}/>;
+            chart = <GoogleBarChart width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleLineChart') {
-            chart = <GoogleLineChart width="700" height="400" value={chartDatas}/>;
+            chart = <GoogleLineChart width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'LineChart') {
-            chart = <LineChart id="chart1" width="700" height="400" value={chartDatas}/>;
+            chart = <LineChart id="chart1" width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleDonutChart') {
-            chart = <GoogleDonutChart width="700" height="400" value={chartDatas}/>;
+            chart = <GoogleDonutChart width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ResultChart') {
-            chart = <ResultChart width="700" height="400" value={chartDatas}/>;
+            chart = <ResultChart width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
-            chart = <PieChart id="chart1" width="700" height="400" value={chartDatas}/>;
+            chart = <PieChart id="chart1" width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ScatterChart') {
-            chart = <ScatterChart id="chart1" width="700" height="400" value={chartDatas}/>;
+            chart = <ScatterChart id="chart1" width="680" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'BarChart') {
-            chart = <BarChart id="chart1" width="700" height="400" value={chartDatas}/>;
+            chart = <BarChart id="chart1" width="680" height="400" value={chartDatas}/>;
         }
 
         let tableStyle = {
-            float : "left",
-            width : "723px"
+            width : "98%",
+            'margin-left' : "10px",
+            position:"absolute",
+            top:"600px"
         };
         let selectStyle ={
-            float : "left",
-            width : "600px"
+            width : "90%",
+            'margin-left' : "30px",
+            display : "inline-block"
+
         };
         return(
             <div>
@@ -142,12 +146,12 @@ class DataTable extends React.Component{
 
         let table = "";
         if(cols.length > 1){
-            table = <BootstrapTable data={this.props.data} striped={true} selectRow={selectRow} height="330">
+            table = <BootstrapTable data={this.props.data} trClassName="tr-table" selectRow={selectRow} height="300px">
                 {cols.map((col, i) => {
                     if(i == 0) {
-                        return (<TableHeaderColumn isKey={true} dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
+                        return (<TableHeaderColumn isKey={true} className="td-header" dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
                     } else {
-                        return (<TableHeaderColumn dataSort={true} dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
+                        return (<TableHeaderColumn dataSort={true} className="td-header" dataField={col.dataField}>{col.dataField}</TableHeaderColumn>);
                     }
                 })}
             </BootstrapTable>

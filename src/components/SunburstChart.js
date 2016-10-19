@@ -1,14 +1,7 @@
 import React from 'react';
 
-
-var jsonObject;
 var x0;
 var dx0;
-var arc;
-var partition;
-var text;
-var color;
-
 class SunburstChart extends React.Component{
     constructor(props){
         super(props);
@@ -16,25 +9,27 @@ class SunburstChart extends React.Component{
             path : null
         }
     }
-
-    componentDidMount(){
-        console.log("sunburstChartData", this.props.sunburstChartData);
-        var width = 700, height = 600, radius = Math.min(width, height) / 2;
-
-        var x = d3.scale.linear().range([0, 2 * Math.PI]);
-        var y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
-
-        color = d3.scale.category20();
-
-        var svg = d3.select("#chart").append("svg")
+    makeSunburstChart(data){
+        //console.log("sunburstChartData", this.props.sunburstChartData);
+        let width = 700, height = 600, radius = Math.min(width, height) / 2;
+        let x = d3.scale.linear().range([0, 2 * Math.PI]);
+        let y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
+        let colorArray = ["#cf7974",
+            "#f98772",
+            "#c5ecd7",
+            "#ceff6d",
+            "#fefc6e",
+            "#fbd875",
+            "#66ff66",
+            "#91ff71"];
+        let color = d3.scale.ordinal().range(colorArray);
+        let svg = d3.select("#chart").append("svg")
             .attr("width", width)
             .attr("height", height)
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
-
-        partition = d3.layout.partition();
-
-        arc = d3.svg.arc()
+        let partition = d3.layout.partition();
+        let arc = d3.svg.arc()
             .startAngle(function(d) {
                 return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
             })
@@ -47,116 +42,167 @@ class SunburstChart extends React.Component{
             .outerRadius(function(d) {
                 return Math.max(0, y(d.y + d.dy));
             });
-
-        var tooltip = d3.select("#chart")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("position", "absolute")
-            .style("z-index", "1")
-            .style("opacity", 0);
-
-        let drag = d3.behavior.drag()
-            .origin(function(d){return d})
-            .on("dragstart", dragstarted)
-            .on("drag", dragged)
-            .on("dragend", dragended);
-
-        function dragstarted(d) {
-            d3.event.sourceEvent.stopPropagation();
-            d3.select(this).classed("dragging", true);
+        //let drag = d3.behavior.drag()
+        //    .origin(function(d){return d})
+        //    .on("dragstart", dragstarted)
+        //    .on("drag", dragged)
+        //    .on("dragend", dragended);
+        //function dragstarted(d) {
+        //    d3.event.sourceEvent.stopPropagation();
+        //    d3.select(this).classed("dragging", true);
+        //}
+        //function dragged(d) {
+        //    d3.select(this).attr("dx", d.x = d3.event.x).attr("dy", d.y = d3.event.y);
+        //}
+        //function dragended(d) {
+        //    d3.select(this).classed("dragging", false);
+        //}
+        let coloralternative =0;
+        function getColor(a) {
+            let c = ["#f98772", "#fec871", "#b3ff66", "#fefc6e", "#00cc66"],
+                d = [-.1, -.05, 0];
+            if (1 == a.depth) {
+                var e = c[coloralternative % 5];
+                return coloralternative++, e
+            }
+            if (a.depth > 1) {
+                let f = d[a.value % 3];
+                return d3.rgb(a.parent._color).brighter(.1 * a.depth + f * a.depth)
+            }
         }
-
-        function dragged(d) {
-            d3.select(this).attr("dx", d.x = d3.event.x).attr("dy", d.y = d3.event.y);
-        }
-
-        function dragended(d) {
-            d3.select(this).classed("dragging", false);
-        }
-
-        this.path = svg.selectAll("path")
-            .data(partition.nodes(this.props.sunburstChartData))
+        let path = svg.selectAll("path")
+            .data(partition.nodes(data))
             .enter().append("path")
             .attr("d", arc)
-            .style("fill", function(d) {
-                return color((d.children ? d : d.parent).name);
-            })
-            .style("cursor", "move")
-            .on("click", clickChart)
-            .each(function(d) {
-                x0 = d.x;
-                dx0 = d.dx;
-            })
-            .call(drag);
-        this.g = svg.selectAll("g").data(partition.nodes(this.props.sunburstChartData)).enter().append("g");
-        //.on("mouseover", function(d) {
-        //    tooltip.html(function() {
-        //        var text = '<b>' + d.name + '</b><br> (' + d.value + ')';
-        //        return text;
-        //    });
-        //    return tooltip.transition()
-        //        .duration(50)
-        //        .style("opacity", 0.9);
-        //})
-        //.on("mousemove", function(d) {
-        //    return tooltip
-        //        .style("top", (d3.event.pageY - 10) + "px")
-        //        .style("left", (d3.event.pageX + 10) + "px");
-        //})
-        //.on("mouseout", function() {
-        //    return tooltip.style("opacity", 0);
-        //})
-        //.on("dragstart", function(d){
-        //    console.log("dragstart", d);
-        //
-        //})
-        //.on("dragend", function(d){
-        //    console.log("dragend", d);
-        //});
-        text = this.g.append("text")
-            .attr("transform", function(d) {
-                var multiline, angle, rotate, rotated;
-                multiline = (d.name || '').split('  ').length > 1;
-                angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90;
-                rotate = angle + (multiline ? - 0.5 : 0);
-                rotated = (angle > 90 ? - 180 : 0);
-                //
-                return ['rotate(', rotate, ')', //
-                    'translate(', y(d.y) + 10, ')', //
-                    'rotate(', rotated, ')'].join('');
-            })
-            .attr('text-anchor', function (d) {
-                return x(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
-            })
-            .attr("x", function(d) { return y(d.y); })
-            .attr("dy", ".35em") // vertical-align
-            .attr("font-size", "17")
-            .style("fill", "white");
+            .attr("stroke", "#fff")
+            .attr("fill-rule", "evenodd")
+            .attr("fill", function (d) { return d._color = getColor(d), d._color })
+            .each(stash)
+            .on("dblclick", zoom)
+            .on("click", clickChart);
+        path.transition()
+            .duration(300)
+            .attrTween("d", pathTransform);
+        function stash(d) {
+            x0 = d.x;
+            dx0 = d.dx;
+        }
+        function pathTransform(a) {
+            var i = d3.interpolate({x: x0, dx: dx0}, a);
+            return function(t) {
+                var b = i(t);
+                a.x0 = b.x;
+                a.dx0 = b.dx;
+                return arc(b);
+            };
+        }
 
-        text.append('tspan') //
-            .attr('x', 0) //
-            .text(function (d) {
-                return (d.depth ? d.name.split('  ')[0] : '');
-            }) //
-            .append('tspan') //
-            .attr({
-                'x': 0,
-                'dy': '1em',
-            }) //
-            .text(function (d) {
-                return (d.depth ? d.name.split('  ')[1] || '' : '');
-            });
+        function zoom(d){
+            path.transition()
+                .duration(750)
+                .attrTween("d", arcTween(d));
 
-        //function zoom(d) {
-        //    path.transition()
-        //        .duration(750)
-        //        .attrTween("d", arcTween(d));
-        //}
-        //
-        //function computeTextRotation(d) {
-        //    return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
-        //}
-        var checkedNode = [];
+            text.style("visibility", function(e) {
+                return isParentOf(d, e) ? null : d3.select(this).style("visibility");
+            })
+                .transition()
+                .duration(750)
+                .attrTween("text-anchor", function(d) {
+                    return function() {
+                        return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+                    };
+                })
+                .attrTween("transform", function(d) {
+                    let multiline = (d.name || "").split(" ").length > 1;
+                    return function() {
+                        let angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+                            rotate = angle + (multiline ? -.5 : 0);
+                        return "rotate(" + rotate + ")translate(" + (y(d.y) + 5) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+                    };
+                })
+                .style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
+                .each("end", function(e) {
+                    d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
+                });
+        }
+        function isParentOf(p, c) {
+            if (p === c) return true;
+            if (p.children) {
+                return p.children.some(function(d) {
+                    return isParentOf(d, c);
+                });
+            }
+            return false;
+        }
+
+        function arcTween(d) {
+            var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+                yd = d3.interpolate(y.domain(), [d.y, 1]),
+                yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+            return function(d, i) {
+                return i ? function(t) {
+                    return arc(d);
+                } : function(t) {
+                    x.domain(xd(t));
+                    y.domain(yd(t)).range(yr(t));
+                    return arc(d);
+                };
+            };
+        }
+
+        let g = svg.selectAll("g").data(partition.nodes(data)).enter().append("g");
+
+        let text;
+        setTimeout(function(){
+            text = g.append("text")
+                .style("fill-opacity", 1)
+                .style("fill", function(d) {
+                    return brightness(d3.rgb(colour(d))) < 125 ? "#eee" : "#000";
+                })
+                .attr("class", "breadcumb-text")
+                .attr("text-anchor", function(d) {
+                    return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+                })
+                .attr("dy", ".2em")
+                .attr("transform", function(d) {
+                    var multiline = (d.name || "").split(" ").length > 1,
+                        angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+                        rotate = angle + (multiline ? -.5 : 0);
+                    return "rotate(" + rotate + ")translate(" + (y(d.y) + 5) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+                })
+                .on("dblclick", zoom);
+
+            text.append('tspan') //
+                .attr('x', 0) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[0] : '');
+                }) //
+                .append('tspan') //
+                .attr({
+                    'x': 0,
+                    'dy': '1em'
+                }) //
+                .text(function (d) {
+                    return (d.depth ? d.name.split('  ')[1] || '' : '');
+                });
+        },350);
+
+
+        function brightness(rgb) {
+            return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
+        }
+        function colour(d) {
+            if (d.children) {
+                // There is a maximum of two children!
+                var colours = d.children.map(colour),
+                    a = d3.hsl(colours[0]),
+                    b = d3.hsl(colours[1]);
+                // L*a*b* might be better here...
+                return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
+            }
+            return d.colour || "#fff";
+        }
+        let checkedNode = [];
 
         function clickChart(d){
             if(checkedNode && checkedNode.indexOf(d) >= 0){
@@ -170,6 +216,10 @@ class SunburstChart extends React.Component{
 
             d3.selectAll("path").style("opacity" , 0.2);
             d3.selectAll("path").filter(function(node) {
+                return (checkedNode.indexOf(node) >= 0);
+            }).style("opacity", 1);
+            d3.selectAll("text").style("opacity" , 0.2);
+            d3.selectAll("text").filter(function(node) {
                 return (checkedNode.indexOf(node) >= 0);
             }).style("opacity", 1);
         }
@@ -210,42 +260,31 @@ class SunburstChart extends React.Component{
             return checkedNode;
 
         }
-        //function arcTween(d) {
-        //    var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
-        //        yd = d3.interpolate(y.domain(), [d.y, 1]),
-        //        yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
-        //    return function(d, i) {
-        //        return i ? function(t) {
-        //            return arc(d);
-        //        } : function(t) {
-        //            x.domain(xd(t));
-        //            y.domain(yd(t)).range(yr(t));
-        //            return arc(d);
-        //        };
-        //    };
-        //}
+    }
+    componentDidMount(){
+        this.makeSunburstChart(this.props.sunburstChartData);
     }
     shouldComponentUpdate(nextProps, nextState){
         return !(nextProps.sunburstChartData === this.props.sunburstChartData);
     }
     componentWillUpdate(nextProps, nextState){
-        d3.selectAll('path').remove();
-        this.path.data(partition.nodes(nextProps.sunburstChartData)).enter().append("path")
-            .transition()
-            .duration(750)
-            .attr("d", arc)
-            .style("fill", function(d) {
-                return color((d.children ? d : d.parent).name);
-            })
-            .style("cursor", "move")
-            .each(function(d) {
-                x0 = d.x;
-                dx0 = d.dx;
-            })
-            .attrTween("d", arcTweenUpdate);
+        console.log("willUpdate", nextProps.sunburstChartData);
+        d3.selectAll('svg').remove();
 
+        this.makeSunburstChart(nextProps.sunburstChartData);
 
-        text.remove();
+        //this.path.data(partition.nodes(nextProps.sunburstChartData)).enter().append('path')
+        //    .transition()
+        //    .duration(750)
+        //    .attr("d", arc)
+        //    .style("fill", function(d) {
+        //        return color((d.children ? d : d.parent).name);
+        //    })
+        //    .each(function(d) {
+        //        x0 = d.x;
+        //        dx0 = d.dx;
+        //    })
+        //    .attrTween("d", arcTweenUpdate);
         function arcTweenUpdate(a) {
             var i = d3.interpolate({x: x0, dx: dx0}, a);
             return function(t) {
@@ -255,13 +294,12 @@ class SunburstChart extends React.Component{
                 return arc(b);
             };
         }
-        console.log("nextProps :: ", nextProps.sunburstChartData);
     }
 
     render(){
         let style ={
             float : "left",
-            width : "500px",
+            width : "500px"
         };
         return(
 
