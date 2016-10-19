@@ -14,21 +14,42 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { connect } from 'react-redux';
+import { requestSunburstData } from 'actions/sunburstData';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CircularProgress from 'material-ui/CircularProgress';
+
+var transformed_json = {
+    name: "DMC",
+    children: [{ name: "test1", children: [{name:"textChildren1", value : 30}, {name:"textChildren2", value : 10}]}, { name : "test2", value: 900} ]
+};
 
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
         this.selectChange=this.selectChange.bind(this);
         this.switchToMulti=this.switchToMulti.bind(this);
+        this.buttonClick=this.buttonClick.bind(this);
         this.state = {
             selectedValues : "",
             check : false,
-            selectedField: []
+            selectedField: [],
+            sunburstChartData : null
         }
+    }
+    buttonClick(){
+        console.log("buttonClick");
+        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
+    }
+    componentDidMount(){
+        this.props.requestSunburstData().then(
+            ()=>{
+                this.data = this.props.sunburstData.data;
+                this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : transformed_json})});
+            }
+        );
     }
     switchToMulti(event){
 
@@ -72,9 +93,17 @@ class SunburstCondition extends React.Component{
         }
 
         let selectOption = ["강남", "경동", "경남"];
+        let sunburstChart;
+        if(this.state.sunburstChartData){
+            sunburstChart = <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
+        } else {
+            sunburstChart = ""
+        }
         return(
             <div>
-                <SunburstChart selectedValue={this.state.selectedValues}/>
+                <button onClick={this.buttonClick}>TEst</button>
+                {sunburstChart}
+                <div style={divStyle}>
                 <div className="fieldArea">
                 <div className="fieldList">
                     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
@@ -107,4 +136,18 @@ class SunburstCondition extends React.Component{
     }
 }
 
-export default SunburstCondition;
+const mapStateToProps = (props) => {
+    return {
+        sunburstData: props.sunburstData.sunburstData
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        requestSunburstData: () => {
+            return dispatch(requestSunburstData());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SunburstCondition);

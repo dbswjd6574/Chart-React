@@ -34,7 +34,7 @@ class LeftArea extends React.Component{
     shouldComponentUpdate(nextProps, nextState){
         let result = !(nextState.selectedKey === this.state.selectedKey);
         if(result){
-            console.log("this.state.selectedKey :: ", nextState.selectedKey);
+            //console.log("this.state.selectedKey :: ", nextState.selectedKey);
             this.props.changeState(nextState.selectedKey);
             return result;
         } else {
