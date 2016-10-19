@@ -123,6 +123,7 @@ class DataNavigation extends React.Component{
 
         return(
             <div className="leftArea">
+                <div className="left_title">DATA NAVIGATION</div>
                 <div className="logListSelector">
                     <Select name="LogList"
                             options={this.state.logList}
