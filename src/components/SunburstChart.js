@@ -7,7 +7,6 @@ var dx0;
 var arc;
 var partition;
 var text;
-var color;
 
 class SunburstChart extends React.Component{
     constructor(props){
@@ -24,7 +23,7 @@ class SunburstChart extends React.Component{
         var x = d3.scale.linear().range([0, 2 * Math.PI]);
         var y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
 
-        color = d3.scale.category20();
+        var color = d3.scale.category20();
 
         var svg = d3.select("#chart").append("svg")
             .attr("width", width)
@@ -79,7 +78,14 @@ class SunburstChart extends React.Component{
             .enter().append("path")
             .attr("d", arc)
             .style("fill", function(d) {
-                return color((d.children ? d : d.parent).name);
+                let name;
+                if(d.children){
+                    name = d.children.name;
+                }else if(d.parent){
+                    name = d.parent.name;
+                }
+
+                return color(name);
             })
             .style("cursor", "move")
             .on("click", clickChart)
@@ -88,6 +94,7 @@ class SunburstChart extends React.Component{
                 dx0 = d.dx;
             })
             .call(drag);
+
         this.g = svg.selectAll("g").data(partition.nodes(this.props.sunburstChartData)).enter().append("g");
         //.on("mouseover", function(d) {
         //    tooltip.html(function() {
@@ -113,7 +120,11 @@ class SunburstChart extends React.Component{
         //.on("dragend", function(d){
         //    console.log("dragend", d);
         //});
-        text = this.g.append("text")
+
+        //var rect = g.append("rect")
+        //    .style("fill", "#0000ff")
+        //    .style('fill-opacity', "0.3")
+        text =  this.g.append("text")
             .attr("transform", function(d) {
                 var multiline, angle, rotate, rotated;
                 multiline = (d.name || '').split('  ').length > 1;
@@ -130,8 +141,7 @@ class SunburstChart extends React.Component{
             })
             .attr("x", function(d) { return y(d.y); })
             .attr("dy", ".35em") // vertical-align
-            .attr("font-size", "17")
-            .style("fill", "white");
+            .attr("font-size", "13");
 
         text.append('tspan') //
             .attr('x', 0) //
@@ -226,26 +236,17 @@ class SunburstChart extends React.Component{
         //}
     }
     shouldComponentUpdate(nextProps, nextState){
-        return !(nextProps.sunburstChartData === this.props.sunburstChartData);
+        return true; !(nextProps.sunburstChartData === this.props.sunburstChartData);
     }
     componentWillUpdate(nextProps, nextState){
-        d3.selectAll('path').remove();
-        this.path.data(partition.nodes(nextProps.sunburstChartData)).enter().append("path")
-            .transition()
+        console.log("componentWillUpdate");
+        this.g.data(partition.nodes(nextProps.sunburstChartData)).exit().remove();
+        this.path.data(partition.nodes(nextProps.sunburstChartData)).exit().remove();
+          /*  .transition()
             .duration(750)
-            .attr("d", arc)
-            .style("fill", function(d) {
-                return color((d.children ? d : d.parent).name);
-            })
-            .style("cursor", "move")
-            .each(function(d) {
-                x0 = d.x;
-                dx0 = d.dx;
-            })
-            .attrTween("d", arcTweenUpdate);
+            .attrTween("d", arcTweenUpdate)
+            ;*/
 
-
-        text.remove();
         function arcTweenUpdate(a) {
             var i = d3.interpolate({x: x0, dx: dx0}, a);
             return function(t) {
@@ -264,8 +265,7 @@ class SunburstChart extends React.Component{
             width : "500px",
         };
         return(
-
-            <div>
+             <div>
                 <div id="chart" style={style}></div>
             </div>
         );
