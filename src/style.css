@@ -114,6 +114,8 @@ path {
 .logListSelector {
     width: 140px;
     margin-left: 10px;
+    display : inline-block;
+    margin-top : 10px;
 }
 
 .fieldList {
@@ -209,7 +211,7 @@ path {
 .left_title {
     float: left;
     display: inline-block;
-    width: 100%;
+    width: 101.5%;
     height: 30px;
     line-height: 30px;
     padding-left: 10px;
@@ -225,7 +227,7 @@ path {
 .right_title {
     float: right;
     display: inline-block;
-    width: 100%;
+    width: 101.5%;
     height: 30px;
     line-height: 30px;
     padding-left: 10px;
