@@ -47,11 +47,7 @@ class DataNavigation extends React.Component{
             }
 
             //TODO /DataSet/id:GET
-            this.props.logDataRequest(value, selectedFieldList.tables).then(
-                () => {
-                    console.log('dataResult', this.props.logData);
-                }
-            );
+
 
             this.setState({selectedValues : value, conditions: selectedFieldList});
 
@@ -86,7 +82,7 @@ class DataNavigation extends React.Component{
                             onChange={this.selectChange}
                             value={this.state.selectedValues}/>
                 </div>
-                <SunburstCondition selectedData={this.state.conditions} getFieldList={this.requestFieldList.bind(this)}/>
+                <SunburstCondition selectedData={this.state.conditions} selectedFieldList={this.state.selectedFieldList} getFieldList={this.requestFieldList.bind(this)}/>
             </div>
         );
     }

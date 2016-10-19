@@ -62,9 +62,9 @@ class SunburstCondition extends React.Component{
     }
     selectField(value){
         //TODO request data for selectedField
-        let selectedField = this.state.selectedField;
-        selectedField.push({"name": value.name});
-        this.setState({"selectedField": selectedField});
+        console.log('value', value);
+
+        this.props.getFieldList(value);
     }
     render(){
         let selectStyle = {
@@ -103,27 +103,26 @@ class SunburstCondition extends React.Component{
             <div>
                 <button onClick={this.buttonClick}>TEst</button>
                 {sunburstChart}
-                <div style={divStyle}>
                 <div className="fieldArea">
-                <div className="fieldList">
-                    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                        <IconMenu
-                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                            >
-                            {fieldList.map((value, i)=>{
-                                return(<MenuItem key={i} primaryText={value.name} value={value.id} onClick={this.selectField.bind(this, value)}/>);
-                            })}
-                        </IconMenu>
-                    </MuiThemeProvider>
+                    <div className="fieldList">
+                        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                            <IconMenu
+                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                >
+                                {fieldList.map((value, i)=>{
+                                    return(<MenuItem key={i} primaryText={value.name} value={value.id} onClick={this.selectField.bind(this, value)}/>);
+                                })}
+                            </IconMenu>
+                        </MuiThemeProvider>
+                    </div>
+                    <div className="filterArea">
+                        {selectedFieldList.map((value, i)=>{
+                            return (<SelectCondition key={i} title={value.name} option={value.fields}/>);
+                        })}
+                    </div>
                 </div>
-                <div className="filterArea">
-                    {this.state.selectedField.map((value, i)=>{
-                        return (<SelectCondition key={i} title={value.name} option={selectOption}/>);
-                    })}
-                </div>
-            </div>
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <RaisedButton label='RUN!'/>
                 </MuiThemeProvider>

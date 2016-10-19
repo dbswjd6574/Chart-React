@@ -11,12 +11,13 @@ import {
 } from './ActionTypes';
 import axios from 'axios';
 
+let timer;
 export function datasetListRequest() {
     return (dispatch) => {
         dispatch(datasetList());
 
         // API REQUEST
-        return axios.post('/api/chart/dataset', {"id": "111111", "value": [{"id": "1234"}]})
+        return axios.post('/api/chart/datasetList')
             .then((response) => {
                 // SUCCEED
                 console.info('SUCCESS dataset!', response);
@@ -56,6 +57,7 @@ export function fieldListRequest(id, table, fieldId) {
         return axios.post('/api/chart/fieldList',{
             "id": id,
             "tables": table,
+            "sessionId": (new Date).getTime(),
             "query":[
                 {"key": fieldId}
             ]
@@ -63,37 +65,46 @@ export function fieldListRequest(id, table, fieldId) {
             .then((response) => {
                 // SUCCEED
                 console.info('SUCCESS fieldList!', response);
-                const data = getFieldListData(response.data.sessionId);
-                dispatch(fieldListSuccess(data));
+                console.info('START Polling...');
+                let fieldList = null;
+                timer = setInterval(fieldList=getFieldListData(response.data.sessionid), 2000);
+
+                while(fieldList != null) {
+                    dispatch(fieldListSuccess(data));
+                }
             }).catch((error) => {
                 // FAILED
                 dispatch(fieldListFailure());
             });
     };
 }
-function getFieldListData(sessionId) {
-    console.info('START Polling...');
-
+function getFieldListData(sessionid) {
     let flag = false;
     let result;
-    while(flag) {
-        result = checkStatus(sessionId);
-        if (result && result.value) {
-            flag = false;
-        }
+
+    result = checkStatus(sessionid);
+    if (result && result.length > 1) {
+        clearInterval(timer);
+        console.info('END Polling...');
+        return result;
+    } else {
+        return null;
     }
-    console.info('END Polling...');
-    return result;
+
 }
 
-function checkStatus(sessionId) {
+function checkStatus(sessionid) {
     return axios.post('/api/chart/status',{
-        "sessionId": sessionId
+        "sessionid": sessionid
     })
         .then((response) => {
             // SUCCEED
             console.info('SUCCESS status!', response);
-            return response.data;
+            if (result && result.length > 1) {
+                return response.data;
+            } else {
+                return response.data;
+            }
         }).catch((error) => {
             // FAILED
             return null;
@@ -127,7 +138,8 @@ export function logDataRequest(id, table) {
         // API REQUEST
         return axios.post('/api/chart/logData',{
             "id": id,
-            "tables": table
+            "tables": table,
+            "sessionId": (new Date).getTime()
         })
             .then((response) => {
                 // SUCCEED
