@@ -40,14 +40,20 @@ class SunburstCondition extends React.Component{
         }
     }
     buttonClick(){
-        console.log("buttonClick", this.data);
-        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
+        this.props.requestSunburstData().then(
+            ()=>{
+                this.data = this.props.sunburstData.data;
+                this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
+            }
+        );
+        //console.log("buttonClick", this.data);
+        //this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
     }
     componentDidMount(){
         this.props.requestSunburstData().then(
             ()=>{
                 this.data = this.props.sunburstData.data;
-                this.setState({sunburstChartData: update(this.state.sunburstChartData, {$set : transformed_json})});
+                this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
             }
         );
     }

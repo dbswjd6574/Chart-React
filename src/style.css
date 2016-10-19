@@ -200,3 +200,8 @@ path {
     color: #eaeaea;
     width:100%
 }
+.breadcumb-text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+}

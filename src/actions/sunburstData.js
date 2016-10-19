@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export function requestSunburstData(){
     return (dispatch) => {
-        return axios.get('./sunburstData.json')
+        return axios.get('http://172.16.33.156:8080/sea/sunburstData.json')
             .then((response) => {
                 // SUCCEED
                 let data = response;
