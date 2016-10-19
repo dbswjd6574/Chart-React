@@ -40,7 +40,7 @@ class SunburstCondition extends React.Component{
         }
     }
     buttonClick(){
-        console.log("buttonClick");
+        console.log("buttonClick", this.data);
         this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
     }
     componentDidMount(){
