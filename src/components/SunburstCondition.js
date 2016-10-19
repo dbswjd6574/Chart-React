@@ -65,9 +65,8 @@ let fieldListInfo = {
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
-        this.buttonClick=this.buttonClick.bind(this);
+        //this.buttonClick=this.buttonClick.bind(this);
         this.state = {
-            selectedValues : "",
             check : false,
             selectedFieldData: [],
             query: [],
@@ -75,11 +74,11 @@ class SunburstCondition extends React.Component{
             sunburstChartData : transformed_json
         }
     }
-    buttonClick(){
-        //TODO DELETE
-        console.log("buttonClick");
-        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
-    }
+    //buttonClick(){
+    //    //TODO DELETE
+    //    console.log("buttonClick");
+    //    this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
+    //}
 
     componentDidMount(){
 
@@ -87,7 +86,6 @@ class SunburstCondition extends React.Component{
 
     selectField(value){
         //TODO '지역','상품타입'....선택 - query 요청
-        console.log('value', value);
 
         let query = this.state.query;
         let selectedFieldData = this.state.selectedFieldData;
@@ -99,11 +97,9 @@ class SunburstCondition extends React.Component{
         for (let i=0; i<fieldInfo.length; i++) {
             keyList.push(fieldInfo[i].key);
         }
-        console.log('keyList', keyList);
 
         query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
         selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
-        console.log('query:' , query);
         this.setState({"query": query, "selectedFieldData": selectedFieldData});
 
         this.props.requestQueryData(query);
@@ -118,11 +114,12 @@ class SunburstCondition extends React.Component{
                 for (let j=0; j<val.value.length; j++) {
                     values.push(val.value[j].key);
                 }
+
                 selectedField[i].value = values;
                 break;
             }
         }
-        this.setState({"selectedFieldQuery": selectedField});
+        this.setState({selectedFieldQuery: selectedField});
     }
 
     render(){
@@ -133,15 +130,14 @@ class SunburstCondition extends React.Component{
         }
 
         let sunburstChart;
-        if(this.state.sunburstChartData){
-            sunburstChart = <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
+        if(this.props.sunburstChartData){
+            sunburstChart = <SunburstChart selectedValue={this.state.selectedFieldQuery} sunburstChartData={this.props.sunburstChartData}/>
         } else {
             sunburstChart = ""
         }
 
         return(
             <div>
-                <button onClick={this.buttonClick}>TEst</button>
                 {sunburstChart}
                 <div className="fieldArea">
                     <div className="fieldList">

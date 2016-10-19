@@ -66,7 +66,7 @@ class DataNavigation extends React.Component{
 
         this.props.queryRequest(this.query).then(
             () => {
-                this.timer = setInterval(this.requestStatus, 2000);
+                this.timer = setInterval(this.requestStatus, 500);
             }
         );
     }
