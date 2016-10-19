@@ -13,6 +13,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
 
 class SelectCondition extends React.Component{
     constructor(props){
@@ -42,13 +43,12 @@ class SelectCondition extends React.Component{
 
         let selectStyle = {
             width : "200px",
-            padding : "20px",
-            float: "left"
+            float: "left",
+            color: "white"
         };
 
         const chipStyles = {
             chip: {
-                width: 80,
                 margin: 4,
                 cursor: 'pointer'
             },
@@ -65,6 +65,7 @@ class SelectCondition extends React.Component{
 
         return(
             <div style={selectStyle}>
+                {this.props.title}
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <DropDownMenu value={this.state.lastSelectedValue} onChange={this.handleChange}>
                         {fieldList.map((value, i)=>{

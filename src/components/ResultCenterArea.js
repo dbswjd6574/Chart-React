@@ -57,9 +57,7 @@ class ResultCenterArea extends React.Component{
 
     render(){
         let style ={
-            float : "left",
-            width : "1400px",
-            marginLeft :"280px"
+            float : "left"
         };
 
         let chart;
@@ -83,13 +81,11 @@ class ResultCenterArea extends React.Component{
 
         let tableStyle = {
             float : "left",
-            marginLeft :"280px",
             width : "723px"
         };
         let selectStyle ={
             float : "left",
-            width : "600px",
-            marginLeft :"280px"
+            width : "600px"
         };
         return(
             <div>

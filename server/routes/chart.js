@@ -114,10 +114,23 @@ router.post('/getData', (req, res) => {
     });*/
 });
 
-router.post('/dataset', (req, res) => {
+router.post('/datasetList', (req, res) => {
+    request.post({url: 'http://172.16.33.216:3001/datasetList'
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+});
+
+router.post('/logData', (req, res) => {
 
 
-    request.get({url: 'http://localhost:3001/dataList.json'
+    request.post({url: 'http://localhost:3001/countLogData.json'
         }, function(error, response, body) {
             if (error) {
                 console.error('error: ', error);
@@ -129,4 +142,49 @@ router.post('/dataset', (req, res) => {
     );
 
 });
+
+router.post('/fieldList', (req, res) => {
+
+    let requestBody = req.body;
+
+    console.log('requestBody', requestBody);
+    request.post({url: 'http://172.16.33.216:3001/fieldList',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body:JSON.stringify(requestBody)
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
+
+router.post('/status', (req, res) => {
+
+    let requestBody = req.body;
+
+    console.log('requestBody', requestBody);
+    request.post({url: 'http://172.16.33.216:3001/status',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body:JSON.stringify(requestBody)
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
+
 export default router;

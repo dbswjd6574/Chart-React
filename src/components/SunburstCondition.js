@@ -17,6 +17,10 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { connect } from 'react-redux';
 import { requestSunburstData } from 'actions/sunburstData';
 
+import RaisedButton from 'material-ui/RaisedButton';
+
+import CircularProgress from 'material-ui/CircularProgress';
+
 var transformed_json = {
     name: "DMC",
     children: [{ name: "test1", children: [{name:"textChildren1", value : 30}, {name:"textChildren2", value : 10}]}, { name : "test2", value: 900} ]
@@ -57,13 +61,10 @@ class SunburstCondition extends React.Component{
         this.setState({selectedValues : value});
     }
     selectField(value){
-        console.log("selectedField: " + value);
-        console.log(this.state.selectedField);
-        let fieldList = this.state.selectedField;
-        fieldList.push(value);
-
         //TODO request data for selectedField
-        this.setState({selectedField: fieldList});
+        console.log('value', value);
+
+        this.props.getFieldList(value);
     }
     render(){
         let selectStyle = {
@@ -81,11 +82,14 @@ class SunburstCondition extends React.Component{
             top : "750px"
         };
 
-        let menuItems = [];
+        let fieldList = [];
         if (this.props.selectedData && this.props.selectedData != '') {
-            this.props.selectedData.fields.map((value, i)=>{
-                menuItems.push(<MenuItem key={i} primaryText={value.name} onClick={this.selectField.bind(this, value.name)}/>);
-            })
+            fieldList = this.props.selectedData.fields;
+        }
+
+        let selectedFieldList = [];
+        if (this.props.selectedFieldList && this.props.selectedFieldList != '') {
+            selectedFieldList = this.props.selectedFieldList;
         }
 
         let selectOption = ["강남", "경동", "경남"];
@@ -96,10 +100,10 @@ class SunburstCondition extends React.Component{
             sunburstChart = ""
         }
         return(
-            <div className="leftArea">
+            <div>
                 <button onClick={this.buttonClick}>TEst</button>
                 {sunburstChart}
-                <div style={divStyle}>
+                <div className="fieldArea">
                     <div className="fieldList">
                         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                             <IconMenu
@@ -107,14 +111,25 @@ class SunburstCondition extends React.Component{
                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 >
-                                {menuItems}
+                                {fieldList.map((value, i)=>{
+                                    return(<MenuItem key={i} primaryText={value.name} value={value.id} onClick={this.selectField.bind(this, value)}/>);
+                                })}
                             </IconMenu>
                         </MuiThemeProvider>
                     </div>
-                    {this.state.selectedField.map((value, i)=>{
-                        return (<SelectCondition key={i} option={selectOption}/>);
-                    })}
+                    <div className="filterArea">
+                        {selectedFieldList.map((value, i)=>{
+                            return (<SelectCondition key={i} title={value.name} option={value.fields}/>);
+                        })}
+                    </div>
                 </div>
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                    <RaisedButton label='RUN!'/>
+                </MuiThemeProvider>
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                    <CircularProgress size={1} thickness={7} />
+                </MuiThemeProvider>
+
             </div>
         );
     }

@@ -80,7 +80,7 @@ class ResultChartView extends React.Component{
             jsonKeys.push(key);
         });
         return(
-            <div>
+            <div className="rightArea">
                 <div className="chartSelectButton"><ChartArea selectChart={this.changeChartType.bind(this)}/></div>
                 <ResultCenterArea keys={this.state.keys} xKey={this.state.xAxisKey} menuItem={jsonKeys} selectXKey={this.changeXAxisKey.bind(this)} selectYKey={this.changeKeys.bind(this)}chartType={this.state.chartType} data={jsonObject.DATA}/>
             </div>
