@@ -5,20 +5,22 @@ import update from 'react-addons-update';
 import 'react-select/dist/react-select.css';
 
 import { connect } from 'react-redux';
-import { datasetListRequest, logDataRequest, fieldListRequest } from 'actions/ResultChart';
+import { datasetListRequest, logDataRequest, fieldListRequest, statusRequest, queryRequest } from 'actions/ResultChart';
 
 class DataNavigation extends React.Component{
 
     constructor(props){
         super(props);
         this.selectChange=this.selectChange.bind(this);
+        this.requestStatus = this.requestStatus.bind(this);
+        this.setQueryData = this.setQueryData.bind(this);
         this.state = {
             datasetList: [],
             logList: [],
             selectedValues : "",
             conditions: null,
             logData: null,
-            selectedFieldList: null
+            sunburstData: {}
         }
     }
 
@@ -28,7 +30,7 @@ class DataNavigation extends React.Component{
             () => {
                 let logList = [];
                 $.each(this.props.datasetList, (key, value)=>{
-                    logList.push({value:value._id, label: value.title});
+                    logList.push({value:value.key, label: value.title});
                 });
                 this.setState({datasetList: this.props.datasetList, logList: logList});
             }
@@ -36,40 +38,56 @@ class DataNavigation extends React.Component{
     }
 
     selectChange(value){
+        console.log('selectChange', value);
+        console.log('datasetList', this.state.datasetList);
         if (this.state.selectedValues !== value) {
-            let selectedFieldList;
+            let conditionList;
 
             for (let i = 0; i < this.state.datasetList.length; i++) {
-                if(this.state.datasetList[i]._id === value) {
-                    selectedFieldList = this.state.datasetList[i];
+                if(this.state.datasetList[i].key === value) {
+                    conditionList = this.state.datasetList[i];
                     break;
                 }
             }
+            //TODO /DataSet/id:GET totalcount
 
-            //TODO /DataSet/id:GET
-
-
-            this.setState({selectedValues : value, conditions: selectedFieldList});
-
+            this.setState({selectedValues : value, conditions: conditionList});
 
         }
     }
 
-    requestFieldList(field) {
-        return this.props.fieldListRequest(this.state.conditions._id, this.state.conditions.tables, field.id).then(
+    requestData(query) {
+        this.query = {
+            "key": this.state.conditions.key,
+            "tables": this.state.conditions.tables,
+            "sessionid": (new Date).getTime(),
+            "query":query
+        };
+
+        this.props.queryRequest(this.query).then(
             () => {
-                console.log('dataResult', this.props.fieldList);
-                console.log("selectedField: " + value);
-                console.log(this.state.selectedField);
-                let selectedFieldList = this.state.selectedFieldList;
-                if (selectedFieldList == null) {
-                    selectedFieldList = {id: field.id, name: field.name, fields: this.props.fieldList}
-                } else {
-                    selectedFieldList.push({id: field.id, name: field.name, fields: this.props.fieldList});
-                }
-                this.setState({selectedFieldList: selectedFieldList})
+                this.timer = setInterval(this.requestStatus, 2000);
             }
         );
+    }
+
+    requestStatus() {
+        this.props.statusRequest(this.query).then(
+            () => {
+                this.setQueryData(this.props.queryData);
+            }
+        );
+    }
+
+    setQueryData(data) {
+        if (data && data.jobstate) {
+            console.log('jobstate');
+        } else {
+            console.log('data success???', data);
+            clearInterval(this.timer);
+            this.setState({"sunburstData": data});
+            //TODO queryRequest의 response data 파싱
+        }
     }
 
     render(){
@@ -82,7 +100,7 @@ class DataNavigation extends React.Component{
                             onChange={this.selectChange}
                             value={this.state.selectedValues}/>
                 </div>
-                <SunburstCondition selectedData={this.state.conditions} selectedFieldList={this.state.selectedFieldList} getFieldList={this.requestFieldList.bind(this)}/>
+                <SunburstCondition sunburstChartData={this.state.sunburstData} conditionList={this.state.conditions} requestQueryData={this.requestData.bind(this)}/>
             </div>
         );
     }
@@ -94,7 +112,9 @@ const mapStateToProps = (props) => {
     return {
         datasetList: props.dataset.datasetList,
         logData: props.dataset.logData,
-        fieldList: props.dataset.fieldList
+        fieldList: props.dataset.fieldList,
+        sessionid: props.dataset.sessionid,
+        queryData: props.dataset.queryData
     };
 
 };
@@ -107,9 +127,16 @@ const mapDispatchToProps = (dispatch) => {
         logDataRequest: (id, table) => {
             return dispatch(logDataRequest(id, table));
         },
-        fieldListRequest: (id, table, fieldId) => {
-            return dispatch(fieldListRequest(id, table, fieldId));
+        fieldListRequest: (query) => {
+            return dispatch(fieldListRequest(query));
+        },
+        statusRequest: (query) => {
+            return dispatch(statusRequest(query));
+        },
+        queryRequest: (query) => {
+            return dispatch(queryRequest(query));
         }
+
     };
 };
 
