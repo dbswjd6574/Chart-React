@@ -7,11 +7,15 @@ import {
     GET_LOG_DATA_FAILURE,
     GET_FIELD_LIST,
     GET_FIELD_LIST_SUCCESS,
-    GET_FIELD_LIST_FAILURE
+    GET_FIELD_LIST_FAILURE,
+    GET_STATUS,
+    GET_SESSION_ID_SUCCESS,
+    GET_SESSION_ID_FAILURE,
+    QUERY_FAILURE,
+    QUERY_SUCCESS
 } from './ActionTypes';
 import axios from 'axios';
 
-let timer;
 export function datasetListRequest() {
     return (dispatch) => {
         dispatch(datasetList());
@@ -49,84 +53,76 @@ export function datasetListFailure() {
     };
 }
 
-export function fieldListRequest(id, table, fieldId) {
+export function fieldListRequest(query) {
     return (dispatch) => {
         dispatch(fieldList());
 
         // API REQUEST
-        return axios.post('/api/chart/fieldList',{
-            "id": id,
-            "tables": table,
-            "sessionId": (new Date).getTime(),
-            "query":[
-                {"key": fieldId}
-            ]
-        })
+        return axios.post('/api/chart/fieldList',query)
             .then((response) => {
                 // SUCCEED
                 console.info('SUCCESS fieldList!', response);
-                console.info('START Polling...');
-                let fieldList = null;
-                timer = setInterval(fieldList=getFieldListData(response.data.sessionid), 2000);
-
-                while(fieldList != null) {
-                    dispatch(fieldListSuccess(data));
-                }
+                dispatch(sessionIdSuccess(response.data.sessionid));
             }).catch((error) => {
                 // FAILED
-                dispatch(fieldListFailure());
+                dispatch(sessionIdFailure());
             });
     };
 }
-function getFieldListData(sessionid) {
-    let flag = false;
-    let result;
 
-    result = checkStatus(sessionid);
-    if (result && result.length > 1) {
-        clearInterval(timer);
-        console.info('END Polling...');
-        return result;
-    } else {
-        return null;
-    }
+export function statusRequest(query) {
+    console.log('ResultChart.statusRequest');
+    return (dispatch) => {
+        dispatch(status());
 
-}
-
-function checkStatus(sessionid) {
-    return axios.post('/api/chart/status',{
-        "sessionid": sessionid
-    })
-        .then((response) => {
-            // SUCCEED
-            console.info('SUCCESS status!', response);
-            if (result && result.length > 1) {
-                return response.data;
-            } else {
-                return response.data;
-            }
-        }).catch((error) => {
-            // FAILED
-            return null;
-        });
+        // API REQUEST
+        return axios.post('/api/chart/status',query)
+            .then((response) => {
+                // SUCCEED
+                console.info('SUCCESS status!', response);
+                dispatch(querySuccess(response.data));
+            }).catch((error) => {
+                // FAILED
+                dispatch(queryFailure());
+            });
+    };
 }
 
 export function fieldList() {
     return {
-        type: GET_LOG_DATA
+        type: GET_FIELD_LIST
     };
 }
 
 export function fieldListSuccess(response) {
     return {
-        type: GET_LOG_DATA_SUCCESS,
+        type: GET_FIELD_LIST_SUCCESS,
         data: response
     };
 }
 
 export function fieldListFailure() {
     return {
-        type: GET_LOG_DATA_FAILURE
+        type: GET_FIELD_LIST_FAILURE
+    };
+}
+
+export function status() {
+    return {
+        type: GET_STATUS
+    };
+}
+
+export function sessionIdSuccess(response) {
+    return {
+        type: GET_SESSION_ID_SUCCESS,
+        data: response
+    };
+}
+
+export function sessionIdFailure() {
+    return {
+        type: GET_SESSION_ID_FAILURE
     };
 }
 
@@ -169,5 +165,33 @@ export function logDataSuccess(response) {
 export function logDataFailure() {
     return {
         type: GET_LOG_DATA_FAILURE
+    };
+}
+
+export function queryRequest(query) {
+    return (dispatch) => {
+        // API REQUEST
+        return axios.post('/api/chart/query',query)
+            .then((response) => {
+                // SUCCEED
+                console.info('SUCCESS query!', response);
+                dispatch(sessionIdSuccess(response.data.sessionid));
+            }).catch((error) => {
+                // FAILED
+                dispatch(sessionIdFailure());
+            });
+    };
+}
+
+export function querySuccess(response) {
+    return {
+        type: QUERY_SUCCESS,
+        data: response
+    };
+}
+
+export function queryFailure() {
+    return {
+        type: QUERY_FAILURE
     };
 }

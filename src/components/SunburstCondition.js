@@ -26,85 +26,119 @@ var transformed_json = {
     children: [{ name: "test1", children: [{name:"textChildren1", value : 30}, {name:"textChildren2", value : 10}]}, { name : "test2", value: 900} ]
 };
 
+let fieldListInfo = {
+    "so_id": [
+        {"key": "52", title: "양천"},
+        {"key": "43", title: "강남"},
+        {"key": "54", title: "인천"},
+        {"key": "64", title: "강서"},
+        {"key": "46", title: "강복"},
+        {"key": "61", title: "강동"},
+        {"key": "41", title: "전북"},
+        {"key": "55", title: "전남"},
+        {"key": "40", title: "충북"},
+        {"key": "59", title: "충남"},
+        {"key": "42", title: "부산"},
+        {"key": "51", title: "경남"},
+        {"key": "53", title: "경북"},
+        {"key": "58", title: "강원"},
+        {"key": "62", title: "제주"},
+        {"key": "56", title: "대전"},
+        {"key": "50", title: "광주"},
+        {"key": "63", title: "수원"},
+        {"key": "57", title: "일산"},
+        {"key": "45", title: "부천"}
+    ],
+    "paymenttype": [
+        {"key": "mobile", "title":"모바일"},
+        {"key": "external","title": "포인트"},
+        {"key": "coupon", "title": "쿠폰"},
+        {"key": "normal", "title": "일반"}
+    ],
+    "product_type": [
+        {"key": "37", title:"SVOD"},
+        {"key": "21", title:"FOD"},
+        {"key": "20", title:"RVOD"}
+    ]
+};
+
 class SunburstCondition extends React.Component{
     constructor(props){
         super(props);
-        this.selectChange=this.selectChange.bind(this);
-        this.switchToMulti=this.switchToMulti.bind(this);
         this.buttonClick=this.buttonClick.bind(this);
         this.state = {
             selectedValues : "",
             check : false,
-            selectedField: [],
-            sunburstChartData : null
+            selectedFieldData: [],
+            query: [],
+            selectedFieldQuery:[],
+            sunburstChartData : transformed_json
         }
     }
     buttonClick(){
-        this.props.requestSunburstData().then(
-            ()=>{
-                this.data = this.props.sunburstData.data;
-                this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
-            }
-        );
-        //console.log("buttonClick", this.data);
-        //this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
+        //TODO DELETE
+        console.log("buttonClick");
+        this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
     }
+
     componentDidMount(){
-        this.props.requestSunburstData().then(
-            ()=>{
-                this.data = this.props.sunburstData.data;
-                this.setState({sunburstChartData:update(this.state.sunburstChartData, {$set : this.data})});
-            }
-        );
-    }
-    switchToMulti(event){
-
 
     }
-    selectChange(value){
-        //let newArray =  update(this.state.selectedValues,{$push: [value]});
-        //this.setState({selectedValues : newArray});
-        this.setState({selectedValues : value});
-    }
+
     selectField(value){
-        //TODO request data for selectedField
+        //TODO '지역','상품타입'....선택 - query 요청
         console.log('value', value);
 
-        this.props.getFieldList(value);
+        let query = this.state.query;
+        let selectedFieldData = this.state.selectedFieldData;
+        let selectedFieldQuery = this.state.selectedFieldQuery;
+        selectedFieldQuery.push({"key": value.id, "value": null});
+
+        let fieldInfo = fieldListInfo[value.id];
+        let keyList = [];
+        for (let i=0; i<fieldInfo.length; i++) {
+            keyList.push(fieldInfo[i].key);
+        }
+        console.log('keyList', keyList);
+
+        query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
+        selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
+        console.log('query:' , query);
+        this.setState({"query": query, "selectedFieldData": selectedFieldData});
+
+        this.props.requestQueryData(query);
     }
+
+    selectOption(val) {
+        //TODO chart에 선택한 값 알려주는 작업 필요
+        let selectedField = this.state.selectedFieldQuery;
+        for (let i=0; i<selectedField.length; i++) {
+            if(selectedField[i].key === val.key) {
+                let values = [];
+                for (let j=0; j<val.value.length; j++) {
+                    values.push(val.value[j].key);
+                }
+                selectedField[i].value = values;
+                break;
+            }
+        }
+        this.setState({"selectedFieldQuery": selectedField});
+    }
+
     render(){
-        let selectStyle = {
-            width : "200px",
-            padding : "20px",
-            float: "left"
-        };
-        let divStyle = {
-            width : "45%",
-            backgroundColor : "#2E2E2E",
-            height : "150px",
-            marginTop :"30px",
-            marginLeft: "10px",
-            position : "absolute",
-            top : "750px"
-        };
 
         let fieldList = [];
-        if (this.props.selectedData && this.props.selectedData != '') {
-            fieldList = this.props.selectedData.fields;
+        if (this.props.conditionList && this.props.conditionList != '') {
+            fieldList = this.props.conditionList.fields;
         }
 
-        let selectedFieldList = [];
-        if (this.props.selectedFieldList && this.props.selectedFieldList != '') {
-            selectedFieldList = this.props.selectedFieldList;
-        }
-
-        let selectOption = ["강남", "경동", "경남"];
         let sunburstChart;
         if(this.state.sunburstChartData){
             sunburstChart = <SunburstChart selectedValue={this.state.selectedValues} sunburstChartData={this.state.sunburstChartData}/>
         } else {
             sunburstChart = ""
         }
+
         return(
             <div>
                 <button onClick={this.buttonClick}>TEst</button>
@@ -124,18 +158,11 @@ class SunburstCondition extends React.Component{
                         </MuiThemeProvider>
                     </div>
                     <div className="filterArea">
-                        {selectedFieldList.map((value, i)=>{
-                            return (<SelectCondition key={i} title={value.name} option={value.fields}/>);
+                        {this.state.selectedFieldData.map((value, i)=>{
+                            return (<SelectCondition key={i} title={value.title} fieldId={value.key} option={value.fieldList} selectOption={this.selectOption.bind(this)} />);
                         })}
                     </div>
                 </div>
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <RaisedButton label='RUN!'/>
-                </MuiThemeProvider>
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <CircularProgress size={1} thickness={7} />
-                </MuiThemeProvider>
-
             </div>
         );
     }

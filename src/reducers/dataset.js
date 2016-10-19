@@ -7,7 +7,9 @@ import update from 'react-addons-update';
 const initialState = {
     datasetList: "",
     logData: "",
-    fieldList: ""
+    fieldList: "",
+    sessionid: "",
+    queryData: ""
 };
 
 export default function dataset(state, action) {
@@ -59,6 +61,35 @@ export default function dataset(state, action) {
         case types.GET_FIELD_LIST_FAILURE:
             return update(state, {
                 fieldList: {
+                    $set: {}
+                }
+            });
+        case types.GET_STATUS:
+            return update(state, {
+            });
+        case types.GET_SESSION_ID_SUCCESS:
+            console.log('reducer', action.data);
+            return update(state, {
+                sessionid: {
+                    $set: action.data
+                }
+            });
+        case types.GET_SESSION_ID_FAILURE:
+            return update(state, {
+                sessionid: {
+                    $set: {}
+                }
+            });
+        case types.QUERY_SUCCESS:
+            console.log("query success :: ",action.data);
+            return update(state, {
+                queryData: {
+                    $set: action.data
+                }
+            });
+        case types.QUERY_FAILURE:
+            return update(state, {
+                queryData: {
                     $set: {}
                 }
             });

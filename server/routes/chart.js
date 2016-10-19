@@ -72,46 +72,6 @@ router.post('/getData', (req, res) => {
             return res.send(body);
         }
     );
-
-    /*request.post({url: 'http://172.16.33.216:9200/', formData: requestBody}, function(error, response, body) {
-            if (error) {
-                console.error('error: ', error);
-            } else {
-                console.info('success', body);
-            }
-            return res.send(body);
-        }
-    );*/
-/*
-    request.post({url: url + apiName, formData: params}, function (err, httpResponse, body) {
-        if (callback) {
-            try {
-                callback(JSON.parse(body));
-            } catch (e) {
-                callback(body);
-            }
-        }
-    });*/
-
-    /*Chart.findOne({ username: req.body.username }, (err, exists) => {
-        if (err) throw err;
-        if(exists){
-            return res.status(409).json({
-                error: "USERNAME EXISTS",
-                code: 3
-            });
-        }
-
-        let chart = new Chart({
-            data: req.body.data
-        });
-
-        Chart.save( err => {
-            if(err) throw err;
-            return res.json({ success: true });
-        });
-
-    });*/
 });
 
 router.post('/datasetList', (req, res) => {
@@ -171,6 +131,28 @@ router.post('/status', (req, res) => {
 
     console.log('requestBody', requestBody);
     request.post({url: 'http://172.16.33.216:3001/status',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body:JSON.stringify(requestBody)
+        }, function(error, response, body) {
+            if (error) {
+                console.error('error: ', error);
+            } else {
+                console.info('success', body);
+            }
+            return res.send(JSON.parse(body));
+        }
+    );
+
+});
+
+router.post('/query', (req, res) => {
+
+    let requestBody = req.body;
+
+    console.log('requestBody', requestBody);
+    request.post({url: 'http://172.16.33.216:3001/query',
             headers: {
                 'content-type': 'application/json; charset=UTF-8'
             },
