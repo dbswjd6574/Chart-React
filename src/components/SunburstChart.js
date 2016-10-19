@@ -349,7 +349,7 @@ class SunburstChart extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        d3.selectAll('svg').remove();
+        d3.select("#chart").select("svg").remove();
         this.makeSunburstChart(nextProps.sunburstChartData);
 
         //this.path.data(partition.nodes(nextProps.sunburstChartData)).enter().append('path')
