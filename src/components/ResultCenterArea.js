@@ -86,8 +86,10 @@ class ResultCenterArea extends React.Component{
             top:"600px"
         };
         let selectStyle ={
-            width : "98%",
-            'margin-left' : "30px"
+            width : "90%",
+            'margin-left' : "30px",
+            display : "inline-block"
+
         };
         return(
             <div>
