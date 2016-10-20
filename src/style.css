@@ -248,3 +248,9 @@ path {
     color: #8a8a8a;
     font-size: 20px;
 }
+
+.indicator {
+    position: absolute;
+    top:500px;
+    left:20px;
+}

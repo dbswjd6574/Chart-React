@@ -19,12 +19,9 @@ import Clear from 'material-ui/svg-icons/content/clear';
 class SelectCondition extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            value : []
-        }
     }
     selectField(value){
-        let selectedFieldList = this.state.value;
+        let selectedFieldList = this.props.fieldData.selectedValues;
 
         if (selectedFieldList && selectedFieldList.length > 0) {
             for (let i = 0; i < selectedFieldList.length; i++) {
@@ -37,15 +34,13 @@ class SelectCondition extends React.Component{
 
         selectedFieldList.push(value);
         this.props.selectOption({"value": selectedFieldList, "key": this.props.fieldId});
-        this.setState({value: selectedFieldList});
     }
 
     handleRequestDelete(key){
-        let value = this.state.value;
+        let value = this.props.fieldData.selectedValues;
         const chipToDelete = value.map((chip) => chip.key).indexOf(key);
         value.splice(chipToDelete, 1);
         this.props.selectOption({"value": value, "key": this.props.fieldId});
-        this.setState({"value": value});
     };
 
     removeCondition(fieldId) {
@@ -77,21 +72,24 @@ class SelectCondition extends React.Component{
         const styles = {
             smallIcon: {
                 width: 12,
-                height: 12,
+                height: 12
             },
             small: {
                 width: 36,
                 height: 36,
-                padding: 4,
+                padding: 4
             }
         };
 
         let fieldList = this.props.option;
 
+        let selectedValues = [];
+        if (this.props.fieldData.selectedValues)
+
         return(
             <div style={selectStyle}>
-                <MuiThemeProvider key={this.props.fieldId} muiTheme={getMuiTheme(darkBaseTheme)}>
-                    <IconButton onClick={this.removeCondition.bind(this, this.props.fieldId)} iconStyle={styles.smallIcon}
+                <MuiThemeProvider key={this.props.fieldData.key} muiTheme={getMuiTheme(darkBaseTheme)}>
+                    <IconButton onClick={this.removeCondition.bind(this, this.props.fieldData.key)} iconStyle={styles.smallIcon}
                                 style={styles.small}><Clear /></IconButton>
                 </MuiThemeProvider>
                 {this.props.title}
@@ -102,12 +100,11 @@ class SelectCondition extends React.Component{
                         })}
                     </DropDownMenu>
                 </MuiThemeProvider>
-                        {this.state.value.map((value, i)=>{
+                        {this.props.fieldData.selectedValues.map((value, i)=>{
                             return (<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                                 <Chip key={value.key} style={chipStyles.chip} labelStyle={chipStyles.label} onRequestDelete={this.handleRequestDelete.bind(this,value.key)}>{value.title}</Chip>
                             </MuiThemeProvider>);
                         })}
-
             </div>
 
         );

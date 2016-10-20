@@ -21,7 +21,10 @@ import { requestSunburstData } from 'actions/sunburstData';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CircularProgress from 'material-ui/CircularProgress';
-import Subheader from 'material-ui/Subheader';
+
+import ActivityIndicator from 'react-activity-indicator';
+import 'react-activity-indicator/src/activityindicator.css';
+
 let fieldListInfo = {
     "so_id": [
         {"key": "52", title: "양천"},
@@ -99,7 +102,7 @@ class SunburstCondition extends React.Component{
         console.log('keyList', keyList);
 
         query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
-        selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
+        selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo, "selectedValues":[]});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
         console.log('query:' , query);
         this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
 
@@ -110,6 +113,8 @@ class SunburstCondition extends React.Component{
     selectOption(val) {
         //TODO chart에 선택한 값 알려주는 작업 필요
         let selectedField = this.state.selectedFieldQuery;
+        let selectedFieldData = this.state.selectedFieldData;
+
         for (let i=0; i<selectedField.length; i++) {
             if(selectedField[i].key === val.key) {
                 let values = [];
@@ -120,8 +125,20 @@ class SunburstCondition extends React.Component{
                 break;
             }
         }
+
+        for (let i=0; i<selectedFieldData.length; i++) {
+            if(selectedFieldData[i].key === val.key) {
+                let values = [];
+                for (let j=0; j<val.value.length; j++) {
+                    values.push({"key": val.value[j].key, "title":val.value[j].title});
+                }
+                selectedFieldData[i].selectedValues = values;
+                break;
+            }
+        }
+
         console.log('selectOptions selectedFieldQuery', selectedField);
-        this.setState({"selectedFieldQuery": selectedField});
+        this.setState({"selectedFieldQuery": selectedField, "selectedFieldData": selectedFieldData});
     }
 
     deleteCondition(fieldId) {
@@ -169,7 +186,7 @@ class SunburstCondition extends React.Component{
 
         let loadingBar;
         if (this.props.isRequesting){
-            loadingBar = <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}><CircularProgress /></MuiThemeProvider>;
+            loadingBar = <ActivityIndicator className="indicator" borderRadius="80%" number={3} duration={300} activeColor="#ffffff" borderWidth={3}/>;
         } else {
             loadingBar="";
         }
@@ -195,7 +212,7 @@ class SunburstCondition extends React.Component{
                     </div>
                     <div className="filterArea">
                         {this.state.selectedFieldData.map((value, i)=>{
-                            return (<SelectCondition key={i} title={value.title} fieldId={value.key} option={value.fieldList} selectOption={this.selectOption.bind(this)} deleteCondition={this.deleteCondition.bind(this)} />);
+                            return (<SelectCondition key={i} fieldData={value} title={value.title} fieldId={value.key} option={value.fieldList} selectOption={this.selectOption.bind(this)} deleteCondition={this.deleteCondition.bind(this)} />);
                         })}
                     </div>
                 </div>
