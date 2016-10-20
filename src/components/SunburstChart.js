@@ -175,10 +175,10 @@ class SunburstChart extends React.Component {
                 return color(d.name)
             })
             .each(stash)
-            .on("dblclick", zoom)
+            .on("click", zoom)
             //.on("click", clickChart);
         path.transition()
-            .duration(300)
+            .duration(500)
             .attrTween("d", pathTransform);
         function stash(d) {
             x0 = d.x;
@@ -271,7 +271,7 @@ class SunburstChart extends React.Component {
                         rotate = angle + (multiline ? -.5 : 0);
                     return "rotate(" + rotate + ")translate(" + (y(d.y) + 5) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
                 })
-                .on("dblclick", zoom);
+                .on("click", zoom);
 
             text.append('tspan')
                 .attr('x', 0)
@@ -286,7 +286,7 @@ class SunburstChart extends React.Component {
                                 for (let i = 0; i < value.length; i++) {
                                     let data = value[i];
                                     if (data["key"] == d.name) {
-                                        name = data["title"];
+                                        name = data["title"] + "("+d.value+")";
                                         break;
                                     }
                                 }
@@ -294,7 +294,7 @@ class SunburstChart extends React.Component {
                         }
                     }
                     else{
-                            name = "구매로그";
+                            name = "구매추이";
                     }
                     return name;
                 })
@@ -303,7 +303,7 @@ class SunburstChart extends React.Component {
                     'x': 0,
                     'dy': '1em'
                 });
-        }, 350);
+        }, 550);
 
 
         function brightness(rgb) {
