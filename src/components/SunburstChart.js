@@ -215,6 +215,9 @@ class SunburstChart extends React.Component {
                     return function () {
                         let angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
                             rotate = angle + (multiline ? -.5 : 0);
+                        if(d.depth ===0){
+                            rotate = 0;
+                        }
                         return "rotate(" + rotate + ")translate(" + (y(d.y) + 5) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
                     };
                 })
@@ -269,6 +272,9 @@ class SunburstChart extends React.Component {
                     var multiline = (d.name || "").split(" ").length > 1,
                         angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
                         rotate = angle + (multiline ? -.5 : 0);
+                        if(d.depth === 0){
+                            rotate = 0;
+                        }
                     return "rotate(" + rotate + ")translate(" + (y(d.y) + 5) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
                 })
                 .on("click", zoom);
