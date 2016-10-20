@@ -300,7 +300,7 @@ class SunburstChart extends React.Component {
                         }
                     }
                     else{
-                        name = "꼭대기님"
+                            name = "구매로그";
                     }
                     return name;
                 })
@@ -335,16 +335,21 @@ class SunburstChart extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.selectedValue.length > 0){
-            //console.log("@@@@@@@@@@@@@@@@@@@@@", nextProps.selectedValue[0].key);
-            let d = d3.selectAll("path").filter(function(node){
-                console.log("@@#",node);
-                if(node != undefined){
-                    return node;
-                }
-            }).style("opacity", 1);
-        }
-
+        //console.log("this.props.selectedValue", this.props.selectedValue);
+        //console.log("nexProps.selectedValue", nextProps.selectedValue);
+        //if(nextProps.selectedValue.length > 0){
+        //    //console.log("@@@@@@@@@@@@@@@@@@@@@", nextProps.selectedValue[0].key);
+        //    d3.selectAll("path").each(function(d, i){
+        //        if(nextProps.selectedValue[0].value){
+        //            console.log("d", d);
+        //            console.log("asdf",nextProps.selectedValue[0].value[0]);
+        //            if(d.name === nextProps.selectedValue[0].value[0]){
+        //                return d3.select(this).style("opacity", 1);
+        //            }
+        //        }
+        //
+        //    });
+        //}
         return !(nextProps.sunburstChartData === this.props.sunburstChartData);
     }
 
@@ -389,5 +394,8 @@ class SunburstChart extends React.Component {
     }
 }
 
+SunburstChart.defaultProps = {
+    totalCount: 0
+};
 
 export default SunburstChart;

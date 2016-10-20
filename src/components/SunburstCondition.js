@@ -137,8 +137,87 @@ class SunburstCondition extends React.Component{
             }
         }
 
+
         console.log('selectOptions selectedFieldQuery', selectedField);
-        this.setState({"selectedFieldQuery": selectedField, "selectedFieldData": selectedFieldData});
+        d3.select("#chart").select("svg").selectAll("path").style("opacity", 0.2);
+        d3.select("#chart").select("svg").selectAll("path").filter(function (node) {
+
+            function isContain(selectedField, index , type , name){
+                console.log("type ::" + type + " , name : " + name + ", index:" + index);
+                console.log("selectedField :: " , selectedField);
+
+                let field = selectedField[index];
+                console.log("field :: " , field);
+
+                let key = field.key;
+
+                let result = false;
+                if(type && key == type) {
+                    let value = field.value;
+                    for (let i = 0; i < value.length; i++) {
+                        console.log("value", value[i]);
+                        console.log("name", name);
+
+                        if(value[i] == name){
+                            result = true;
+                            break;
+                        }
+                    }
+                }else {
+                    result = false;
+                }
+
+                console.log("isContain : " , result);
+
+                return result;
+            }
+
+            let target = node;
+            let result = false;
+            let array = new Array();
+
+            //node depth
+            let depth = 0;
+
+            while(target){
+                array.push(target);
+                target = target.parent;
+            }
+
+
+            if(array.length-1 <= selectedField.length){
+                let count = 0;
+                let data = array.pop();
+                while (data){
+                    if(!data.parent){
+                        result = false;
+                    }else if(data.parent && isContain(selectedField , count - 1 , data.parent.type , data.name)){
+                        console.log("isContain true" ,data);
+                        result = true;
+
+                    }else{
+                        console.log("isContain false" ,data);
+
+                        result = false;
+                        break;
+                    }
+                    count ++;
+                    data = array.pop();
+                }
+
+            }else{
+                result = false;
+            }
+
+            if(node && node.parent)
+                console.log("selectOption type", node.parent.type);
+            if(name && node.name)
+                console.log("selectOption name", node.name);
+            return result;
+        }).style("opacity", 1);
+        this.setState({"selectedFieldQuery": update(this.state.selectedFieldQuery,{$set: selectedField}),
+            "selectedFieldData": update(this.state.selectedFieldData,{$set: selectedFieldData})});
+        
     }
 
     deleteCondition(fieldId) {
