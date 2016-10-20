@@ -57,26 +57,27 @@ class ResultCenterArea extends React.Component{
 
     render(){
         let style ={
-            float : "left"
+            float : "left",
+            marginLeft:"10px"
         };
 
         let chart;
         if (this.props.chartType == 'GoogleBarChart') {
-            chart = <GoogleBarChart width="680" height="400" value={chartDatas}/>;
+            chart = <GoogleBarChart width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleLineChart') {
-            chart = <GoogleLineChart width="680" height="400" value={chartDatas}/>;
+            chart = <GoogleLineChart width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'LineChart') {
-            chart = <LineChart id="chart1" width="680" height="400" value={chartDatas}/>;
+            chart = <LineChart id="chart1" width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleDonutChart') {
-            chart = <GoogleDonutChart width="680" height="400" value={chartDatas}/>;
+            chart = <GoogleDonutChart width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ResultChart') {
-            chart = <ResultChart width="680" height="400" value={chartDatas}/>;
+            chart = <ResultChart width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
-            chart = <PieChart id="chart1" width="680" height="400" value={chartDatas}/>;
+            chart = <PieChart id="chart1" width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ScatterChart') {
-            chart = <ScatterChart id="chart1" width="680" height="400" value={chartDatas}/>;
+            chart = <ScatterChart id="chart1" width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'BarChart') {
-            chart = <BarChart id="chart1" width="680" height="400" value={chartDatas}/>;
+            chart = <BarChart id="chart1" width="800" height="400" value={chartDatas}/>;
         }
 
         let tableStyle = {

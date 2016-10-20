@@ -19,7 +19,10 @@ class GoogleDonutChart extends React.Component {
             pieHole: 0.4,
             is3D: true,
             legend: {"textStyle": {color:"#FFFFFF", fontSize: 10}},
-            backgroundColor: '#303030',
+            backgroundColor: {
+                fill: "#000000",
+                fillOpacity: "0.1"
+            },
             hAxis: {"textStyle": {color:"#6C6C6C"}},
             vAxis: {"textStyle": {color:"#6C6C6C"}},
             tooltip: {

@@ -15,6 +15,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ModeComment from 'material-ui/svg-icons/editor/mode-comment';
+import Eject from 'material-ui/svg-icons/action/eject';
 import { connect } from 'react-redux';
 import { requestSunburstData } from 'actions/sunburstData';
 
@@ -77,7 +78,6 @@ class SunburstCondition extends React.Component{
 
     selectField(value){
         //TODO '지역','상품타입'....선택 - query 요청
-        console.log('value', value);
 
         let query = this.state.query;
         let selectedFieldData = this.state.selectedFieldData;
@@ -86,7 +86,6 @@ class SunburstCondition extends React.Component{
         if (selectedFieldQuery && selectedFieldQuery.length > 0) {
             for (let i = 0; i < selectedFieldQuery.length; i++) {
                 if (selectedFieldQuery[i].key == value.id) {
-                    console.log('do not click twice');
                     return;
                 }
             }
@@ -99,14 +98,12 @@ class SunburstCondition extends React.Component{
         for (let i=0; i<fieldInfo.length; i++) {
             keyList.push(fieldInfo[i].key);
         }
-        console.log('keyList', keyList);
 
         query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
         selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo, "selectedValues":[]});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
-        console.log('query:' , query);
+
         this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
 
-        console.log('selectFields selectedFieldQuery', selectedFieldQuery);
         this.props.requestQueryData(query);
     }
 
@@ -138,16 +135,12 @@ class SunburstCondition extends React.Component{
         }
 
 
-        console.log('selectOptions selectedFieldQuery', selectedField);
         d3.select("#chart").select("svg").selectAll("path").style("opacity", 0.2);
         d3.select("#chart").select("svg").selectAll("path").filter(function (node) {
 
             function isContain(selectedField, index , type , name){
-                console.log("type ::" + type + " , name : " + name + ", index:" + index);
-                console.log("selectedField :: " , selectedField);
 
                 let field = selectedField[index];
-                console.log("field :: " , field);
 
                 let key = field.key;
 
@@ -155,8 +148,6 @@ class SunburstCondition extends React.Component{
                 if(type && key == type) {
                     let value = field.value;
                     for (let i = 0; i < value.length; i++) {
-                        console.log("value", value[i]);
-                        console.log("name", name);
 
                         if(value[i] == name){
                             result = true;
@@ -167,7 +158,6 @@ class SunburstCondition extends React.Component{
                     result = false;
                 }
 
-                console.log("isContain : " , result);
 
                 return result;
             }
@@ -192,11 +182,9 @@ class SunburstCondition extends React.Component{
                     if(!data.parent){
                         result = false;
                     }else if(data.parent && isContain(selectedField , count - 1 , data.parent.type , data.name)){
-                        console.log("isContain true" ,data);
                         result = true;
 
                     }else{
-                        console.log("isContain false" ,data);
 
                         result = false;
                         break;
@@ -238,9 +226,6 @@ class SunburstCondition extends React.Component{
 
         this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
 
-        console.log('deleteCondition selectedFieldQuery', selectedFieldQuery);
-        console.log('deleteCondition query', query);
-        console.log('deleteCondition selectedFieldData', selectedFieldData);
         if (query && query.length > 0) {
             this.props.requestQueryData(query);
         }
@@ -277,9 +262,10 @@ class SunburstCondition extends React.Component{
                 {loadingBar}
                 <div className="fieldArea">
                     <div className="fieldList">
+                        <div className="conditionSelectButton">
                         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                             <IconMenu
-                                iconButtonElement={<IconButton><ModeComment /></IconButton>}
+                                iconButtonElement={<IconButton><Eject /></IconButton>}
                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 >
@@ -288,6 +274,7 @@ class SunburstCondition extends React.Component{
                                 })}
                             </IconMenu>
                         </MuiThemeProvider>
+                        </div>
                     </div>
                     <div className="filterArea">
                         {this.state.selectedFieldData.map((value, i)=>{

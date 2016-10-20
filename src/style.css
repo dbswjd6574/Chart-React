@@ -61,6 +61,7 @@ a {
 
 #chartList {
     float: left;
+    background-color: rgba(0,0,0,0.3);
 }
 
 #chartArea {
@@ -253,4 +254,11 @@ path {
     position: absolute;
     top:500px;
     left:20px;
+}
+
+.conditionSelectButton{
+    top: -30px;
+    left: 20px;
+    position: absolute;
+    background-color: rgba(0,0,0,0.2);
 }

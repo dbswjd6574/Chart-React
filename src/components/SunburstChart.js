@@ -4,11 +4,9 @@ let checkedNode = [];
 
 function clickChart(d) {
     if (checkedNode && checkedNode.indexOf(d) >= 0) {
-        console.log("removeCheckedChild : " + d.name + ", checkedNode size :" + checkedNode.length);
         checkedNode = removeCheckedChild(checkedNode, d);
 
     } else {
-        console.log("checkedNode : " + d.name);
         checkedNode = getAncestors(checkedNode, d);
     }
 
@@ -38,7 +36,6 @@ function uncheckChild(path, current) {
 
 function getAncestors(checkedNode, currentNode) {
     while (currentNode.parent) {
-        console.log("currentNode : " + currentNode.name);
 
         let index = checkedNode.indexOf(currentNode);
         if (index == -1) {
@@ -51,7 +48,6 @@ function getAncestors(checkedNode, currentNode) {
 }
 
 function removeCheckedChild(checkedNode, currentNode) {
-    console.log("exist current node : " + currentNode.name);
     checkedNode.splice(checkedNode.indexOf(currentNode), 1);
     uncheckChild(checkedNode, currentNode);
 
@@ -105,8 +101,6 @@ class SunburstChart extends React.Component {
     }
 
     makeSunburstChart(data) {
-        //console.log("sunburstChartData", this.props.sunburstChartData);
-        console.log("data : " + data.name + "value : " + data.value);
         let width = 700, height = 600, radius = Math.min(width, height) / 2;
         let x = d3.scale.linear().range([0, 2 * Math.PI]);
         //let y = d3.scale.sqrt().range([0, radius]);

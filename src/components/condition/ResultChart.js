@@ -21,7 +21,10 @@ class ResultChart extends React.Component {
             titleTextStyle: {color: '#FFFFFF', fontSize: 20, bold: false},
             hAxis: { minValue: 0, maxValue: 15, "titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
             vAxis: { minValue: 0, maxValue: 15, "titleTextStyle": {color: '#6C6C6C'},"textStyle": {color:"#6C6C6C"}},
-            backgroundColor: '#303030',
+            backgroundColor: {
+                fill: "#000000",
+                fillOpacity: "0.1"
+            },
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true

@@ -29,7 +29,10 @@ class GoogleLineChart extends React.Component {
                 },
                 "textStyle": {color:"#6C6C6C"}
             },
-            backgroundColor: '#303030',
+            backgroundColor: {
+                fill: "#000000",
+                fillOpacity: "0.1"
+            },
             tooltip: {
                 textStyle: {fontSize: 10},
                 showColorCode: true
