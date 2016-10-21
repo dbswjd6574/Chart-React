@@ -1,6 +1,6 @@
 import React from 'react';
 import DropZone from 'react-dropzone-component';
-import 'react-dropzone-component/styles/filepicker.css';
+import '../../../node_modules/react-dropzone-component/styles/filepicker.css';
 
 class DropZoneComponent extends React.Component{
     constructor(props){

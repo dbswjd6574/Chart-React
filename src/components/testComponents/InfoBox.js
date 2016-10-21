@@ -1,7 +1,7 @@
 import React from 'react';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from '../../../node_modules/material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from '../../../node_modules/material-ui/styles/MuiThemeProvider';
+import getMuiTheme from '../../../node_modules/material-ui/styles/getMuiTheme';
 import { Paper, Chip, FontIcon } from 'material-ui';
 
 

@@ -30,7 +30,6 @@ class DataGrid extends React.Component{
     componentDidMount(){
         //$.ajax({
         //    url : "http://localhost:3003",
-        //    dataType : "json",
         //    cache : false,
         //    success:function(data){
         //        this.setState({data: data.DATA});

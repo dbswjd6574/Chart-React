@@ -2,9 +2,8 @@ import React from 'react';
 import highcharts from 'highcharts';
 import ReactDOM from 'react-dom';
 import {Button} from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { dataRequest } from 'actions/authentication';
-class Chart extends React.Component {
+
+class HighChartEx extends React.Component {
     constructor(props) {
         super(props);
 
@@ -13,13 +12,7 @@ class Chart extends React.Component {
     }
 
     handleLogin() {
-        return this.props.dataRequest().then(
-            () => {
-                console.info('handleLogin', this.props.chartData);
-                var data = convertJSON(this.props.chartData.chartData);
-                this.setState({chartData: data});
-            }
-        );
+        //TODO request Data
     }
 
     render() {
@@ -37,17 +30,6 @@ class Chart extends React.Component {
     propTypes: {
         test: React.PropTypes.number
         }
-}
-
-function convertJSON(jsonArray) {
-    var chartData = [];
-
-    for (var i = 0; i < jsonArray.length; i ++ ) {
-        var keyString = jsonArray[i].key;
-        var valueString = jsonArray[i].using_value.value;
-        chartData[i] = {"name": keyString, "y": valueString};
-    }
-    return chartData;
 }
 
 class DonutChart extends React.Component {
@@ -203,25 +185,9 @@ class DonutChart extends React.Component {
 
     render() {
         return (
-            <div ref='chart'>
-            </div>
+            <div ref='chart'></div>
         )
     }
 }
 
-const mapStateToProps = (props) => {
-    return {
-        chartData: props.authentication
-    };
-
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dataRequest: () => {
-            return dispatch(dataRequest());
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Chart);
+export default HighChartEx;

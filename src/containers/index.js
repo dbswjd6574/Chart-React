@@ -1,15 +1,12 @@
 import App from './App';
 import Home from './Home';
-import DrawChart from './DrawChart';
-import DashBoard from './DashBoard';
-import TestComponent from './TestComponent';
-import Conditions from './Conditions';
-import Data from './Data';
+import DashBoard from './testContainer/dashBoard';
+import TestComponent from './testContainer/TestComponent';
+import Data from './testContainer/Data';
+import ZingChartsExample from './testContainer/ZingChartsExample';
+import TrialVersion from './testContainer/TrialVersion';
 import Analysis from './Analysis';
-import ChartGallery from './ChartGallery';
-import TrialVersion from './TrialVersion';
-import Sunburst from './Sunburst';
-import ResultChartView from './ResultChartView';
+import AnalysisTableView from './AnalysisTableView';
 
 
-export { App, Home, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst, ResultChartView };
+export { App, Home, DashBoard, TestComponent, Data, ZingChartsExample, TrialVersion, Analysis, AnalysisTableView };

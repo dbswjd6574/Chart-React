@@ -1,13 +1,10 @@
 import React from 'react';
-import { ResultCenterArea, ChartArea } from 'components';
+import { ResultCenterArea, ChartSelect } from 'components';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import update from 'react-addons-update';
-
-import { connect } from 'react-redux';
-import { dataRequest } from 'actions/authentication';
 
 var menuItem=[{name:"Test1", hasChild:true, child:[{name:"child1"}]}, {name:"Test2", hasChild:false, child:[]},
     {name:"Test3", hasChild:true, child:[{name:"child3"}]}, {name:"Test4", hasChild:false, child:[]}
@@ -38,7 +35,7 @@ var jsonObject = {
     ]
 }
 
-class ResultChartView extends React.Component{
+class AnalysisTableView extends React.Component{
 
     constructor(props){
         super(props);
@@ -66,14 +63,8 @@ class ResultChartView extends React.Component{
     }
 
     handleLogin() {
-        return this.props.dataRequest().then(
-            () => {
-                console.info('testCommunication', this.props.chartData);
-                var data = convertJSON(this.props.chartData.chartData);
-                this.setState({chartData: data});
-            }
-        );
     }
+
     render(){
         let jsonKeys = [];
         $.each(jsonObject.DATA[0], (key, value)=>{
@@ -82,27 +73,17 @@ class ResultChartView extends React.Component{
         return(
             <div className="rightArea">
                 <div className="right_title">DATA ANALYSIS</div>
-                <div className="chartSelectButton"><ChartArea selectChart={this.changeChartType.bind(this)}/></div>
-                <ResultCenterArea keys={this.state.keys} xKey={this.state.xAxisKey} menuItem={jsonKeys} selectXKey={this.changeXAxisKey.bind(this)} selectYKey={this.changeKeys.bind(this)}chartType={this.state.chartType} data={jsonObject.DATA}/>
+                <div className="chartSelectButton"><ChartSelect selectChart={this.changeChartType.bind(this)}/></div>
+                <ResultCenterArea keys={this.state.keys}
+                                  xKey={this.state.xAxisKey}
+                                  menuItem={jsonKeys}
+                                  selectXKey={this.changeXAxisKey.bind(this)}
+                                  selectYKey={this.changeKeys.bind(this)}
+                                  chartType={this.state.chartType}
+                                  data={jsonObject.DATA}/>
             </div>
         );
     }
 }
 
-
-const mapStateToProps = (props) => {
-    return {
-        chartData: props.authentication
-    };
-
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dataRequest: () => {
-            return dispatch(dataRequest());
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultChartView);
+export default AnalysisTableView;

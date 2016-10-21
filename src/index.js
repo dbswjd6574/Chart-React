@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 /* Container Components*/
-import { App, Home, Login, Register, DrawChart, DashBoard, TestComponent, Conditions, Data, Analysis, ChartGallery, TrialVersion, Sunburst, ResultChartView } from 'containers';
+import { App, Home, DashBoard, TestComponent, Data, ZingChartsExample, TrialVersion, Analysis, ResultChartView } from 'containers';
 
 /* Redux */
 import { Provider } from 'react-redux';
@@ -24,15 +24,12 @@ ReactDOM.render(
             <Route path='/' component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home}/>
-                <Route path="drawChart" component={DrawChart}/>
                 <Route path="dashBoard" component={DashBoard}/>
                 <Route path="testComponent" component={TestComponent}/>
-                <Route path="condition" component={Conditions}/>
                 <Route path="data" component={Data}/>
-                <Route path="analysis" component={Analysis}/>
-                <Route path="chartGallery" component={ChartGallery}/>
+                <Route path="zingChartsExample" component={ZingChartsExample}/>
                 <Route path="trialVersion" component={TrialVersion}/>
-                <Route path="sunburst" component={Sunburst}/>
+                <Route path="Analysis" component={Analysis}/>
                 <Route path="resultChartView" component={ResultChartView}/>
                 </Route>
             </Router>

@@ -1,5 +1,5 @@
 import React from 'react';
-import SunburstCondition from './SunburstCondition';
+import SunburstCondition from './sunburstChart/SunburstCondition';
 import Select from 'react-select';
 import update from 'react-addons-update';
 import 'react-select/dist/react-select.css';
@@ -7,7 +7,7 @@ import 'react-select/dist/react-select.css';
 import { connect } from 'react-redux';
 import { datasetListRequest, fieldListRequest, statusRequest, queryRequest, totalCountRequest } from 'actions/ResultChart';
 
-class DataNavigation extends React.Component{
+class AnalysisChartView extends React.Component{
 
     constructor(props){
         super(props);
@@ -51,8 +51,6 @@ class DataNavigation extends React.Component{
                     break;
                 }
             }
-            //TODO /DataSet/id:GET totalcount
-
             this.setState({selectedValues : value, conditions: conditionList});
 
             this.query = {
@@ -171,4 +169,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DataNavigation);
+export default connect(mapStateToProps, mapDispatchToProps)(AnalysisChartView);

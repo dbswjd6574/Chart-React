@@ -1,8 +1,8 @@
 import React from 'react';
-import { LeftArea, CenterArea, ChartArea } from 'components';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import { LeftArea, CenterArea, ChartSelect } from 'components';
+import MuiThemeProvider from '../../../node_modules/material-ui/styles/MuiThemeProvider';
+import getMuiTheme from '../../../node_modules/material-ui/styles/getMuiTheme';
+import darkBaseTheme from '../../../node_modules/material-ui/styles/baseThemes/darkBaseTheme';
 import update from 'react-addons-update';
 
 var menuItem=[{name:"Test1", hasChild:true, child:[{name:"child1"}]}, {name:"Test2", hasChild:false, child:[]},
@@ -61,7 +61,7 @@ class TrialVersion extends React.Component{
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                   <LeftArea menuItem={jsonKeys} changeState={this.changeState}/>
                 </MuiThemeProvider>
-                <div className="chartSelectButton"><ChartArea selectChart={this.changeChartType.bind(this)}/></div>
+                <div className="chartSelectButton"><ChartSelect selectChart={this.changeChartType.bind(this)}/></div>
                 <CenterArea keys={this.state.keys} chartType={this.state.chartType} data={jsonObject.DATA}/>
 
             </div>

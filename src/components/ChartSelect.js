@@ -4,15 +4,14 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ChartTables from './ChartTables';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from '../../node_modules/material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from '../../node_modules/material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from '../../node_modules/material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import ChartIcon from 'material-ui/svg-icons/editor/insert-chart';
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
-class ChartArea extends React.Component{
+import ChartIcon from '../../node_modules/material-ui/svg-icons/editor/insert-chart';
+import CloseIcon from '../../node_modules/material-ui/svg-icons/navigation/close';
+
+class ChartSelect extends React.Component{
 
     constructor(props) {
         super(props);
@@ -45,7 +44,7 @@ class ChartArea extends React.Component{
                                 <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleLineChart")} src="./image/googleLineChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
-                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "ResultChart")} src="./image/googleScatterChartImage.png" width="150px" height="150px"/></div></td>
+                                <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleScatterChart")} src="./image/googleScatterChartImage.png" width="150px" height="150px"/></div></td>
                                 <td><div id="chartArea"><img onClick={this.handleClickChart.bind(this, "GoogleDonutChart")} src="./image/googlePieChartImage.png" width="150px" height="150px"/></div></td>
                             </tr>
                             <tr>
@@ -66,4 +65,4 @@ class ChartArea extends React.Component{
     }
 }
 
-export default ChartArea;
+export default ChartSelect;

@@ -1,11 +1,11 @@
 import React from 'react';
-import Select from './Select';
+import Select from './../testComponents/Select';
 
-import SunburstBarChart from './sunburstAnalysys/SunburstBarChart';
-import SunburstDataTable from './sunburstAnalysys/SunburstDataTable';
+import SunburstBarChart from './SunburstBarChart';
+import SunburstDataTable from './SunburstDataTable';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 var series = [{"text" : "Text","values" : [10, 50, 34, 86, 15, 75, 36]},
     {"text" : "Text2","values" : [50, 10, 75, 34, 86, 36, 15]},

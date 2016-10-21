@@ -1,7 +1,7 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 var products = [{
     no: 1,
@@ -13,7 +13,6 @@ var products = [{
     id: 2,
     date: "2016-10-02 12:00",
     hostName: "VOD_Service_Log2",
-    IpPort : "127.0.0.1:8080",
     description : "VOD  시청 로그2"
 },{
     id: 3,

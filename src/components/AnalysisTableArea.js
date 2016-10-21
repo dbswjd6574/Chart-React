@@ -3,23 +3,23 @@
  */
 import React from 'react';
 import SelectKey from './ResultChart/SelectKey';
-import LineChart from './analysis/LineChart';
-import ScatterChart from './analysis/ScatterChart';
-import PieChart from './analysis/PieChart';
-import BarChart from './analysis/BarChart';
+import LineChart from './zingChartComponent/LineChart';
+import ScatterChart from './zingChartComponent/ScatterChart';
+import PieChart from './zingChartComponent/PieChart';
+import BarChart from './zingChartComponent/BarChart';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import GoogleBubbleChart from './condition/GoogleBubbleChart.js';
-import ResultChart from './condition/ResultChart.js';
-import GoogleLineChart from './condition/GoogleLineChart.js';
-import GoogleDonutChart from './condition/GoogleDonutChart.js';
-import GoogleBarChart from './condition/GoogleBarChart.js';
-import GoogleTableChart from './condition/GoogleTableChart.js';
+import GoogleBubbleChart from './googleChartComponent/GoogleBubbleChart.js';
+import GoogleScatterChart from './googleChartComponent/GoogleScatterChart.js';
+import GoogleLineChart from './googleChartComponent/GoogleLineChart.js';
+import GoogleDonutChart from './googleChartComponent/GoogleDonutChart.js';
+import GoogleBarChart from './googleChartComponent/GoogleBarChart.js';
+import GoogleTableChart from './googleChartComponent/GoogleTableChart.js';
 
 let chartDatas;
 
-class ResultCenterArea extends React.Component{
+class AnalysisTableArea extends React.Component{
     constructor(props){
         super(props);
     }
@@ -70,8 +70,8 @@ class ResultCenterArea extends React.Component{
             chart = <LineChart id="chart1" width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'GoogleDonutChart') {
             chart = <GoogleDonutChart width="800" height="400" value={chartDatas}/>;
-        } else if (this.props.chartType == 'ResultChart') {
-            chart = <ResultChart width="800" height="400" value={chartDatas}/>;
+        } else if (this.props.chartType == 'GoogleScatterChart') {
+            chart = <GoogleScatterChart width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'PieChart') {
             chart = <PieChart id="chart1" width="800" height="400" value={chartDatas}/>;
         } else if (this.props.chartType == 'ScatterChart') {
@@ -167,4 +167,4 @@ class DataTable extends React.Component{
     }
 }
 
-export default ResultCenterArea;
+export default AnalysisTableArea;

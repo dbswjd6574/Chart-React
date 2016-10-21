@@ -2,13 +2,13 @@ import React from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import GoogleBubbleChart from './condition/GoogleBubbleChart.js';
-import ResultChart from './condition/ResultChart.js';
-import GoogleLineChart from './condition/GoogleLineChart.js';
-import GoogleDonutChart from './condition/GoogleDonutChart.js';
-import GoogleBarChart from './condition/GoogleBarChart.js';
-import GoogleTableChart from './condition/GoogleTableChart.js';
+import StarBorder from '../../../node_modules/material-ui/svg-icons/toggle/star-border';
+import GoogleBubbleChart from '../googleChartComponent/GoogleBubbleChart.js';
+import GoogleScatterChart from '../googleChartComponent/GoogleScatterChart.js';
+import GoogleLineChart from '../googleChartComponent/GoogleLineChart.js';
+import GoogleDonutChart from '../googleChartComponent/GoogleDonutChart.js';
+import GoogleBarChart from '../googleChartComponent/GoogleBarChart.js';
+import GoogleTableChart from '../googleChartComponent/GoogleTableChart.js';
 
 class ChartTables extends React.Component {
 
@@ -198,7 +198,7 @@ class ChartTables extends React.Component {
             },
             {
                 title: 'ScatterChart',
-                Chart: '<ResultChart {...scatterChartDatas}/>'
+                Chart: '<GoogleScatterChart {...scatterChartDatas}/>'
             },
             {
                 title: 'LineChart',
@@ -226,7 +226,7 @@ class ChartTables extends React.Component {
                     >
                     <Subheader>Chart Gallery</Subheader>
                     <GridTile key="BubbleChart" title="BubbleChart"><GoogleBubbleChart {...bubbleChartDatas}/></GridTile>
-                    <GridTile key="ScatterChart" title="ScatterChart"><ResultChart {...scatterChartDatas}/></GridTile>
+                    <GridTile key="ScatterChart" title="ScatterChart"><GoogleScatterChart {...scatterChartDatas}/></GridTile>
                     <GridTile key="LineChart" title="LineChart"><GoogleLineChart {...lineChartDatas}/></GridTile>
                     <GridTile key="DonutChart" title="DonutChart"><GoogleDonutChart {...donutChartDatas}/></GridTile>
                     <GridTile key="BarChart" title="BarChart"><GoogleBarChart {...barChartDatas}/></GridTile>

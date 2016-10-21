@@ -2,9 +2,9 @@ import React from 'react';
 import SunburstChart from './SunburstChart';
 import Select from 'react-select';
 import update from 'react-addons-update';
-import 'react-select/dist/react-select.css';
+import '../../../node_modules/react-select/dist/react-select.css';
 
-import SelectCondition from './ResultChart/SelectCondition';
+import SelectCondition from './SelectCondition';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -13,15 +13,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ModeComment from 'material-ui/svg-icons/editor/mode-comment';
 import Eject from 'material-ui/svg-icons/action/eject';
-import { connect } from 'react-redux';
-import { requestSunburstData } from 'actions/sunburstData';
-
-import RaisedButton from 'material-ui/RaisedButton';
-
-import CircularProgress from 'material-ui/CircularProgress';
 
 import ActivityIndicator from 'react-activity-indicator';
 import 'react-activity-indicator/src/activityindicator.css';
@@ -84,8 +76,6 @@ class SunburstCondition extends React.Component{
     }
 
     selectField(value){
-        //TODO '지역','상품타입'....선택 - query 요청
-
         let query = this.state.query;
         let selectedFieldData = this.state.selectedFieldData;
         let selectedFieldQuery = this.state.selectedFieldQuery;
@@ -106,8 +96,8 @@ class SunburstCondition extends React.Component{
             keyList.push(fieldInfo[i].key);
         }
 
-        query.push({"key": value.id, "value": keyList});//TODO key에 대한 value값 하드코딩
-        selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo, "selectedValues":[]});//TODO key에 대한 value값 하드코딩- FOR SelectCondition props 용도 data
+        query.push({"key": value.id, "value": keyList});
+        selectedFieldData.push({"key": value.id, "title": value.name, "fieldList": fieldInfo, "selectedValues":[]});
 
         this.setState({"query": query, "selectedFieldData": selectedFieldData, "selectedFieldQuery":selectedFieldQuery});
 
@@ -115,7 +105,6 @@ class SunburstCondition extends React.Component{
     }
 
     selectOption(val) {
-        //TODO chart에 선택한 값 알려주는 작업 필요
         let selectedField = this.state.selectedFieldQuery;
         let selectedFieldData = this.state.selectedFieldData;
 
@@ -216,7 +205,6 @@ class SunburstCondition extends React.Component{
     }
 
     deleteCondition(fieldId) {
-        //TODO CONDITIN DELETE; state 재정의 후 queryRequest 호출하여 데이터 받아온다.
         let query = this.state.query;
         let selectedFieldData = this.state.selectedFieldData;
         let selectedFieldQuery = this.state.selectedFieldQuery;
@@ -243,8 +231,6 @@ class SunburstCondition extends React.Component{
 
         let fieldList = [];
         if (this.props.conditionList && this.props.conditionList != '') {
-
-
             fieldList = this.props.conditionList.fields;
         }
 

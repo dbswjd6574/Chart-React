@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel, Button, FormGroup, FormControl, ControlLabel, Col, Form } from 'react-bootstrap';
 import FormInput from './FormInput';
 import ReactGridLayout from 'react-grid-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from '../../../node_modules/material-ui/styles/MuiThemeProvider';
 
 import RaisedButton from 'material-ui/RaisedButton';
 

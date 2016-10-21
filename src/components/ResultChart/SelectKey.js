@@ -2,7 +2,7 @@
  * Created by 윤정 on 2016-10-14.
  */
 import React from 'react';
-import SelectF from 'react-select';
+import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import update from 'react-addons-update';
 
@@ -19,7 +19,7 @@ class SelectKey extends React.Component{
         console.log(val);
         let list = val.split(",");
         this.props.changeState(list);
-        this.setState({val});
+        this.setState({val: list});
     }
 
     render(){
@@ -31,7 +31,7 @@ class SelectKey extends React.Component{
         }
 
         return(
-            <SelectF multi simpleValue name={this.props.name} placeholder={this.props.placeholder} value={this.state.val} options={options} onChange={this.handleChange}/>
+            <Select multi simpleValue name={this.props.name} placeholder={this.props.placeholder} value={this.state.val} options={options} onChange={this.handleChange}/>
         );
     }
 }

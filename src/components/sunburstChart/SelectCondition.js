@@ -5,16 +5,15 @@ import React from 'react';
 import update from 'react-addons-update';
 import Chip from 'material-ui/Chip';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from '../../../node_modules/material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from '../../../node_modules/material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from '../../../node_modules/material-ui/styles/getMuiTheme';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Subheader from 'material-ui/Subheader';
 
-import IconButton from 'material-ui/IconButton/IconButton';
-import Clear from 'material-ui/svg-icons/content/clear';
+import IconButton from '../../../node_modules/material-ui/IconButton/IconButton';
+import Clear from '../../../node_modules/material-ui/svg-icons/content/clear';
 
 class SelectCondition extends React.Component{
     constructor(props){

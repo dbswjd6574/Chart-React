@@ -54,7 +54,6 @@ class TestChart extends Component{
 
     }
 
-
     render(){
         return <div id="chart"></div>;
     }

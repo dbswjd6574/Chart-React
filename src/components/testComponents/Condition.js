@@ -1,15 +1,15 @@
 import React from 'react';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import TypeList from './condition/TypeList.js';
-import ResultChart from './condition/ResultChart.js';
-import InputTextField from './condition/InputTextField.js';
-import GoogleLineChart from './condition/GoogleLineChart.js';
-import GoogleDonutChart from './condition/GoogleDonutChart.js';
-import GoogleBarChart from './condition/GoogleBarChart.js';
-import GoogleTableChart from './condition/GoogleTableChart.js';
-import GoogleBubbleChart from './condition/GoogleBubbleChart.js';
+import darkBaseTheme from '../../../node_modules/material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from '../../../node_modules/material-ui/styles/MuiThemeProvider';
+import getMuiTheme from '../../../node_modules/material-ui/styles/getMuiTheme';
+import TypeList from './TypeList.js';
+import ResultChart from '../googleChartComponent/GoogleScatterChart.js';
+import InputTextField from './InputTextField.js';
+import GoogleLineChart from '../googleChartComponent/GoogleLineChart.js';
+import GoogleDonutChart from '../googleChartComponent/GoogleDonutChart.js';
+import GoogleBarChart from '../googleChartComponent/GoogleBarChart.js';
+import GoogleTableChart from '../googleChartComponent/GoogleTableChart.js';
+import GoogleBubbleChart from '../googleChartComponent/GoogleBubbleChart.js';
 
 class Condition extends React.Component {
     render() {
