@@ -57,37 +57,44 @@ function removeCheckedChild(checkedNode, currentNode) {
 
 let fieldListInfo = {
     "so_id": [
-        {"key": "52", title: "양천"},
-        {"key": "43", title: "강남"},
-        {"key": "54", title: "인천"},
-        {"key": "64", title: "강서"},
-        {"key": "46", title: "강복"},
-        {"key": "61", title: "강동"},
-        {"key": "41", title: "전북"},
-        {"key": "55", title: "전남"},
-        {"key": "40", title: "충북"},
-        {"key": "59", title: "충남"},
-        {"key": "42", title: "부산"},
-        {"key": "51", title: "경남"},
-        {"key": "53", title: "경북"},
-        {"key": "58", title: "강원"},
-        {"key": "62", title: "제주"},
-        {"key": "56", title: "대전"},
-        {"key": "50", title: "광주"},
-        {"key": "63", title: "수원"},
-        {"key": "57", title: "일산"},
-        {"key": "45", title: "부천"}
+        {"key": "40", title: "가야"},
+        {"key": "41", title: "경남"},
+        {"key": "43", title: "양천"},
+        {"key": "44", title: "중부산"},
+        {"key": "45", title: "해운대 기장"},
+        {"key": "46", title: "북인천"},
+        {"key": "47", title: "아름"},
+        {"key": "48", title: "푸른"},
+        {"key": "49", title: "남인천"},
+        {"key": "50", title: "영남"},
+        {"key": "51", title: "충남"},
+        {"key": "52", title: "중앙"},
+        {"key": "53", title: "금정"},
+        {"key": "54", title: "부천,김포"},
+        {"key": "55", title: "은평"},
+        {"key": "56", title: "영동"},
+        {"key": "57", title: "동구,수성"},
+        {"key": "58", title: "아(순춘)"},
+        {"key": "59", title: "신라"},
+        {"key": "60", title: "나라"},
+        {"key": "61", title: "중부산"},
+        {"key": "62", title: "영서"},
+        {"key": "63", title: "전북"},
+        {"key": "64", title: "호남"}
     ],
     "paymenttype": [
-        {"key": "mobile", "title": "모바일"},
-        {"key": "external", "title": "포인트"},
+        {"key": "mobile", "title":"모바일"},
+        {"key": "external","title": "외부결제"},
         {"key": "coupon", "title": "쿠폰"},
         {"key": "normal", "title": "일반"}
     ],
     "product_type": [
-        {"key": "37", title: "SVOD"},
-        {"key": "21", title: "FOD"},
-        {"key": "20", title: "RVOD"}
+        {"key": "19", title:"FOD"},
+        {"key": "20", title:"RVOD"},
+        {"key": "21", title:"SVOD"},
+        {"key": "37", title:"Package"},
+        {"key": "10000", title:"SVODPackage"},
+        {"key": "20000", title:"Bundle"}
     ]
 };
 var x0;
